@@ -64,8 +64,8 @@ Vector<T>::Vector(std::initializer_list<value_type> const &items)
 };
 
 
-template <typename T>
-void Vector<T>::reserve_more_capacity(size_t size)
+template <class value_type>
+void Vector<value_type>::reserve_more_capacity(size_t size)
 {
     if (size > m_capacity_)
     {
@@ -79,10 +79,100 @@ void Vector<T>::reserve_more_capacity(size_t size)
 }
 
 
+
+template <class value_type>
+typename Vector<value_type>::VectorIterator &Vector<value_type>::iterator::operator++() {
+    this->data_++;
+    return *this;
+}
+
+template <class value_type>
+typename Vector<value_type>::VectorIterator Vector<value_type>::iterator::operator++(int) {
+    iterator temp(*this);
+    temp.position_++;
+    return temp;
+}
+
+template <class value_type>
+typename Vector<value_type>::VectorIterator &Vector<value_type>::iterator::operator--() {
+    this->data_--;
+    return *this;
+}
+
+template <class value_type>
+typename Vector<value_type>::VectorIterator Vector<value_type>::iterator::operator--(int) {
+    iterator temp(*this);
+    temp.position_--;
+    return temp;
+}
+template <class value_type>
+typename Vector<value_type>::VectorIterator &Vector<value_type>::iterator::operator=(const const_iterator& other) {
+    this->data_ = other.data_;
+    this->position_ = other.position_;
+    this->size_of_vector_ = other.size_of_vector_;
+    return *this;
+}
+
+template <class value_type>
+bool  Vector<value_type>::iterator::operator==(iterator& other) {
+    return (this->data_ == other.data_ && this->position_ == other.position_);
+}
+
+template <class value_type>
+bool Vector<value_type>::iterator::operator!=(iterator& other) {
+    return this->data_ != other.data_;
+}
+
+template <class value_type>
+value_type Vector<value_type>::iterator::operator*() {
+    if (this->data_ == nullptr)
+        throw std::length_error("Iterator is Empty");
+    return (this->position_ > this->size_of_vector_) ? 0 : this->data_[this->position_];
+}
+
+template<class value_type>
+Vector<value_type>::iterator::VectorIterator(const Vector &vec, size_type position) {
+    this->data_ = vec.arr_;
+    this->size_of_vector_ = vec.m_size_ > 0 ? vec.m_size_ - 1 : 0;
+    this->position_ = position;  
+} 
+
+template<class value_type>
+typename Vector<value_type>::iterator Vector<value_type>:: begin() {
+    if (this->empty())
+        throw std::length_error("Your Vector is empty!");
+    iterator temp(*this, 0);
+    return temp;
+}
+
+template<class value_type>
+typename Vector<value_type>::iterator Vector<value_type>:: end() {
+    if (this->empty())
+        throw std::length_error("Your Vector is empty!");
+    size_type i = this->m_size_ > 0 ? this->m_size_ : 0;
+    iterator temp(*this, i);
+    return temp;
+}
+
+
+// template<class value_type>
+// value_type Vector<value_type>::iterator::operator*() {
+//         if (this->data_ == nullptr)
+//             throw std::invalid_argument("Iterator is pointing to null!");
+//         return (this->position_ > this->size_of_vector_) ? 0 : this->data_[this->position_];
+//     }
+
+
+
 int main(void) {
     Vector<int> a = {1,2,3,4,5};
-    
-    a.output_vector();
-    std::cout << a.empty();
+    s21::Vector<int>::iterator s21;
+    for (auto &&i:a) {
+        std::cout << i << std::endl;
+    }
+    // a.begin();
+    // a.end();
+    // a.output_vector();
+    // std::cout << a.empty();
     return 0;
 }
