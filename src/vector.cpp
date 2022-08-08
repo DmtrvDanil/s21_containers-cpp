@@ -2,8 +2,32 @@
 #include <vector>
 using namespace s21;
 
-template <typename T>
-typename Vector<T>::reference Vector<T>::operator[](size_type i) {
+
+template<class value_type>
+Vector<value_type>  Vector<value_type>::operator=(Vector &&v) {
+    if (this != &v) {
+        this->clear();
+        this->arr_ = v.arr_;
+        this->m_capacity_ = v.m_capacity_;
+        this->m_size_ = v.m_size_;
+        v.m_size_ = 0;
+        v.m_capacity_ = 0;
+        v.arr_ = nullptr;
+    }
+    return *this;
+}
+
+template <class value_type>
+void Vector<value_type>::swap(Vector &other) {
+    if (this->arr_ != other.arr_) {
+            Vector temp(std::move(*this));
+            *this = std::move(other);
+            other = std::move(temp);
+        }
+}
+
+template <typename value_type>
+typename Vector<value_type>::reference Vector<value_type>::operator[](size_type i) {
 
     return this->arr_[i];
     }
@@ -37,6 +61,13 @@ size_t Vector<T>::size()
     return m_size_;
 }
 
+
+template<class value_type>
+void Vector<value_type>::pop_back() {
+    if (this->empty())
+        throw  std::runtime_error("Vector is empty!!");
+    this->arr_[m_size_--] = 0;
+}
 
 template <typename T>
 void Vector<T>::push_back(T v)
@@ -123,12 +154,12 @@ bool Vector<value_type>::iterator::operator!=(iterator& other) {
     return this->data_ != other.data_;
 }
 
-template <class value_type>
-value_type Vector<value_type>::iterator::operator*() {
-    if (this->data_ == nullptr)
-        throw std::length_error("Iterator is Empty");
-    return (this->position_ > this->size_of_vector_) ? 0 : this->data_[this->position_];
-}
+// template <class value_type>
+// value_type Vector<value_type>::iterator::operator*() {
+//     if (this->data_ == nullptr)
+//         throw std::length_error("Iterator is Empty");
+//     return (this->position_ > this->size_of_vector_) ? 0 : this->data_[this->position_];
+// }
 
 template<class value_type>
 Vector<value_type>::iterator::VectorIterator(const Vector &vec, size_type position) {
@@ -162,17 +193,33 @@ typename Vector<value_type>::iterator Vector<value_type>:: end() {
 //         return (this->position_ > this->size_of_vector_) ? 0 : this->data_[this->position_];
 //     }
 
+template<class value_type>
+typename Vector<value_type>::reference Vector<value_type>::iterator::operator*() {
+        if (this->data_ == nullptr || this->position_ > this->size_of_vector_)
+            throw std::invalid_argument("Bad parameters!");
+        return this->data_[this->position_];
+    }
+
+template<class value_type>
+typename Vector<value_type>::reference Vector<value_type>::at(size_type i)
+{
+    return arr_[i];
+}
 
 
 int main(void) {
-    Vector<int> a = {1,2,3,4,5};
-    s21::Vector<int>::iterator s21;
-    for (auto &&i:a) {
-        std::cout << i << std::endl;
-    }
-    // a.begin();
-    // a.end();
-    // a.output_vector();
-    // std::cout << a.empty();
+    // Vector<int> a = {};
+    Vector<int> b = {1,2,3};
+    Vector<int> c = {};
+    b.swap(c);
+    b.output_vector();
+    // for (auto i : c)
+    //     std::cout << i ;
+
+  
+
+    
+    
+ 
     return 0;
 }

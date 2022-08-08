@@ -30,20 +30,25 @@ template <class T> class Vector {
         Vector(std::initializer_list<value_type> const &items);
         Vector(const Vector &v) : m_size_(v.m_size_), m_capacity_(v.m_capacity_), arr_(v.arr_) {};
         Vector(Vector &&v) : m_size_(v.m_size_), m_capacity_(v.m_capacity_), arr_(v.arr_) {
-            v.arr = nullptr;
-            v.m_size = 0;
+            v.arr_ = nullptr;
+            v.m_size_ = 0;
+            v.m_capacity_ = 0;
         }
         ~Vector() { clear();}
         
 
         // Vector& operator=(vector &&v);
         reference operator[](size_type i);
+        Vector operator=(Vector &&v);
         size_type size();
+        reference at(size_type i);
         void push_back(value_type v);
-        void output_vector();
+        void pop_back();
+        void swap(Vector& other);
+
         void clear();
         bool empty();
-
+        void output_vector();
         iterator begin();
         iterator end();
 
@@ -66,13 +71,13 @@ class Vector<T>::VectorIterator {
                 VectorIterator operator--(int);
                 bool operator==(iterator& other);
                 bool operator!=(iterator& other);
-                [[nodiscard]] value_type operator*();
+                // value_type operator*();
 
 
                 // operator VectorIterator() const { return VectorIterator(data_); }
             private:
                 iterator& operator=(const const_iterator& other);
-                // [[nodiscard]] reference operator*();
+                reference operator*();
         };
 
 template <class T>
