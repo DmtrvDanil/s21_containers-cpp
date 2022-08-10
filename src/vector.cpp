@@ -2,6 +2,27 @@
 #include <vector>
 using namespace s21;
 
+// template<class value_type>
+// void Vector<value_type>::shrink_to_fit() {
+//     if (!this->arr_)
+//         throw std::runtime_error("Your vector is empty!!");
+//     for (size_type i = 0 ; i < this->m_size_; i++) {
+//         if (this->arr_[i] == 0) {
+//             del [] this->arr_[i];
+//         }
+
+//     }
+// }
+
+template<class value_type>
+void Vector<value_type>::reserve(size_type size) {
+    if (size <= m_capacity_)
+        return;
+    else
+        reserve_more_capacity(size, false);
+
+}
+
 
 template<class value_type>
 Vector<value_type>  Vector<value_type>::operator=(Vector &&v) {
@@ -20,7 +41,7 @@ Vector<value_type>  Vector<value_type>::operator=(Vector &&v) {
 template <class value_type>
 void Vector<value_type>::swap(Vector &other) {
     if (this->arr_ != other.arr_) {
-            Vector temp(std::move(*this));
+            Vector <value_type> temp(std::move(*this));
             *this = std::move(other);
             other = std::move(temp);
         }
@@ -34,7 +55,7 @@ typename Vector<value_type>::reference Vector<value_type>::operator[](size_type 
 
 template <typename T>
 void Vector<T>::clear() {
-    if (this->arr_ != nullptr) {
+    if (!this->arr_) {
         delete[] this->arr_;
     }
     this->arr_ = nullptr;
@@ -44,6 +65,10 @@ void Vector<T>::clear() {
 template <typename T>
 bool Vector<T>::empty() {
     return this->arr_ == nullptr;
+}
+template<class value_type>
+typename Vector<value_type>::size_type Vector<value_type>::capacity() {
+    return this->m_capacity_;
 }
 
 template <typename T>
@@ -55,10 +80,20 @@ void Vector<T>::output_vector() {
     std::cout << std::endl;
 }
 
-template <typename T>
-size_t Vector<T>::size()
-{
-    return m_size_;
+template<class value_type>
+typename Vector<value_type>::size_type Vector<value_type>::max_size() {
+    double sys = 0.0;
+    #if __WORDSIZE == 64
+    sys = 63.0;
+    #else
+    sys = 32.0;
+    #endif
+    return static_cast<size_type>(std::pow(2.0, sys)) / static_cast<value_type>(sizeof(value_type));
+}
+
+template <typename value_type>
+typename Vector<value_type>::size_type Vector<value_type>::size() {
+    return this->m_size_;
 }
 
 
@@ -74,7 +109,7 @@ void Vector<T>::push_back(T v)
 {
     if (m_size_ == m_capacity_)
     {
-        reserve_more_capacity(m_size_ * 2);
+        reserve_more_capacity(m_size_ * 2, false);
     }
     arr_[m_size_++] = v;
 }
@@ -96,16 +131,18 @@ Vector<T>::Vector(std::initializer_list<value_type> const &items)
 
 
 template <class value_type>
-void Vector<value_type>::reserve_more_capacity(size_t size)
+void Vector<value_type>::reserve_more_capacity(size_t size, bool shrink)
 {
     if (size > m_capacity_)
     {
         value_type *buff = new value_type[size];
         for (size_t i = 0; i < m_size_; ++i)
             buff[i] = std::move(arr_[i]);
-        delete[] arr_;
-        arr_ = buff;
-        m_capacity_ = size;
+        if (shrink == true) {
+            delete[] arr_;
+            arr_ = buff;
+            m_capacity_ = size;
+        }
     }
 }
 
@@ -201,18 +238,37 @@ typename Vector<value_type>::reference Vector<value_type>::iterator::operator*()
     }
 
 template<class value_type>
-typename Vector<value_type>::reference Vector<value_type>::at(size_type i)
-{
+typename Vector<value_type>::reference Vector<value_type>::at(size_type i) {
+    if (i > this->m_size_)
+        throw std::out_of_range("Out of range");
     return arr_[i];
 }
 
 
 int main(void) {
-    // Vector<int> a = {};
-    Vector<int> b = {1,2,3};
-    Vector<int> c = {};
-    b.swap(c);
-    b.output_vector();
+    char y;
+    std::cout << sizeof(&y)  << std::endl;
+    Vector<int> j;
+    Vector<double> i;
+    Vector<char> k;
+    std::cout << j.max_size();
+    std::cout << std::endl;
+    std::cout << i.max_size();
+    std::cout << std::endl;
+    std::cout << k.max_size();
+    std::cout << std::endl;
+    std::cout << "My Vector" << std::endl;
+
+
+    std::vector<int> a;
+    std::vector<double> b;
+    std::vector<char> c;
+    std::cout << a.max_size();
+    std::cout << std::endl;
+    std::cout << b.max_size();
+    std::cout << std::endl;
+    std::cout << c.max_size();
+
     // for (auto i : c)
     //     std::cout << i ;
 

@@ -3,8 +3,9 @@
 
 #include <iostream>
 #include <stdexcept>
+#include <cmath>
 
- namespace s21 {
+namespace s21 {
 template <class T> class Vector {
     private:
         size_t m_size_;
@@ -19,7 +20,7 @@ template <class T> class Vector {
         // using const_iterator = const T *;
         using size_type = size_t;
     private:
-        void reserve_more_capacity(size_type size);
+        void reserve_more_capacity(size_type size, bool shrink);
     public:
     class VectorConstIterator;
     using const_iterator = VectorConstIterator;
@@ -41,10 +42,14 @@ template <class T> class Vector {
         reference operator[](size_type i);
         Vector operator=(Vector &&v);
         size_type size();
+        size_type max_size();
+        size_type capacity();
         reference at(size_type i);
         void push_back(value_type v);
         void pop_back();
         void swap(Vector& other);
+        void reserve(size_type size);
+        void shrink_to_fit();
 
         void clear();
         bool empty();
