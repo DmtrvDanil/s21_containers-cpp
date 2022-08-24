@@ -16,6 +16,7 @@ template <class T> class Vector {
         using reference = T&;
         using const_reference = const T&;
         using pointer = T*;
+
         
         // using const_iterator = const T *;
         using size_type = size_t;
@@ -26,6 +27,7 @@ template <class T> class Vector {
     using const_iterator = VectorConstIterator;
     class VectorIterator;
     using iterator = VectorIterator;
+    using iterator_ = T*;
         Vector() : m_size_(0U), m_capacity_(0U), arr_(nullptr) {}
         explicit Vector(size_type n) : m_size_(n), m_capacity_(n), arr_(n ? new T[n] : nullptr) {}
         Vector(std::initializer_list<value_type> const &items);
@@ -57,42 +59,37 @@ template <class T> class Vector {
         iterator begin();
         iterator end();
 
+
  };
 
-template <class T>
-class Vector<T>::VectorIterator {
-            protected:
-                pointer data_;
-                size_type position_;
-                size_type size_of_vector_;
-            public:
-                VectorIterator() : position_(0U), size_of_vector_(0U), data_(nullptr) {}
-                VectorIterator(const iterator& other) : position_(other.position_), size_of_vector_(other.size_of_vector_), data_(other.data_) {}
-                VectorIterator(const Vector &vec, size_type position);
-                ~VectorIterator() {}
-                VectorIterator& operator++();
-                VectorIterator operator++(int);
-                VectorIterator& operator--();
-                VectorIterator operator--(int);
-                bool operator==(iterator& other);
-                bool operator!=(iterator& other);
-                // value_type operator*();
+    template <class T>
+    class Vector<T>::VectorIterator {
+    protected:
+        pointer data_;
 
-
-                // operator VectorIterator() const { return VectorIterator(data_); }
-            private:
-                iterator& operator=(const const_iterator& other);
-                reference operator*();
-        };
-
-template <class T>
-class Vector<T>::VectorConstIterator : public Vector<T>::VectorIterator {
     public:
-    // VectorConstIterator();
-    // VectorConstIterator();
-    // VectorConstIterator();
+        VectorIterator() : data_(nullptr) {}
+        VectorIterator(pointer pt);
+        ~VectorIterator() {}
+        VectorIterator& operator++();
+        VectorIterator operator++(int);
+        VectorIterator& operator--();
+        VectorIterator operator--(int);
+        bool operator==(iterator& other);
+        bool operator!=(const iterator& other);
+        value_type operator*();
+    private:
+        iterator& operator=(const iterator &other);
+    };
 
-};
+    template <class T>
+    class Vector<T>::VectorConstIterator : public Vector<T>::VectorIterator {
+    public:
+        VectorConstIterator() : VectorIterator() {}
+        VectorConstIterator(pointer pt) : VectorIterator(pt) {}
+        ~VectorConstIterator() {};
+    };
+
 
 
 
@@ -101,5 +98,6 @@ class Vector<T>::VectorConstIterator : public Vector<T>::VectorIterator {
 
  }  // namespace s21
 
+#include "vector.cpp"
 
 #endif  //  SRC_VECTOR_H_

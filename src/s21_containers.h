@@ -6,7 +6,7 @@
 /* #include "map.h" */
 /* #include "set.h" */
 /* #include "stack.h" */
-// #include "vector.h"
+ #include "vector.h"
 
 #endif  // SRC_S21_CONTAINERS_H_
 

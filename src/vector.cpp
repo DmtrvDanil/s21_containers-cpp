@@ -1,6 +1,6 @@
 #include "vector.h"
-#include <vector>
-using namespace s21;
+
+namespace s21 {
 
 // template<class value_type>
 // void Vector<value_type>::shrink_to_fit() {
@@ -15,12 +15,17 @@ using namespace s21;
 // }
 
 template<class value_type>
-void Vector<value_type>::reserve(size_type size) {
-    if (size <= m_capacity_)
-        return;
-    else
-        reserve_more_capacity(size, false);
+void Vector<value_type>::shrink_to_fit() {
+    reserve_more_capacity(this->m_size_, true);
+}
 
+template<class value_type>
+void Vector<value_type>::reserve(size_type size) {
+    // if (size >= m_capacity_)
+    //     throw std::invalid_argument("Error");
+    if (size > this->m_capacity_ )
+        reserve_more_capacity(size, true);
+    reserve_more_capacity(size, false);
 }
 
 
@@ -71,14 +76,18 @@ typename Vector<value_type>::size_type Vector<value_type>::capacity() {
     return this->m_capacity_;
 }
 
-template <typename T>
-void Vector<T>::output_vector() {
+template<class value_type>
+void Vector<value_type>::output_vector() {
     std::cout << "This is your vector!!" << std::endl;
     for (int i = 0; i < this->size(); i++) {
         std::cout << this->arr_[i];
     }
     std::cout << std::endl;
 }
+
+
+
+
 
 template<class value_type>
 typename Vector<value_type>::size_type Vector<value_type>::max_size() {
@@ -107,9 +116,8 @@ void Vector<value_type>::pop_back() {
 template <typename T>
 void Vector<T>::push_back(T v)
 {
-    if (m_size_ == m_capacity_)
-    {
-        reserve_more_capacity(m_size_ * 2, false);
+    if (m_size_ == m_capacity_) {
+        reserve_more_capacity(m_size_ * 2, true);
     }
     arr_[m_size_++] = v;
 }
@@ -120,8 +128,7 @@ Vector<T>::Vector(std::initializer_list<value_type> const &items)
 {
     this->arr_ = new value_type[items.size()];
     int i = 0;
-    for (auto it = items.begin(); it != items.end(); it++)
-    {
+    for (auto it = items.begin(); it != items.end(); it++) {
         arr_[i] = *it;
         i++;
     }
@@ -130,11 +137,9 @@ Vector<T>::Vector(std::initializer_list<value_type> const &items)
 };
 
 
-template <class value_type>
-void Vector<value_type>::reserve_more_capacity(size_t size, bool shrink)
-{
-    if (size > m_capacity_)
-    {
+template<class value_type>
+void Vector<value_type>::reserve_more_capacity(size_t size, bool shrink) {
+    // if (size > m_capacity_) {
         value_type *buff = new value_type[size];
         for (size_t i = 0; i < m_size_; ++i)
             buff[i] = std::move(arr_[i]);
@@ -143,139 +148,132 @@ void Vector<value_type>::reserve_more_capacity(size_t size, bool shrink)
             arr_ = buff;
             m_capacity_ = size;
         }
-    }
+    // }
 }
 
+    /* >>>>>>>>>>>>  ITERATOR <<<<<<<<<<<<<<*/
 
-
-template <class value_type>
-typename Vector<value_type>::VectorIterator &Vector<value_type>::iterator::operator++() {
-    this->data_++;
-    return *this;
-}
-
-template <class value_type>
-typename Vector<value_type>::VectorIterator Vector<value_type>::iterator::operator++(int) {
-    iterator temp(*this);
-    temp.position_++;
-    return temp;
-}
-
-template <class value_type>
-typename Vector<value_type>::VectorIterator &Vector<value_type>::iterator::operator--() {
-    this->data_--;
-    return *this;
-}
-
-template <class value_type>
-typename Vector<value_type>::VectorIterator Vector<value_type>::iterator::operator--(int) {
-    iterator temp(*this);
-    temp.position_--;
-    return temp;
-}
-template <class value_type>
-typename Vector<value_type>::VectorIterator &Vector<value_type>::iterator::operator=(const const_iterator& other) {
-    this->data_ = other.data_;
-    this->position_ = other.position_;
-    this->size_of_vector_ = other.size_of_vector_;
-    return *this;
-}
-
-template <class value_type>
-bool  Vector<value_type>::iterator::operator==(iterator& other) {
-    return (this->data_ == other.data_ && this->position_ == other.position_);
-}
-
-template <class value_type>
-bool Vector<value_type>::iterator::operator!=(iterator& other) {
-    return this->data_ != other.data_;
-}
-
-// template <class value_type>
-// value_type Vector<value_type>::iterator::operator*() {
-//     if (this->data_ == nullptr)
-//         throw std::length_error("Iterator is Empty");
-//     return (this->position_ > this->size_of_vector_) ? 0 : this->data_[this->position_];
-// }
-
-template<class value_type>
-Vector<value_type>::iterator::VectorIterator(const Vector &vec, size_type position) {
-    this->data_ = vec.arr_;
-    this->size_of_vector_ = vec.m_size_ > 0 ? vec.m_size_ - 1 : 0;
-    this->position_ = position;  
-} 
-
-template<class value_type>
-typename Vector<value_type>::iterator Vector<value_type>:: begin() {
-    if (this->empty())
-        throw std::length_error("Your Vector is empty!");
-    iterator temp(*this, 0);
-    return temp;
-}
-
-template<class value_type>
-typename Vector<value_type>::iterator Vector<value_type>:: end() {
-    if (this->empty())
-        throw std::length_error("Your Vector is empty!");
-    size_type i = this->m_size_ > 0 ? this->m_size_ : 0;
-    iterator temp(*this, i);
-    return temp;
-}
-
-
-// template<class value_type>
-// value_type Vector<value_type>::iterator::operator*() {
-//         if (this->data_ == nullptr)
-//             throw std::invalid_argument("Iterator is pointing to null!");
-//         return (this->position_ > this->size_of_vector_) ? 0 : this->data_[this->position_];
-//     }
-
-template<class value_type>
-typename Vector<value_type>::reference Vector<value_type>::iterator::operator*() {
-        if (this->data_ == nullptr || this->position_ > this->size_of_vector_)
-            throw std::invalid_argument("Bad parameters!");
-        return this->data_[this->position_];
+    template <class value_type>
+    typename Vector<value_type>::VectorIterator &
+    Vector<value_type>::iterator::operator++() {
+        this->data_++;
+        return *this;
     }
 
-template<class value_type>
+    template <class value_type>
+    typename Vector<value_type>::VectorIterator
+    Vector<value_type>::iterator::operator++(int) {
+        iterator temp(*this);
+        this->data_++;
+        return temp;
+    }
+
+    template <class value_type>
+    typename Vector<value_type>::VectorIterator &
+    Vector<value_type>::iterator::operator--() {
+        this->data_--;
+        return *this;
+    }
+
+    template <class value_type>
+    typename Vector<value_type>::VectorIterator
+    Vector<value_type>::iterator::operator--(int) {
+        iterator temp(*this);
+        this->data_--;
+        return temp;
+    }
+
+    template <class value_type>
+    bool Vector<value_type>::iterator::operator==(iterator &other) {
+        return (this->data_ == other.data_);
+    }
+
+    template <class value_type>
+    bool Vector<value_type>::iterator::operator!=(const iterator &other) {
+        return this->data_ != other.data_;
+    }
+
+    template <class value_type>
+    Vector<value_type>::iterator::VectorIterator(pointer pt) {
+    this->data_ = pt;
+}
+
+template <class value_type>
+typename Vector<value_type>::iterator Vector<value_type>::begin() {
+    iterator temp(arr_);
+    return temp;
+}
+
+template <class value_type>
+typename Vector<value_type>::iterator Vector<value_type>::end() {
+    iterator temp(arr_ + m_size_);
+    return temp;
+}
+
+template <class value_type>
+value_type Vector<value_type>::iterator::operator*() {
+    return *data_;
+}
+
+template <class value_type>
 typename Vector<value_type>::reference Vector<value_type>::at(size_type i) {
-    if (i > this->m_size_)
-        throw std::out_of_range("Out of range");
+    if (i > this->m_size_) throw std::out_of_range("Out of range");
     return arr_[i];
 }
 
-
-int main(void) {
-    char y;
-    std::cout << sizeof(&y)  << std::endl;
-    Vector<int> j;
-    Vector<double> i;
-    Vector<char> k;
-    std::cout << j.max_size();
-    std::cout << std::endl;
-    std::cout << i.max_size();
-    std::cout << std::endl;
-    std::cout << k.max_size();
-    std::cout << std::endl;
-    std::cout << "My Vector" << std::endl;
-
-
-    std::vector<int> a;
-    std::vector<double> b;
-    std::vector<char> c;
-    std::cout << a.max_size();
-    std::cout << std::endl;
-    std::cout << b.max_size();
-    std::cout << std::endl;
-    std::cout << c.max_size();
-
-    // for (auto i : c)
-    //     std::cout << i ;
-
-  
-
-    
-    
- 
-    return 0;
+template<class value_type>
+typename Vector<value_type>::iterator&  Vector<value_type>::iterator::operator=(const iterator &other) {
+    this->data_ = other.data_;
+    return *this;
 }
+
+
+}  // namespace s21
+
+//int main(void) {
+//    // std::vector<int> a{1, 2 , 3};
+//    // std::cout <<  a.capacity() << " This is a capacity for original vector" << std::endl;
+//    // std::cout << a.size() << " This is a size of original vector" << std::endl;
+//    // a.reserve(2);
+//    // std::cout << a.capacity() << " This is a capacity after reserve " << std::endl;
+//    // std::cout << a.size() << " This is a size after resetve " << std::endl;
+//    // a.shrink_to_fit();
+//    // std::cout << a.capacity() << " This is a capacity after shrink to fit" << std::endl;
+//    // std::cout << a.size() << " This is a size after shrink to fit" << std::endl;
+//    // a.push_back(5);
+//    // std::cout << a.capacity() << " This is a capacity after push" << std::endl;
+//    // std::cout << a.size() << " This is a size after push" << std::endl;
+//    // std::cout << "#####################" << std::endl;
+//    // Vector<int> b{1,2,3};
+//    // std::cout << b.capacity() << " This is a capacity for my vector" << std::endl;
+//    // std::cout << b.size() << " This is a size for my vector" << std::endl;
+//    // b.reserve(2);
+//    // std::cout << b.capacity() << " This is a capacity after reserve" << std::endl;
+//    // std::cout << b.size() << " This is a size after reserve" << std::endl;
+//    // b.shrink_to_fit();
+//    // std::cout << b.capacity() << " This is a capacity after fit" << std::endl;
+//    // std::cout << b.size() << " This is a size after fit" << std::endl;
+//    // b.push_back(5);
+//    // // b.output_vector();
+//    // std::cout << b.capacity() << " This is a capacity after push" << std::endl;
+//    // std::cout << b.size() << " This is a size after push" << std::endl;
+//    Vector<int> a{1,2,3,4,5};
+//    Vector<int>::VectorIterator i =   a.begin();
+//    ++i;
+//    Vector<int>::VectorIterator j = a.begin();
+//    // std::cout <<  i == j;
+//    if (i != j)
+//        std::cout << '1';
+//    std::cout << *i << std::endl;
+//    for (auto i = a.begin(); i != a.end(); i++ ) {
+//        std::cout << *i << " ";
+//    }
+//    for (auto &&i : a)
+//        std::cout << i << " ";
+//    // a.output_vector();
+//
+//
+//
+//
+//    return 0;
+//}
