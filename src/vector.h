@@ -16,6 +16,7 @@ template <class T> class Vector {
         using reference = T&;
         using const_reference = const T&;
         using pointer = T*;
+        using iterator_1 = T*;
 
         
         // using const_iterator = const T *;
@@ -32,13 +33,9 @@ template <class T> class Vector {
         explicit Vector(size_type n) : m_size_(n), m_capacity_(n), arr_(n ? new T[n] : nullptr) {}
         Vector(std::initializer_list<value_type> const &items);
         Vector(const Vector &v) : m_size_(v.m_size_), m_capacity_(v.m_capacity_), arr_(v.arr_) {};
-        Vector(Vector &&v) : m_size_(v.m_size_), m_capacity_(v.m_capacity_), arr_(v.arr_) {
-            v.arr_ = nullptr;
-            v.m_size_ = 0;
-            v.m_capacity_ = 0;
-        }
-        ~Vector() { clear();}
-        
+        Vector(Vector &&v);
+        ~Vector() { clear_all();}
+        void Allocate_Memory();
 
         // Vector& operator=(vector &&v);
         reference operator[](size_type i);
@@ -46,18 +43,32 @@ template <class T> class Vector {
         size_type size();
         size_type max_size();
         size_type capacity();
-        reference at(size_type i);
+
         void push_back(value_type v);
         void pop_back();
         void swap(Vector& other);
         void reserve(size_type size);
         void shrink_to_fit();
 
+        reference at(size_type i);
+        const_reference front();
+        const_reference back();
+        iterator data();
+
         void clear();
+        iterator insert(iterator pos, const_reference value);
+
+
+
+        void clear_all();
+
         bool empty();
         void output_vector();
+        void bring_to_zero();
         iterator begin();
         iterator end();
+        iterator_1 begin_1() noexcept { return iterator_1(&this->arr_[0]); }
+//        friend std::ostream& operator<<(std::ostream& os, const iterator& iter);
 
 
  };
@@ -78,6 +89,7 @@ template <class T> class Vector {
         bool operator==(iterator& other);
         bool operator!=(const iterator& other);
         value_type operator*();
+//        friend std::ostream& operator<<(std::ostream& os, iterator iter);
     private:
         iterator& operator=(const iterator &other);
     };
@@ -90,9 +102,11 @@ template <class T> class Vector {
         ~VectorConstIterator() {};
     };
 
-
-
-
+//    template<class valuer>
+//    std::ostream& Vector<value_type>::iterator::operator<<(std::ostream& os, iterator iter) {
+//        os << iter.data_;
+//        return os;
+//    }
 
 
 

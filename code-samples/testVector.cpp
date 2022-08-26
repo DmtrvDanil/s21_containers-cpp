@@ -5,10 +5,8 @@ IMPLEMENTATION FILE
 */
 
 template <typename T>
-void Vector<T>::reserve_more_capacity(size_t size)
-{
-    if (size > m_capacity)
-    {
+void Vector<T>::reserve_more_capacity(size_t size) {
+    if (size > m_capacity) {
         value_type *buff = new value_type[size];
         for (size_t i = 0; i < m_size; ++i)
             buff[i] = std::move(arr[i]);
