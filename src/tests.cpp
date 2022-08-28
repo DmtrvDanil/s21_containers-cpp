@@ -8,14 +8,19 @@ class Test_vector {
     public:
         s21::Vector<int> empty_Vector;
         s21::Vector<int> five_Vector{1,2,3,4,5};
+        s21::Vector<int> four_Vector{1,2,3,4};
         s21::Vector<char> char_Vector;
         s21::Vector<float> float_Vector;
         s21::Vector<double> double_Vector;
+        s21::Vector<int>::iterator it_Vector = five_Vector.begin();
+
         std::vector<int> origin_five_vector{1,2,3,4,5};
+        std::vector<int> origin_four_vector{1,2,3,4};
         std::vector<int> origin_int;
         std::vector<char> origin_char;
         std::vector<float> origin_float;
         std::vector<double> origin_double;
+        std::vector<int>::iterator it_origin = origin_five_vector.begin();
 
 };
 
@@ -95,6 +100,32 @@ class Test_vector {
         logger.origin_five_vector.clear();
         EXPECT_EQ(logger.five_Vector.capacity(), logger.origin_five_vector.capacity());
         EXPECT_EQ(logger.five_Vector.size(), logger.origin_five_vector.size());
+    }
+
+    TEST(Test, insert_testing_1) {
+        Test_vector logger;
+        logger.five_Vector.insert(logger.it_Vector, 300);
+        logger.origin_five_vector.insert(logger.it_origin, 300);
+        EXPECT_EQ(logger.five_Vector.capacity(), logger.origin_five_vector.capacity());
+        EXPECT_EQ(logger.five_Vector.size(), logger.origin_five_vector.size());
+
+    }
+
+    TEST(Test, insert_testing_2) {
+        Test_vector logger;
+        logger.five_Vector.reserve(7);
+        logger.origin_five_vector.reserve(7);
+        s21::Vector<int>::iterator i = logger.five_Vector.begin();
+        std::vector<int>::iterator j = logger.origin_five_vector.begin();
+        logger.five_Vector.insert(i,235);
+        logger.origin_five_vector.insert(j, 235);
+    }
+
+    TEST(Test, insert_testing_3) {
+        Test_vector logger;
+        s21::Vector<int>::iterator my_it = logger.five_Vector.insert(logger.it_Vector, 95);
+        std::vector<int>::iterator origin_it =logger.origin_five_vector.insert(logger.it_origin, 95);
+        EXPECT_EQ(*my_it, *origin_it);
     }
 
 

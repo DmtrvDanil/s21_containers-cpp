@@ -48,16 +48,26 @@ int main(void){
 //     // b.output_vector();
 //     std::cout << b.capacity() << " This is a capacity after push" << std::endl;
 //     std::cout << b.size() << " This is a size after push" << std::endl;
+//    s21::Vector<int> b{1,2,3,4};
+//    s21::Vector<int>::VectorIterator i = b.begin();
+    std::vector<int> a{1,2,3,4,5};
+    std::vector<int>::iterator j = a.begin();
+    a.reserve(7);
 
-    s21::Vector<int> a{1,2,3};
-    std::vector<int> b{1,2,3};
-    std::cout << b.capacity() << " " << b.size() << std::endl;
-    a.clear();
-    b.clear();
-//    for (auto i = 0; i < a.size(); i++) {
-//        std::cout << b.at(i);
-//    }
-    std::cout << a.capacity() << " " << a.size() << std::endl;
-    std::cout << b.capacity() << " " << b.size() << std::endl;
+    std::cout << "BEFORE " << a.capacity() << " " << a.size() << std::endl;
+    std::cout << *a.insert(j, 235) << "origin here" << std::endl;
+    std::cout << "AFTER " << a.capacity() << " " << a.size() << std::endl;
+
+    for (auto l = 0 ; l < a.size(); l++) {
+        std::cout << a.at(l);
+    }
+    std::cout << std::endl;
+    s21::Vector<int> b{1,2,3,4};
+//    b.reserve(7);
+    s21::Vector<int>::iterator i = b.begin();
+    std::cout << "BEFORE " << b.capacity() << " " << b.size() << std::endl;
+    std::cout << *b.insert(i, 100) <<  "::::::" << std::endl;
+    std::cout << "AFTER " << "Capacity: " << b.capacity() << " "  "Size: "<< b.size() << std::endl;
+    b.output_vector();
     return 0;
 }

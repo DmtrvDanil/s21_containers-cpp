@@ -44,6 +44,7 @@ Vector<value_type>  Vector<value_type>::operator=(Vector &&v) {
     return *this;
 }
 
+
 template <class value_type>
 void Vector<value_type>::swap(Vector &other) {
     if (this->arr_ != other.arr_) {
@@ -190,10 +191,31 @@ typename Vector<value_type>::iterator Vector<value_type>::data()  {
     /* >>>>>>>>>>>>  ITERATOR <<<<<<<<<<<<<<*/
 
 template <class value_type>
-typename Vector<value_type>::VectorIterator &
+typename Vector<value_type>::VectorIterator&
 Vector<value_type>::iterator::operator++() {
     this->data_++;
     return *this;
+}
+
+template<class value_type>
+typename Vector<value_type>::VectorIterator&
+Vector<value_type>::iterator::operator+(const size_t value) {
+    this->data_ = this->data_ + value;
+    return *this;
+}
+
+template<class value_type>
+typename Vector<value_type>::VectorIterator&
+Vector<value_type>::iterator::operator-(const size_t value) {
+    this->data_ = this->data_ - value;
+    return *this;
+}
+
+template<class value_type>
+bool
+Vector<value_type>::iterator::operator>(const size_t value) {
+    return *this->data_ > value ;
+
 }
 
 template <class value_type>
@@ -203,6 +225,8 @@ Vector<value_type>::iterator::operator++(int) {
     this->data_++;
     return temp;
 }
+
+
 
 template <class value_type>
 typename Vector<value_type>::VectorIterator &
@@ -255,6 +279,8 @@ typename Vector<value_type>::iterator Vector<value_type>::end() {
 
 template <class value_type>
 value_type Vector<value_type>::iterator::operator*() {
+    if (this->data_ == nullptr)
+        throw std::invalid_argument("Bad <*> parameters!");
     return *data_;
 }
 
@@ -264,6 +290,12 @@ typename Vector<value_type>::iterator&  Vector<value_type>::iterator::operator=(
     this->data_ = other.data_;
     return *this;
 }
+template<class value_type>
+typename Vector<value_type>::iterator& Vector<value_type>::iterator::operator+=(const iterator &other) {
+    this->data_ += other.data_;
+    return *this;
+}
+
 
 
 //  >>>>>>>>>>>> Capacity <<<<<<<<<<<<<<<<<<
@@ -329,8 +361,25 @@ void Vector<value_type>::clear() {
 }
 
 template<class value_type>
-typename Vector<value_type>::iterator Vector<value_type>insert(iterator pos, const_reference value) {
+typename Vector<value_type>::iterator
+Vector<value_type>::insert(iterator pos, const_reference value) {
+    size_type position = *pos - *arr_;
 
+    if (this->m_size_ + 1 >= this->m_capacity_) {
+        this->reserve_more_capacity(this->m_capacity_ * 2, false);
+    }
+    value_type buff = this->arr_[position];
+    this->m_size_++;
+    this->arr_[position] = value;
+    for (size_type i = position + 1; i < m_size_; ++i) {
+        value_type buff_2 = this->arr_[i];
+        this->arr_[i] = buff;
+        buff = buff_2;
+    }
+//    auto temp = this->begin();
+//    temp += pos;
+
+    return pos;
 }
 
 

@@ -57,7 +57,7 @@ template <class T> class Vector {
 
         void clear();
         iterator insert(iterator pos, const_reference value);
-
+        void erase(iterator pos);
 
 
         void clear_all();
@@ -83,6 +83,9 @@ template <class T> class Vector {
         VectorIterator(pointer pt);
         ~VectorIterator() {}
         VectorIterator& operator++();
+        VectorIterator& operator+(const size_t value);
+        VectorIterator& operator-(const size_t value);
+        bool operator>(const size_t value);
         VectorIterator operator++(int);
         VectorIterator& operator--();
         VectorIterator operator--(int);
@@ -92,6 +95,7 @@ template <class T> class Vector {
 //        friend std::ostream& operator<<(std::ostream& os, iterator iter);
     private:
         iterator& operator=(const iterator &other);
+        iterator& operator+=(const iterator &other);
     };
 
     template <class T>
