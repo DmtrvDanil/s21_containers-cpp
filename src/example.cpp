@@ -69,15 +69,15 @@ int main(void){
 //    std::cout << *b.insert(i, 100) <<  "::::::" << std::endl;
 //    std::cout << "AFTER " << "Capacity: " << b.capacity() << " "  "Size: "<< b.size() << std::endl;
 //    b.output_vector();
-    s21::Vector<int> b{23,2,3,4};
-    s21::Vector<int>::iterator_1 i = b.begin_1();
-    std::cout << "Where is ziro " << *b.test_insert(i, 100) << std::endl;
-    b.output_vector();
-
-    s21::Vector<int> e{23,4,3,4,6};
-    s21::Vector<int>::iterator k = b.begin();
-    std::cout << *e.insert(k, 234) << std::endl;
-    e.output_vector();
+//    s21::Vector<int> b{23,2,3,4};
+//    s21::Vector<int>::iterator_1 i = b.begin_1();
+//    std::cout << "Where is ziro " << *b.test_insert(i, 100) << std::endl;
+//    b.output_vector();
+//
+//    s21::Vector<int> e{23,4,3,4,6};
+//    s21::Vector<int>::iterator k = b.begin();
+//    std::cout << *e.insert(k, 234) << std::endl;
+//    e.output_vector();
 
 //    std::vector<int> b{1,2,3,4};
 //    std::vector<int>::const_iterator  e = b.begin();
@@ -102,5 +102,17 @@ int main(void){
 
 //    std::cout << *(i + 2) << std::endl;
 //    std::cout << *(j + 2) << std::endl;
+    std::vector<int> ori{1,2,3,4,56};
+    std::vector<int>::iterator l = ori.begin();
+    *(l + 2) = 345;
+    std::cout << *(l + 2) << std::endl;
+
+    s21::Vector<int> a{96,2,3,4};
+    s21::Vector<int>::iterator_2 i = a.begin_4();
+    s21::Vector<int>::const_iterator_2 j = a.begin_4();
+//    *j = 2;
+    *(i + 2 ) = 87;
+    std::cout << *(j + 2) << std::endl;
+    std::cout << *i << std::endl;
     return 0;
 }

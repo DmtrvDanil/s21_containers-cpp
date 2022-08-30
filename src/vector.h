@@ -6,6 +6,7 @@
 #include <cmath>
 
 namespace s21 {
+
 template <class T> class Vector {
     private:
         size_t m_size_;
@@ -19,15 +20,66 @@ template <class T> class Vector {
         using iterator_1 = T*;
         using const_iterator_1 = const T*;
 
-        
+
+
+        class VectorConstIterator {
+        public:
+            using pointer = T*;
+            using value_type = T;
+            using reference = T&;
+            using const_reference = const T&;
+
+        public:
+            VectorConstIterator() : data_(nullptr) {}
+            VectorConstIterator(pointer pt) : data_(pt) {}
+            ~VectorConstIterator() {}
+            const_reference operator*() {return *this->data_;}
+            VectorConstIterator operator+(const size_t value) {
+                VectorConstIterator it_const(this->data_ + value);
+                return it_const;
+            };
+
+        protected:
+            pointer data_;
+
+        };
+
+        class VectorIterator_1 : public VectorConstIterator {
+        public:
+            VectorIterator_1() : VectorConstIterator() {}
+            VectorIterator_1(pointer pt) : VectorConstIterator(pt) {}
+            ~VectorIterator_1() {}
+            reference operator*() {return *this->data_;}
+            VectorIterator_1& operator=(const value_type val) {
+                *this->data_ = val;
+                return *this->data_;
+            };
+            VectorIterator_1 operator+(const size_t value) {
+                VectorIterator_1 it(this->data_ + value);
+                return it;
+            };
+
+        };
+        using iterator_2 = VectorIterator_1;
+        using const_iterator_2 = VectorConstIterator;
+
+        iterator_2 begin_4() {
+            iterator_2 temp(this->arr_);
+            return temp;
+        }
+
+        iterator_2 end_4() {
+            iterator_2 temp(this->arr_ + this->m_size_);
+            return temp;
+        }
         // using const_iterator = const T *;
         using size_type = size_t;
     private:
         void reserve_more_capacity(size_type size, bool shrink);
     public:
 
-    class VectorConstIterator;
-    using const_iterator = VectorConstIterator;
+//    class VectorConstIterator;
+//    using const_iterator = VectorConstIterator;
 
     class VectorIterator;
     using iterator = VectorIterator;
@@ -110,22 +162,22 @@ template <class T> class Vector {
 //        friend std::ostream& operator<<(std::ostream& os, iterator iter);
     private:
 
-        friend Vector::const_iterator;
+//        friend Vector::const_iterator;
         iterator& operator=(const iterator &other);
         iterator& operator+=(const iterator &other);
     };
 
-    template <class T>
-    class Vector<T>::VectorConstIterator : public Vector<T>::VectorIterator {
-    public:
-
-        VectorConstIterator();
-        VectorConstIterator(pointer pt);
-        VectorConstIterator(const iterator &other);
-        ~VectorConstIterator() {};
-        reference operator*();
-
-    };
+//    template <class T>
+//    class Vector<T>::VectorConstIterator : public Vector<T>::VectorIterator {
+//    public:
+//
+//        VectorConstIterator();
+//        VectorConstIterator(pointer pt);
+//        VectorConstIterator(const iterator &other);
+//        ~VectorConstIterator() {};
+//        reference operator*();
+//
+//    };
 
 //    template<class valuer>
 //    std::ostream& Vector<value_type>::iterator::operator<<(std::ostream& os, iterator iter) {

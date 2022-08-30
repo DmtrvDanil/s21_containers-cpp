@@ -258,16 +258,22 @@ Vector<value_type>::iterator::VectorIterator(pointer pt) {
     this->data_ = pt;
 }
 
-template<class value_type>
-Vector<value_type>::const_iterator::VectorConstIterator(const iterator &other) {
-    this->data_ = other.data_;
-}
+//template<class value_type>
+//Vector<value_type>::const_iterator::VectorConstIterator(const iterator &other) {
+//    this->data_ = other.data_;
+//}
+
 
 //template<class value_type>
-//Vector<value_type>::const_iterator::VectorConstIterator(pointer pt) {
-//    VectorIterator(pt);
-//
+//VectorConstIterator<value_type>::VectorConstIterator() {
+//    this->data_ = nullptr;
 //}
+//
+//template<class value_type>
+//VectorConstIterator<value_type>::VectorConstIterator() {
+//    this->data_ = pt.data_;
+//}
+
 //  >>>>>>>>>>>>>>>>>>>>> begin end <<<<<<<<<<<<<<<<
 
 template <class value_type>
@@ -290,19 +296,19 @@ typename Vector<value_type>::iterator Vector<value_type>::end() {
 
 
 
-template <class value_type>
-typename Vector<value_type>::reference Vector<value_type>::const_iterator::operator*() {
-    if (this->data_ == nullptr)
-        throw std::invalid_argument("Bad <*> parameters!");
-    return *this->data_;
-}
+//template <class value_type>
+//typename Vector<value_type>::reference Vector<value_type>::const_iterator::operator*() {
+//    if (this->data_ == nullptr)
+//        throw std::invalid_argument("Bad <*> parameters!");
+//    return *this->data_;
+//}
 
-template <class value_type>
-typename Vector<value_type>::value_type Vector<value_type>::iterator::operator*() {
-    if (this->data_ == nullptr)
-        throw std::invalid_argument("Bad <*> parameters!");
-    return *data_;
-}
+//template <class value_type>
+//typename Vector<value_type>::value_type Vector<value_type>::iterator::operator*() {
+//    if (this->data_ == nullptr)
+//        throw std::invalid_argument("Bad <*> parameters!");
+//    return *data_;
+//}
 
 template<class value_type>
 typename Vector<value_type>::iterator&  Vector<value_type>::iterator::operator=(const iterator &other) {
