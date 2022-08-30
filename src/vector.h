@@ -17,6 +17,7 @@ template <class T> class Vector {
         using const_reference = const T&;
         using pointer = T*;
         using iterator_1 = T*;
+        using const_iterator_1 = const T*;
 
         
         // using const_iterator = const T *;
@@ -24,10 +25,13 @@ template <class T> class Vector {
     private:
         void reserve_more_capacity(size_type size, bool shrink);
     public:
+
     class VectorConstIterator;
     using const_iterator = VectorConstIterator;
+
     class VectorIterator;
     using iterator = VectorIterator;
+
     using iterator_ = T*;
         Vector() : m_size_(0U), m_capacity_(0U), arr_(nullptr) {}
         explicit Vector(size_type n) : m_size_(n), m_capacity_(n), arr_(n ? new T[n] : nullptr) {}
@@ -57,6 +61,8 @@ template <class T> class Vector {
 
         void clear();
         iterator insert(iterator pos, const_reference value);
+        iterator_1 test_insert(iterator_1 pos, const_reference value);
+
         void erase(iterator pos);
 
 
@@ -67,7 +73,13 @@ template <class T> class Vector {
         void bring_to_zero();
         iterator begin();
         iterator end();
-        iterator_1 begin_1() noexcept { return iterator_1(&this->arr_[0]); }
+
+
+        iterator_1 begin_1() noexcept { return this->arr_ ;};
+        iterator_1 end_1() noexcept { return  this->arr_ +  this->m_size_;};
+//        const_iterator_1 begin_1() noexcept { return const_iterator_1(&this->arr_ );};
+//        const_iterator_1 end_1() noexcept { return  const_iterator_1(&this->arr_ +  this->m_size_);};
+
 //        friend std::ostream& operator<<(std::ostream& os, const iterator& iter);
 
 
@@ -91,9 +103,14 @@ template <class T> class Vector {
         VectorIterator operator--(int);
         bool operator==(iterator& other);
         bool operator!=(const iterator& other);
+
         value_type operator*();
+
+
 //        friend std::ostream& operator<<(std::ostream& os, iterator iter);
     private:
+
+        friend Vector::const_iterator;
         iterator& operator=(const iterator &other);
         iterator& operator+=(const iterator &other);
     };
@@ -101,9 +118,13 @@ template <class T> class Vector {
     template <class T>
     class Vector<T>::VectorConstIterator : public Vector<T>::VectorIterator {
     public:
-        VectorConstIterator() : VectorIterator() {}
-        VectorConstIterator(pointer pt) : VectorIterator(pt) {}
+
+        VectorConstIterator();
+        VectorConstIterator(pointer pt);
+        VectorConstIterator(const iterator &other);
         ~VectorConstIterator() {};
+        reference operator*();
+
     };
 
 //    template<class valuer>

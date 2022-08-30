@@ -12,7 +12,7 @@ class Test_vector {
         s21::Vector<char> char_Vector;
         s21::Vector<float> float_Vector;
         s21::Vector<double> double_Vector;
-        s21::Vector<int>::iterator it_Vector = five_Vector.begin();
+        s21::Vector<int>::iterator_1 it_Vector = five_Vector.begin_1();
 
         std::vector<int> origin_five_vector{1,2,3,4,5};
         std::vector<int> origin_four_vector{1,2,3,4};
@@ -124,7 +124,7 @@ class Test_vector {
     TEST(Test, insert_testing_3) {
         Test_vector logger;
         s21::Vector<int>::iterator my_it = logger.five_Vector.insert(logger.it_Vector, 95);
-        std::vector<int>::iterator origin_it =logger.origin_five_vector.insert(logger.it_origin, 95);
+        std::vector<int>::iterator origin_it = logger.origin_five_vector.insert(logger.it_origin, 95);
         EXPECT_EQ(*my_it, *origin_it);
     }
 

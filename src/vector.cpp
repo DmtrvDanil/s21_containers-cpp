@@ -255,9 +255,19 @@ bool Vector<value_type>::iterator::operator!=(const iterator &other) {
 
 template <class value_type>
 Vector<value_type>::iterator::VectorIterator(pointer pt) {
-this->data_ = pt;
+    this->data_ = pt;
 }
 
+template<class value_type>
+Vector<value_type>::const_iterator::VectorConstIterator(const iterator &other) {
+    this->data_ = other.data_;
+}
+
+//template<class value_type>
+//Vector<value_type>::const_iterator::VectorConstIterator(pointer pt) {
+//    VectorIterator(pt);
+//
+//}
 //  >>>>>>>>>>>>>>>>>>>>> begin end <<<<<<<<<<<<<<<<
 
 template <class value_type>
@@ -277,19 +287,29 @@ typename Vector<value_type>::iterator Vector<value_type>::end() {
     return temp;
 }
 
+
+
+
 template <class value_type>
-value_type Vector<value_type>::iterator::operator*() {
+typename Vector<value_type>::reference Vector<value_type>::const_iterator::operator*() {
+    if (this->data_ == nullptr)
+        throw std::invalid_argument("Bad <*> parameters!");
+    return *this->data_;
+}
+
+template <class value_type>
+typename Vector<value_type>::value_type Vector<value_type>::iterator::operator*() {
     if (this->data_ == nullptr)
         throw std::invalid_argument("Bad <*> parameters!");
     return *data_;
 }
-
 
 template<class value_type>
 typename Vector<value_type>::iterator&  Vector<value_type>::iterator::operator=(const iterator &other) {
     this->data_ = other.data_;
     return *this;
 }
+
 template<class value_type>
 typename Vector<value_type>::iterator& Vector<value_type>::iterator::operator+=(const iterator &other) {
     this->data_ += other.data_;
@@ -297,8 +317,8 @@ typename Vector<value_type>::iterator& Vector<value_type>::iterator::operator+=(
 }
 
 
-
 //  >>>>>>>>>>>> Capacity <<<<<<<<<<<<<<<<<<
+
 
 template <typename value_type>
 bool Vector<value_type>::empty() {
@@ -379,10 +399,34 @@ Vector<value_type>::insert(iterator pos, const_reference value) {
 //    auto temp = this->begin();
 //    temp += pos;
 
-    return pos;
+
+    return this->arr_ + position;
 }
 
+template<class value_type>
+typename Vector<value_type>::iterator_1
+Vector<value_type>::test_insert(iterator_1 pos, const_reference value) {
+    size_type position = pos - arr_;
+//    std::cout << position << std::endl;
 
+    if (this->m_size_ + 1 >= this->m_capacity_) {
+        this->reserve_more_capacity(this->m_capacity_ * 2, false);
+    }
+    value_type buff = this->arr_[position];
+    this->m_size_++;
+    this->arr_[position] = value;
+    for (size_type i = position + 1; i < m_size_; ++i) {
+        value_type buff_2 = this->arr_[i];
+        this->arr_[i] = buff;
+        buff = buff_2;
+    }
+//    auto temp = pos - begin_1();
+
+//    auto t = begin_1();
+//    pos = pos + t;
+    pos = this->arr_ + position;
+    return pos;
+}
 
 
 
