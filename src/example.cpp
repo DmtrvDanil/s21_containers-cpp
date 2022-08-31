@@ -102,28 +102,15 @@ int main(void){
 
 //    std::cout << *(i + 2) << std::endl;
 //    std::cout << *(j + 2) << std::endl;
-    std::vector<int> ori{1,2,3,4,56};
-    std::vector<int>::iterator l = ori.begin();
-    *(l + 2) = 345;
-    std::cout << *(l + 2) << std::endl;
-
-    s21::Vector<int> a{96,2,3,4};
-    s21::Vector<int>::iterator_2 i = a.begin_4();
-    s21::Vector<int>::const_iterator_2 j = a.begin_4();
-//        for (auto i = a.begin(); i != a.end(); i++ ) {
-//        std::cout << *i << " ";
-//    }
-//    for(auto &&i : a) {
-//        std::cout << i << std::endl;
-//    }
-//    *(j + 2) = 2;
-//    *(i + 2 ) = 87;
-//    *j++;
-    ++j;
-    j++;
-    ++i;
-    i++;
-    std::cout << *j << std::endl;
-    std::cout << *i << std::endl;
+    s21::Vector<int> b {187,2,3,4};
+//    b.output_vector();
+    std::cout << b.capacity() << " " << b.size() << std::endl;
+    b.erase(b.begin_4());
+    b.output_vector();
+    std::cout << b.capacity() << " " << b.size() << std::endl;
+    std::vector<int> a{187,2,3,4};
+    std::cout << a.capacity() << " " << a.size() << std::endl;
+    a.erase(a.begin());
+    std::cout << a.capacity() << " " << a.size() << std::endl;
     return 0;
 }

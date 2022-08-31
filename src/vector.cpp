@@ -19,13 +19,13 @@ namespace s21 {
 
     Vector<value_type>::Vector(Vector &&v) {
         this->bring_to_zero();
-        if (this->array_ != v.array_) {
-            this->array_ = v.array_;
-            this->size_ = v.size_;
-            this->capacity_ = v.capacity_;
-            v.array_ = nullptr;
-            v.size_ = 0;
-            v.capacity_ = 0;
+        if (this->arr_ != v.arr_) {
+            this->arr_ = v.arr_;
+            this->m_size_ = v.m_size_;
+            this->m_capacity_ = v.m_capacity_;
+            v.arr_ = nullptr;
+            v.m_size_ = 0;
+            v.m_capacity_ = 0;
         }
     }
 
@@ -48,9 +48,9 @@ Vector<value_type>  Vector<value_type>::operator=(Vector &&v) {
 template <class value_type>
 void Vector<value_type>::swap(Vector &other) {
     if (this->arr_ != other.arr_) {
-            Vector <value_type> temp(std::move(*this));
-            *this = std::move(other);
-            other = std::move(temp);
+        std::swap(this->m_size_, other.m_size_);
+        std::swap(this->m_capacity_, other.m_capacity_);
+        std::swap(this->arr_, other.arr_);
         }
 }
 
@@ -406,6 +406,25 @@ Vector<value_type>::insert(iterator pos, const_reference value) {
 
 
     return this->arr_ + position;
+}
+
+template<class value_type>
+void Vector<value_type>::erase(iterator_2 pos) {
+    size_type position = *pos - *this->arr_;
+    Vector<value_type> new_vec(this->m_size_ - 1, this->m_capacity_);
+    std::cout << new_vec.capacity() << " " << new_vec.size() << std::endl;
+    for (size_type i = 0, j = 0; i < this->m_size_; ++i, ++j) {
+        if (j != position) {
+            new_vec.arr_[i] = this->arr_[j];
+        } else {
+            ++j;
+            new_vec.arr_[i] = this->arr_[j];
+        }
+    }
+    new_vec.output_vector();
+    this->clear_all();
+    this->swap(new_vec);
+
 }
 
 //template<class value_type>

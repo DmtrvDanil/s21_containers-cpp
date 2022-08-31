@@ -95,9 +95,9 @@ namespace s21 {
 
     using iterator_ = T*;
         Vector() {
-            this->arr_(nullptr);
-            this->m_capacity_(0U);
-            this->m_size_(0U);
+            this->arr_ = nullptr;
+            this->m_capacity_ = 0;
+            this->m_size_ = 0;
         }
 //        Vector() : this->m_size_(0U), this->m_capacity_(0U), this->arr_(nullptr) {}
 //        explicit Vector(size_type n) : m_size_(n), m_capacity_(n), arr_(n ? new T[n] : nullptr) {}
@@ -138,9 +138,7 @@ namespace s21 {
         iterator insert(iterator pos, const_reference value);
 //        iterator_1 test_insert(iterator_1 pos, const_reference value);
 
-        void erase(iterator pos);
-
-
+        void erase(iterator_2 pos);
         void clear_all();
 
         bool empty();
