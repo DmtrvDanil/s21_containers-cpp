@@ -110,9 +110,20 @@ int main(void){
     s21::Vector<int> a{96,2,3,4};
     s21::Vector<int>::iterator_2 i = a.begin_4();
     s21::Vector<int>::const_iterator_2 j = a.begin_4();
-//    *j = 2;
-    *(i + 2 ) = 87;
-    std::cout << *(j + 2) << std::endl;
+//        for (auto i = a.begin(); i != a.end(); i++ ) {
+//        std::cout << *i << " ";
+//    }
+//    for(auto &&i : a) {
+//        std::cout << i << std::endl;
+//    }
+//    *(j + 2) = 2;
+//    *(i + 2 ) = 87;
+//    *j++;
+    ++j;
+    j++;
+    ++i;
+    i++;
+    std::cout << *j << std::endl;
     std::cout << *i << std::endl;
     return 0;
 }

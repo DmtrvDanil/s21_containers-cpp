@@ -1,77 +1,86 @@
 #ifndef SRC_VECTOR_H_
 #define SRC_VECTOR_H_
-
-#include <iostream>
-#include <stdexcept>
-#include <cmath>
+#include "s21_abstract.h"
+//#include <iostream>
+//#include <stdexcept>
+//#include <cmath>
 
 namespace s21 {
 
-template <class T> class Vector {
+    template <class T>
+    class Vector : public abstract<T>{
     private:
-        size_t m_size_;
+//        size_t m_size_;
         size_t m_capacity_;
-        T *arr_;
+//        T *arr_;
     public:
-        using value_type = T;
-        using reference = T&;
-        using const_reference = const T&;
-        using pointer = T*;
-        using iterator_1 = T*;
-        using const_iterator_1 = const T*;
 
 
 
-        class VectorConstIterator {
-        public:
-            using pointer = T*;
-            using value_type = T;
-            using reference = T&;
-            using const_reference = const T&;
 
-        public:
-            VectorConstIterator() : data_(nullptr) {}
-            VectorConstIterator(pointer pt) : data_(pt) {}
-            ~VectorConstIterator() {}
-            const_reference operator*() {return *this->data_;}
-            VectorConstIterator operator+(const size_t value) {
-                VectorConstIterator it_const(this->data_ + value);
-                return it_const;
-            };
+//        class VectorConstIterator {
+//        public:
+////            using pointer = T*;
+////            using value_type = T;
+////            using reference = T&;
+////            using const_reference = const T&;
+//
+//        public:
+//            VectorConstIterator() : data_(nullptr) {}
+//            VectorConstIterator(pointer pt) : data_(pt) {}
+//            ~VectorConstIterator() {}
+//            VectorConstIterator& operator++() {
+//                this->data_++;
+//                return *this;
+//            }
+//            VectorConstIterator operator++(int) {
+//                VectorConstIterator temp(*this);
+//                this->data_++;
+//                return temp;
+//            }
+//            const_reference operator*() {return *this->data_;}
+//            VectorConstIterator operator+(const size_t value) {
+//                VectorConstIterator it_const(this->data_ + value);
+//                return it_const;
+//            };
+//
+//        protected:
+//            pointer data_;
+//
+//        };
+//
+//        class VectorIterator_1 : public VectorConstIterator {
+//        public:
+//            VectorIterator_1() : VectorConstIterator() {}
+//            VectorIterator_1(pointer pt) : VectorConstIterator(pt) {}
+//            ~VectorIterator_1() {}
+//            reference operator*() {return *this->data_;}
+//            VectorIterator_1& operator=(const value_type val) {
+//                *this->data_ = val;
+//                return *this->data_;
+//            };
+//            VectorIterator_1 operator+(const size_t value) {
+//                VectorIterator_1 it(this->data_ + value);
+//                return it;
+//            };
+//
+//        };
+        using pointer = typename abstract<T>::pointer;
+        using value_type = typename abstract<T>::value_type;
+        using reference = typename abstract<T>::reference;
+        using const_reference = typename abstract<T>::const_reference;
+        using iterator_2 = typename abstract<T>::VectorIterator_1;
+        using const_iterator_2 = typename abstract<T>::VectorConstIterator;
 
-        protected:
-            pointer data_;
-
-        };
-
-        class VectorIterator_1 : public VectorConstIterator {
-        public:
-            VectorIterator_1() : VectorConstIterator() {}
-            VectorIterator_1(pointer pt) : VectorConstIterator(pt) {}
-            ~VectorIterator_1() {}
-            reference operator*() {return *this->data_;}
-            VectorIterator_1& operator=(const value_type val) {
-                *this->data_ = val;
-                return *this->data_;
-            };
-            VectorIterator_1 operator+(const size_t value) {
-                VectorIterator_1 it(this->data_ + value);
-                return it;
-            };
-
-        };
-        using iterator_2 = VectorIterator_1;
-        using const_iterator_2 = VectorConstIterator;
-
-        iterator_2 begin_4() {
-            iterator_2 temp(this->arr_);
-            return temp;
-        }
-
-        iterator_2 end_4() {
-            iterator_2 temp(this->arr_ + this->m_size_);
-            return temp;
-        }
+//        iterator_2 begin_4() {
+//            iterator_2 temp(this->arr_);
+//            return temp;
+//        }
+//
+//        iterator_2 end_4() {
+//            iterator_2 temp(this->arr_ + this->m_size_);
+//            return temp;
+//        }
         // using const_iterator = const T *;
         using size_type = size_t;
     private:
@@ -85,10 +94,24 @@ template <class T> class Vector {
     using iterator = VectorIterator;
 
     using iterator_ = T*;
-        Vector() : m_size_(0U), m_capacity_(0U), arr_(nullptr) {}
-        explicit Vector(size_type n) : m_size_(n), m_capacity_(n), arr_(n ? new T[n] : nullptr) {}
+        Vector() {
+            this->arr_(nullptr);
+            this->m_capacity_(0U);
+            this->m_size_(0U);
+        }
+//        Vector() : this->m_size_(0U), this->m_capacity_(0U), this->arr_(nullptr) {}
+//        explicit Vector(size_type n) : m_size_(n), m_capacity_(n), arr_(n ? new T[n] : nullptr) {}
+        explicit Vector(size_type n) {
+        this->m_size_ = n;
+        this->m_capacity_ = n;
+        this->arr_ = n ? new T[n] : nullptr; }
         Vector(std::initializer_list<value_type> const &items);
-        Vector(const Vector &v) : m_size_(v.m_size_), m_capacity_(v.m_capacity_), arr_(v.arr_) {};
+//        Vector(const Vector &v) : m_size_(v.m_size_), m_capacity_(v.m_capacity_), arr_(v.arr_) {};
+        Vector(const Vector &v)  {
+            this->m_size_ = v.m_size_;
+            this->m_capacity_ = v.m_capacity_;
+            this->arr_ = v.arr_;
+        };
         Vector(Vector &&v);
         ~Vector() { clear_all();}
         void Allocate_Memory();
@@ -113,7 +136,7 @@ template <class T> class Vector {
 
         void clear();
         iterator insert(iterator pos, const_reference value);
-        iterator_1 test_insert(iterator_1 pos, const_reference value);
+//        iterator_1 test_insert(iterator_1 pos, const_reference value);
 
         void erase(iterator pos);
 
@@ -126,9 +149,9 @@ template <class T> class Vector {
         iterator begin();
         iterator end();
 
-
-        iterator_1 begin_1() noexcept { return this->arr_ ;};
-        iterator_1 end_1() noexcept { return  this->arr_ +  this->m_size_;};
+//
+//        iterator_1 begin_1() noexcept { return this->arr_ ;};
+//        iterator_1 end_1() noexcept { return  this->arr_ +  this->m_size_;};
 //        const_iterator_1 begin_1() noexcept { return const_iterator_1(&this->arr_ );};
 //        const_iterator_1 end_1() noexcept { return  const_iterator_1(&this->arr_ +  this->m_size_);};
 

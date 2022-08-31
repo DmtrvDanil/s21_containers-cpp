@@ -92,16 +92,15 @@ template<class value_type>
 void Vector<value_type>::pop_back() {
     if (this->empty())
         throw  std::runtime_error("Vector is empty!!");
-    this->arr_[m_size_--] = 0;
+    this->arr_[this->m_size_--] = 0;
 }
 
 template <typename T>
-void Vector<T>::push_back(T v)
-{
-    if (m_size_ >= m_capacity_) {
-        reserve_more_capacity(m_size_ * 2, false);
+void Vector<T>::push_back(value_type v) {
+    if (this->m_size_ >= this->m_capacity_) {
+        reserve_more_capacity(this->m_size_ * 2, false);
     }
-    arr_[m_size_++] = v;
+    this->arr_[this->m_size_++] = v;
 }
 
 
@@ -156,7 +155,7 @@ void Vector<value_type>::reserve_more_capacity(size_t size, bool flag) {
 template <class value_type>
 typename Vector<value_type>::reference Vector<value_type>::at(size_type i) {
     if (i > this->m_size_) throw std::out_of_range("Out of range");
-    return arr_[i];
+    return this->arr_[i];
 }
 
 template <typename value_type>
@@ -280,7 +279,7 @@ template <class value_type>
 typename Vector<value_type>::iterator Vector<value_type>::begin() {
     if (this->empty())
         throw std::invalid_argument("Vector is empty!");
-    iterator temp(arr_);
+    iterator temp(this->arr_);
     return temp;
 }
 
@@ -289,7 +288,7 @@ typename Vector<value_type>::iterator Vector<value_type>::end() {
     if (this->empty())
         throw std::invalid_argument("Vector is empty!");
     size_type ind = this->m_size_ > 0 ? this->m_size_ : 0;
-    iterator temp(arr_ + ind);
+    iterator temp(this->arr_ + ind);
     return temp;
 }
 
@@ -389,7 +388,7 @@ void Vector<value_type>::clear() {
 template<class value_type>
 typename Vector<value_type>::iterator
 Vector<value_type>::insert(iterator pos, const_reference value) {
-    size_type position = *pos - *arr_;
+    size_type position = *pos - *this->arr_;
 
     if (this->m_size_ + 1 >= this->m_capacity_) {
         this->reserve_more_capacity(this->m_capacity_ * 2, false);
@@ -397,7 +396,7 @@ Vector<value_type>::insert(iterator pos, const_reference value) {
     value_type buff = this->arr_[position];
     this->m_size_++;
     this->arr_[position] = value;
-    for (size_type i = position + 1; i < m_size_; ++i) {
+    for (size_type i = position + 1; i < this->m_size_; ++i) {
         value_type buff_2 = this->arr_[i];
         this->arr_[i] = buff;
         buff = buff_2;
@@ -409,30 +408,30 @@ Vector<value_type>::insert(iterator pos, const_reference value) {
     return this->arr_ + position;
 }
 
-template<class value_type>
-typename Vector<value_type>::iterator_1
-Vector<value_type>::test_insert(iterator_1 pos, const_reference value) {
-    size_type position = pos - arr_;
-//    std::cout << position << std::endl;
-
-    if (this->m_size_ + 1 >= this->m_capacity_) {
-        this->reserve_more_capacity(this->m_capacity_ * 2, false);
-    }
-    value_type buff = this->arr_[position];
-    this->m_size_++;
-    this->arr_[position] = value;
-    for (size_type i = position + 1; i < m_size_; ++i) {
-        value_type buff_2 = this->arr_[i];
-        this->arr_[i] = buff;
-        buff = buff_2;
-    }
-//    auto temp = pos - begin_1();
-
-//    auto t = begin_1();
-//    pos = pos + t;
-    pos = this->arr_ + position;
-    return pos;
-}
+//template<class value_type>
+//typename Vector<value_type>::iterator_1
+//Vector<value_type>::test_insert(iterator_1 pos, const_reference value) {
+//    size_type position = pos - arr_;
+////    std::cout << position << std::endl;
+//
+//    if (this->m_size_ + 1 >= this->m_capacity_) {
+//        this->reserve_more_capacity(this->m_capacity_ * 2, false);
+//    }
+//    value_type buff = this->arr_[position];
+//    this->m_size_++;
+//    this->arr_[position] = value;
+//    for (size_type i = position + 1; i < m_size_; ++i) {
+//        value_type buff_2 = this->arr_[i];
+//        this->arr_[i] = buff;
+//        buff = buff_2;
+//    }
+////    auto temp = pos - begin_1();
+//
+////    auto t = begin_1();
+////    pos = pos + t;
+//    pos = this->arr_ + position;
+//    return pos;
+//}
 
 
 
