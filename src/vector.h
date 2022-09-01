@@ -1,6 +1,6 @@
 #ifndef SRC_VECTOR_H_
 #define SRC_VECTOR_H_
-#include "s21_abstract.h"
+#include "vec_array/s21_abstract.h"
 //#include <iostream>
 //#include <stdexcept>
 //#include <cmath>
@@ -65,10 +65,12 @@ namespace s21 {
 //            };
 //
 //        };
+
         using pointer = typename abstract<T>::pointer;
         using value_type = typename abstract<T>::value_type;
         using reference = typename abstract<T>::reference;
         using const_reference = typename abstract<T>::const_reference;
+        using size_type = typename abstract<T>::size_type;
         using iterator_2 = typename abstract<T>::VectorIterator_1;
         using const_iterator_2 = typename abstract<T>::VectorConstIterator;
 
@@ -82,7 +84,7 @@ namespace s21 {
 //            return temp;
 //        }
         // using const_iterator = const T *;
-        using size_type = size_t;
+
     private:
         void reserve_more_capacity(size_type size, bool shrink);
     public:
@@ -117,10 +119,10 @@ namespace s21 {
         void Allocate_Memory();
 
         // Vector& operator=(vector &&v);
-        reference operator[](size_type i);
+//        reference operator[](size_type i);
         Vector operator=(Vector &&v);
-        size_type size();
-        size_type max_size();
+//        size_type size();
+//        size_type max_size();
         size_type capacity();
 
         void push_back(value_type v);
@@ -129,10 +131,10 @@ namespace s21 {
         void reserve(size_type size);
         void shrink_to_fit();
 
-        reference at(size_type i);
-        const_reference front();
-        const_reference back();
-        iterator data();
+//        reference at(size_type i);
+//        const_reference front();
+//        const_reference back();
+//        iterator data();
 
         void clear();
         iterator insert(iterator pos, const_reference value);
@@ -141,7 +143,7 @@ namespace s21 {
         void erase(iterator_2 pos);
         void clear_all();
 
-        bool empty();
+//        bool empty();
         void output_vector();
         void bring_to_zero();
         iterator begin();

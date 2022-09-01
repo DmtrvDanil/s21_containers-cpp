@@ -5,7 +5,8 @@
 #include <cmath>
 
 namespace s21 {
-    template <class T> class abstract {
+    template <class T>
+    class abstract {
     protected:
         abstract() {}
         T *arr_;
@@ -15,6 +16,7 @@ namespace s21 {
         using value_type = T;
         using reference = T&;
         using const_reference = const T&;
+        using size_type = size_t;
 
         class VectorConstIterator {
         public:
@@ -41,6 +43,9 @@ namespace s21 {
                 VectorConstIterator it_const(this->data_ + value);
                 return it_const;
             };
+            bool operator!=(pointer other) {
+                return this->data_ != other.data_;
+            }
 
         protected:
             pointer data_;
@@ -61,25 +66,40 @@ namespace s21 {
                 VectorIterator_1 it(this->data_ + value);
                 return it;
             };
+//            bool operator!=(const iterator_2& other) {
+//                return this->data_ != other.data_;
+//            }
 
         };
         using iterator_2 = VectorIterator_1;
         using const_iterator_2 = VectorConstIterator;
-        iterator_2 begin_4() {
-            iterator_2 temp(this->arr_);
-            return temp;
-        }
 
-        iterator_2 end_4() {
-            iterator_2 temp(this->arr_ + this->m_size_);
-            return temp;
-        }
+        reference at(size_type pos);
+        reference operator[](size_type pos);
+        const_reference front();
+        const_reference back();
+        iterator_2 data();
 
+        iterator_2 begin_4();
+//        {
+//            iterator_2 temp(this->arr_);
+//            return temp;
+//        }
+
+        iterator_2 end_4();
+//        {
+//            iterator_2 temp(this->arr_ + this->m_size_);
+//            return temp;
+//        }
+        bool empty();
+        size_type size();
+        size_type max_size();
 
     };
 
 
 }  // namespace
 
+#include "s21_abstract.cpp"
 
 #endif // SRC_S21_ABSTRACT_H_

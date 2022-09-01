@@ -133,7 +133,7 @@ Vector<T>::Vector(std::initializer_list<value_type> const &items) {
     }
 
 template<class value_type>
-void Vector<value_type>::reserve_more_capacity(size_t size, bool flag) {
+void Vector<value_type>::reserve_more_capacity(size_type size, bool flag) {
     // if (size > m_capacity_) {
     if (flag) {
         this->m_size_ = size;
@@ -152,38 +152,38 @@ void Vector<value_type>::reserve_more_capacity(size_t size, bool flag) {
 // >>>>>>>>> Vector Element access <<<<<<<<<<<
 
 
-template <class value_type>
-typename Vector<value_type>::reference Vector<value_type>::at(size_type i) {
-    if (i > this->m_size_) throw std::out_of_range("Out of range");
-    return this->arr_[i];
-}
+//template <class value_type>
+//typename Vector<value_type>::reference Vector<value_type>::at(size_type i) {
+//    if (i > this->m_size_) throw std::out_of_range("Out of range");
+//    return this->arr_[i];
+//}
 
-template <typename value_type>
-typename Vector<value_type>::reference Vector<value_type>::operator[](size_type i) {
+//template <typename value_type>
+//typename Vector<value_type>::reference Vector<value_type>::operator[](size_type i) {
+//
+//    return this->arr_[i];
+//}
 
-    return this->arr_[i];
-}
+//template<class value_type>
+//typename Vector<value_type>::const_reference Vector<value_type>::front() {
+//    if (this->empty()) {
+//        throw std::out_of_range("In origin vector here segmentation fault");
+//    }
+//        return this->arr_[0];
+//}
 
-template<class value_type>
-typename Vector<value_type>::const_reference Vector<value_type>::front() {
-    if (this->empty()) {
-        throw std::out_of_range("In origin vector here segmentation fault");
-    }
-        return this->arr_[0];
-}
-
-template<class value_type>
-typename Vector<value_type>::const_reference Vector<value_type>::back() {
-    if (this->empty()) {
-        throw std::out_of_range("In origin vector here segmentation fault");
-    }
-    return this->arr_[this->m_size_ - 1];
-}
-
-template<class value_type>
-typename Vector<value_type>::iterator Vector<value_type>::data()  {
-    return this->begin();
-}
+//template<class value_type>
+//typename Vector<value_type>::const_reference Vector<value_type>::back() {
+//    if (this->empty()) {
+//        throw std::out_of_range("In origin vector here segmentation fault");
+//    }
+//    return this->arr_[this->m_size_ - 1];
+//}
+//
+//template<class value_type>
+//typename Vector<value_type>::iterator Vector<value_type>::data()  {
+//    return this->begin();
+//}
 
 //    const_reference back();
 
@@ -325,29 +325,26 @@ typename Vector<value_type>::iterator& Vector<value_type>::iterator::operator+=(
 //  >>>>>>>>>>>> Capacity <<<<<<<<<<<<<<<<<<
 
 
-template <typename value_type>
-bool Vector<value_type>::empty() {
-    return this->arr_ == nullptr;
-}
+//template <typename value_type>
+//bool Vector<value_type>::empty() {
+//    return this->arr_ == nullptr;
+//}
 
-template <typename value_type>
-typename Vector<value_type>::size_type Vector<value_type>::size() {
-    return this->m_size_;
-}
+//
 
-template<class value_type>
-typename Vector<value_type>::size_type Vector<value_type>::max_size() {
-    double sys = 0.0;
-
-#if __WORDSIZE == 64
-    sys = 64.0;
-#else
-    sys = 32.0;
-#endif
-//    return static_cast<size_type>(std::pow(2.0, sys)) / static_cast<value_type>(sizeof(value_type)) ;
-    return static_cast<size_type>(std::pow(2.0, sys) / static_cast<value_type>(sizeof(value_type))) / 2 - 1;  // fixed with chaer
-
-}
+//template<class value_type>
+//typename Vector<value_type>::size_type Vector<value_type>::max_size() {
+//    double sys = 0.0;
+//
+//#if __WORDSIZE == 64
+//    sys = 64.0;
+//#else
+//    sys = 32.0;
+//#endif
+////    return static_cast<size_type>(std::pow(2.0, sys)) / static_cast<value_type>(sizeof(value_type)) ;
+//    return static_cast<size_type>(std::pow(2.0, sys) / static_cast<value_type>(sizeof(value_type))) / 2 - 1;  // fixed with chaer
+//
+//}
 
 template<class value_type>
 void Vector<value_type>::reserve(size_type size) {
@@ -411,7 +408,7 @@ Vector<value_type>::insert(iterator pos, const_reference value) {
 template<class value_type>
 void Vector<value_type>::erase(iterator_2 pos) {
     size_type position = *pos - *this->arr_;
-    Vector<value_type> new_vec(this->m_size_ - 1, this->m_capacity_);
+    Vector<value_type> new_vec(this->m_size_ - 1);
     std::cout << new_vec.capacity() << " " << new_vec.size() << std::endl;
     for (size_type i = 0, j = 0; i < this->m_size_; ++i, ++j) {
         if (j != position) {
@@ -424,6 +421,12 @@ void Vector<value_type>::erase(iterator_2 pos) {
     new_vec.output_vector();
     this->clear_all();
     this->swap(new_vec);
+//    value_type *buff = new value_type[this->m_size_ - 1];
+//    for (size_type i = 0, t = 0; i < this->m_size_; i++)
+//        if ((this->arr_ + i) != pos) buff[t++] = this->arr_[i];
+//    delete[] this->arr_;
+//    this->arr_ = buff;
+//    this->m_size_--;
 
 }
 

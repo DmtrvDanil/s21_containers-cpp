@@ -1,6 +1,6 @@
 #include "s21_containers.h"
 #include <vector>
-
+#include <array>
 int main(void){
 //    std::vector<int> a{1,2,3};
 //    s21::Vector<int> b{1,2,3};
@@ -102,15 +102,8 @@ int main(void){
 
 //    std::cout << *(i + 2) << std::endl;
 //    std::cout << *(j + 2) << std::endl;
-    s21::Vector<int> b {187,2,3,4};
-//    b.output_vector();
-    std::cout << b.capacity() << " " << b.size() << std::endl;
-    b.erase(b.begin_4());
-    b.output_vector();
-    std::cout << b.capacity() << " " << b.size() << std::endl;
-    std::vector<int> a{187,2,3,4};
-    std::cout << a.capacity() << " " << a.size() << std::endl;
-    a.erase(a.begin());
-    std::cout << a.capacity() << " " << a.size() << std::endl;
+    std::array<int, 5> ai = {1,2,3,4};
+    for (int i = 0; i < ai.size(); i++)
+        std::cout << ai.at(i);
     return 0;
 }
