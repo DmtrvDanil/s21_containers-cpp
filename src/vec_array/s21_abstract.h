@@ -17,89 +17,66 @@ namespace s21 {
         using reference = T&;
         using const_reference = const T&;
         using size_type = size_t;
-
         class VectorConstIterator {
         public:
-//            using pointer = T*;
-//            using value_type = T;
-//            using reference = T&;
-//            using const_reference = const T&;
-
-        public:
-            VectorConstIterator() : data_(nullptr) {}
-            VectorConstIterator(pointer pt) : data_(pt) {}
+            VectorConstIterator();
+            VectorConstIterator(pointer pt);
             ~VectorConstIterator() {}
-            VectorConstIterator& operator++() {
-                this->data_++;
-                return *this;
-            }
-            VectorConstIterator operator++(int) {
-                VectorConstIterator temp(*this);
-                this->data_++;
-                return temp;
-            }
-            const_reference operator*() {return *this->data_;}
-            VectorConstIterator operator+(const size_t value) {
-                VectorConstIterator it_const(this->data_ + value);
-                return it_const;
-            };
-            bool operator!=(VectorConstIterator &other) {
-                return this->data_ != other.data_;
-            }
-
+            VectorConstIterator& operator++();
+            VectorConstIterator operator++(int);
+            VectorConstIterator& operator--();
+            VectorConstIterator operator--(int);
+            const_reference operator*();
+            VectorConstIterator operator+(const size_t value);
+            bool operator!=(VectorConstIterator &other);
+            bool operator==(VectorConstIterator &other);
         protected:
             pointer data_;
 
         };
-
-        class VectorIterator_1 : public VectorConstIterator {
+        class VectorIterator : public VectorConstIterator {
         public:
-            VectorIterator_1() : VectorConstIterator() {}
-            VectorIterator_1(pointer pt) : VectorConstIterator(pt) {}
-            ~VectorIterator_1() {}
-            reference operator*() {return *this->data_;}
-            VectorIterator_1& operator=(const value_type val) {
-                *this->data_ = val;
-                return *this->data_;
-            };
-            VectorIterator_1 operator+(const size_t value) {
-                VectorIterator_1 it(this->data_ + value);
-                return it;
-            };
-//            bool operator!=(const iterator_2& other) {
-//                return this->data_ != other.data_;
-//            }
+            VectorIterator();
+            VectorIterator(pointer pt);
+            ~VectorIterator() {}
+            reference operator*() ;
+//            {return *this->data_;}
+            VectorIterator& operator=(const value_type val);
+//            {
+//                *this->data_ = val;
+//                return *this->data_;
+//            };
+            VectorIterator operator+(const size_t value);
+//            {
+//                VectorIterator it(this->data_ + value);
+//                return it;
+//            };
+            VectorIterator operator-(const size_t value);
+//            {
+//                VectorIterator it(this->data_ - value);
+//                return it;
+//            };
 
         };
-        using iterator_2 = VectorIterator_1;
-        using const_iterator_2 = VectorConstIterator;
+        using iterator = VectorIterator;
+        using const_iterator = VectorConstIterator;
 
         reference at(size_type pos);
         reference operator[](size_type pos);
         const_reference front();
         const_reference back();
-        iterator_2 data();
+        iterator data();
 
-        iterator_2 begin_4();
-//        {
-//            iterator_2 temp(this->arr_);
-//            return temp;
-//        }
+        iterator begin();
+        iterator end();
 
-        iterator_2 end_4();
-//        {
-//            iterator_2 temp(this->arr_ + this->m_size_);
-//            return temp;
-//        }
         bool empty();
         size_type size();
         size_type max_size();
 
     };
 
-
 }  // namespace
 
 #include "s21_abstract.cpp"
-
 #endif // SRC_S21_ABSTRACT_H_

@@ -192,73 +192,73 @@ void Vector<value_type>::reserve_more_capacity(size_type size, bool flag) {
 
     /* >>>>>>>>>>>>  ITERATOR <<<<<<<<<<<<<<*/
 
-template <class value_type>
-typename Vector<value_type>::VectorIterator&
-Vector<value_type>::iterator::operator++() {
-    this->data_++;
-    return *this;
-}
-
-template<class value_type>
-typename Vector<value_type>::VectorIterator&
-Vector<value_type>::iterator::operator+(const size_t value) {
-    this->data_ = this->data_ + value;
-    return *this;
-}
-
-template<class value_type>
-typename Vector<value_type>::VectorIterator&
-Vector<value_type>::iterator::operator-(const size_t value) {
-    this->data_ = this->data_ - value;
-    return *this;
-}
-
-template<class value_type>
-bool
-Vector<value_type>::iterator::operator>(const size_t value) {
-    return *this->data_ > value ;
-
-}
-
-template <class value_type>
-typename Vector<value_type>::VectorIterator
-Vector<value_type>::iterator::operator++(int) {
-    iterator temp(*this);
-    this->data_++;
-    return temp;
-}
-
-
-
-template <class value_type>
-typename Vector<value_type>::VectorIterator &
-Vector<value_type>::iterator::operator--() {
-    this->data_--;
-    return *this;
-}
-
-template <class value_type>
-typename Vector<value_type>::VectorIterator
-Vector<value_type>::iterator::operator--(int) {
-    iterator temp(*this);
-    this->data_--;
-    return temp;
-}
-
-template <class value_type>
-bool Vector<value_type>::iterator::operator==(iterator &other) {
-    return (this->data_ == other.data_);
-}
-
 //template <class value_type>
-//bool Vector<value_type>::iterator::operator!=(const iterator &other) {
-//    return this->data_ != other.data_;
+//typename Vector<value_type>::VectorIterator&
+//Vector<value_type>::iterator::operator++() {
+//    this->data_++;
+//    return *this;
 //}
-
-template <class value_type>
-Vector<value_type>::iterator::VectorIterator(pointer pt) {
-    this->data_ = pt;
-}
+//
+//template<class value_type>
+//typename Vector<value_type>::VectorIterator&
+//Vector<value_type>::iterator::operator+(const size_t value) {
+//    this->data_ = this->data_ + value;
+//    return *this;
+//}
+//
+//template<class value_type>
+//typename Vector<value_type>::VectorIterator&
+//Vector<value_type>::iterator::operator-(const size_t value) {
+//    this->data_ = this->data_ - value;
+//    return *this;
+//}
+//
+//template<class value_type>
+//bool
+//Vector<value_type>::iterator::operator>(const size_t value) {
+//    return *this->data_ > value ;
+//
+//}
+//
+//template <class value_type>
+//typename Vector<value_type>::VectorIterator
+//Vector<value_type>::iterator::operator++(int) {
+//    iterator temp(*this);
+//    this->data_++;
+//    return temp;
+//}
+//
+//
+//
+//template <class value_type>
+//typename Vector<value_type>::VectorIterator &
+//Vector<value_type>::iterator::operator--() {
+//    this->data_--;
+//    return *this;
+//}
+//
+//template <class value_type>
+//typename Vector<value_type>::VectorIterator
+//Vector<value_type>::iterator::operator--(int) {
+//    iterator temp(*this);
+//    this->data_--;
+//    return temp;
+//}
+//
+//template <class value_type>
+//bool Vector<value_type>::iterator::operator==(iterator &other) {
+//    return (this->data_ == other.data_);
+//}
+//
+////template <class value_type>
+////bool Vector<value_type>::iterator::operator!=(const iterator &other) {
+////    return this->data_ != other.data_;
+////}
+//
+//template <class value_type>
+//Vector<value_type>::iterator::VectorIterator(pointer pt) {
+//    this->data_ = pt;
+//}
 
 //template<class value_type>
 //Vector<value_type>::const_iterator::VectorConstIterator(const iterator &other) {
@@ -278,22 +278,22 @@ Vector<value_type>::iterator::VectorIterator(pointer pt) {
 
 //  >>>>>>>>>>>>>>>>>>>>> begin end <<<<<<<<<<<<<<<<
 
-template <class value_type>
-typename Vector<value_type>::iterator Vector<value_type>::begin() {
-    if (this->empty())
-        throw std::invalid_argument("Vector is empty!");
-    iterator temp(this->arr_);
-    return temp;
-}
-
-template <class value_type>
-typename Vector<value_type>::iterator Vector<value_type>::end() {
-    if (this->empty())
-        throw std::invalid_argument("Vector is empty!");
-    size_type ind = this->m_size_ > 0 ? this->m_size_ : 0;
-    iterator temp(this->arr_ + ind);
-    return temp;
-}
+//template <class value_type>
+//typename Vector<value_type>::iterator Vector<value_type>::begin() {
+//    if (this->empty())
+//        throw std::invalid_argument("Vector is empty!");
+//    iterator temp(this->arr_);
+//    return temp;
+//}
+//
+//template <class value_type>
+//typename Vector<value_type>::iterator Vector<value_type>::end() {
+//    if (this->empty())
+//        throw std::invalid_argument("Vector is empty!");
+//    size_type ind = this->m_size_ > 0 ? this->m_size_ : 0;
+//    iterator temp(this->arr_ + ind);
+//    return temp;
+//}
 
 
 
@@ -312,17 +312,17 @@ typename Vector<value_type>::iterator Vector<value_type>::end() {
 //    return *data_;
 //}
 
-template<class value_type>
-typename Vector<value_type>::iterator&  Vector<value_type>::iterator::operator=(const iterator &other) {
-    this->data_ = other.data_;
-    return *this;
-}
-
-template<class value_type>
-typename Vector<value_type>::iterator& Vector<value_type>::iterator::operator+=(const iterator &other) {
-    this->data_ += other.data_;
-    return *this;
-}
+//template<class value_type>
+//typename Vector<value_type>::iterator&  Vector<value_type>::iterator::operator=(const iterator &other) {
+//    this->data_ = other.data_;
+//    return *this;
+//}
+//
+//template<class value_type>
+//typename Vector<value_type>::iterator& Vector<value_type>::iterator::operator+=(const iterator &other) {
+//    this->data_ += other.data_;
+//    return *this;
+//}
 
 
 //  >>>>>>>>>>>> Capacity <<<<<<<<<<<<<<<<<<
@@ -409,11 +409,11 @@ Vector<value_type>::insert(iterator pos, const_reference value) {
 }
 
 template<class value_type>
-void Vector<value_type>::erase(iterator_2 pos) {
+void Vector<value_type>::erase(iterator pos) {
 //    size_type position = *pos - *this->arr_;
 //    Vector<value_type> new_vec(this->m_size_ - 1);
 //    std::cout << new_vec.capacity() << " " << new_vec.size() << std::endl;
-//    for (size_type i = 0, j = 0; i < this->m_size_; ++i, ++j) {
+//        for (size_type i = 0, j = 0; i < this->m_size_; ++i, ++j) {
 //        if (j != position) {
 //            new_vec.arr_[i] = this->arr_[j];
 //        } else {
@@ -426,7 +426,7 @@ void Vector<value_type>::erase(iterator_2 pos) {
 //    this->swap(new_vec);
     value_type *buff = new value_type[this->m_size_ - 1];
     for (size_type i = 0, t = 0; i < this->m_size_; i++)
-        if ((this->begin_4() + i) != pos) buff[t++] = this->arr_[i];
+        if ((this->begin() + i) != pos) buff[t++] = this->arr_[i];
     delete[] this->arr_;
     this->arr_ = buff;
     this->m_size_--;
