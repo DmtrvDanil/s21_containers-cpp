@@ -1,4 +1,4 @@
-#include "vector.h"
+//#include "vector.h"
 
 namespace s21 {
 
@@ -20,12 +20,14 @@ namespace s21 {
     Vector<value_type>::Vector(Vector &&v) {
         this->bring_to_zero();
         if (this->arr_ != v.arr_) {
-            this->arr_ = v.arr_;
-            this->m_size_ = v.m_size_;
-            this->m_capacity_ = v.m_capacity_;
+//            this->arr_ = v.arr_;
+//            this->m_size_ = v.m_size_;
+//            this->m_capacity_ = v.m_capacity_;
+            *this = std::move(v);
             v.arr_ = nullptr;
             v.m_size_ = 0;
             v.m_capacity_ = 0;
+
         }
     }
 
@@ -37,6 +39,7 @@ Vector<value_type>  Vector<value_type>::operator=(Vector &&v) {
         this->arr_ = v.arr_;
         this->m_capacity_ = v.m_capacity_;
         this->m_size_ = v.m_size_;
+//        *this = std::move(v);
         v.m_size_ = 0;
         v.m_capacity_ = 0;
         v.arr_ = nullptr;
@@ -247,10 +250,10 @@ bool Vector<value_type>::iterator::operator==(iterator &other) {
     return (this->data_ == other.data_);
 }
 
-template <class value_type>
-bool Vector<value_type>::iterator::operator!=(const iterator &other) {
-    return this->data_ != other.data_;
-}
+//template <class value_type>
+//bool Vector<value_type>::iterator::operator!=(const iterator &other) {
+//    return this->data_ != other.data_;
+//}
 
 template <class value_type>
 Vector<value_type>::iterator::VectorIterator(pointer pt) {
@@ -407,26 +410,26 @@ Vector<value_type>::insert(iterator pos, const_reference value) {
 
 template<class value_type>
 void Vector<value_type>::erase(iterator_2 pos) {
-    size_type position = *pos - *this->arr_;
-    Vector<value_type> new_vec(this->m_size_ - 1);
-    std::cout << new_vec.capacity() << " " << new_vec.size() << std::endl;
-    for (size_type i = 0, j = 0; i < this->m_size_; ++i, ++j) {
-        if (j != position) {
-            new_vec.arr_[i] = this->arr_[j];
-        } else {
-            ++j;
-            new_vec.arr_[i] = this->arr_[j];
-        }
-    }
-    new_vec.output_vector();
-    this->clear_all();
-    this->swap(new_vec);
-//    value_type *buff = new value_type[this->m_size_ - 1];
-//    for (size_type i = 0, t = 0; i < this->m_size_; i++)
-//        if ((this->arr_ + i) != pos) buff[t++] = this->arr_[i];
-//    delete[] this->arr_;
-//    this->arr_ = buff;
-//    this->m_size_--;
+//    size_type position = *pos - *this->arr_;
+//    Vector<value_type> new_vec(this->m_size_ - 1);
+//    std::cout << new_vec.capacity() << " " << new_vec.size() << std::endl;
+//    for (size_type i = 0, j = 0; i < this->m_size_; ++i, ++j) {
+//        if (j != position) {
+//            new_vec.arr_[i] = this->arr_[j];
+//        } else {
+//            ++j;
+//            new_vec.arr_[i] = this->arr_[j];
+//        }
+//    }
+//    new_vec.output_vector();
+//    this->clear_all();
+//    this->swap(new_vec);
+    value_type *buff = new value_type[this->m_size_ - 1];
+    for (size_type i = 0, t = 0; i < this->m_size_; i++)
+        if ((this->begin_4() + i) != pos) buff[t++] = this->arr_[i];
+    delete[] this->arr_;
+    this->arr_ = buff;
+    this->m_size_--;
 
 }
 
@@ -458,51 +461,3 @@ void Vector<value_type>::erase(iterator_2 pos) {
 
 
 }  // namespace s21
-
-//int main(void) {
-//    // std::vector<int> a{1, 2 , 3};
-//    // std::cout <<  a.capacity() << " This is a capacity for original vector" << std::endl;
-//    // std::cout << a.size() << " This is a size of original vector" << std::endl;
-//    // a.reserve(2);
-//    // std::cout << a.capacity() << " This is a capacity after reserve " << std::endl;
-//    // std::cout << a.size() << " This is a size after resetve " << std::endl;
-//    // a.shrink_to_fit();
-//    // std::cout << a.capacity() << " This is a capacity after shrink to fit" << std::endl;
-//    // std::cout << a.size() << " This is a size after shrink to fit" << std::endl;
-//    // a.push_back(5);
-//    // std::cout << a.capacity() << " This is a capacity after push" << std::endl;
-//    // std::cout << a.size() << " This is a size after push" << std::endl;
-//    // std::cout << "#####################" << std::endl;
-//    // Vector<int> b{1,2,3};
-//    // std::cout << b.capacity() << " This is a capacity for my vector" << std::endl;
-//    // std::cout << b.size() << " This is a size for my vector" << std::endl;
-//    // b.reserve(2);
-//    // std::cout << b.capacity() << " This is a capacity after reserve" << std::endl;
-//    // std::cout << b.size() << " This is a size after reserve" << std::endl;
-//    // b.shrink_to_fit();
-//    // std::cout << b.capacity() << " This is a capacity after fit" << std::endl;
-//    // std::cout << b.size() << " This is a size after fit" << std::endl;
-//    // b.push_back(5);
-//    // // b.output_vector();
-//    // std::cout << b.capacity() << " This is a capacity after push" << std::endl;
-//    // std::cout << b.size() << " This is a size after push" << std::endl;
-//    Vector<int> a{1,2,3,4,5};
-//    Vector<int>::VectorIterator i =   a.begin();
-//    ++i;
-//    Vector<int>::VectorIterator j = a.begin();
-//    // std::cout <<  i == j;
-//    if (i != j)
-//        std::cout << '1';
-//    std::cout << *i << std::endl;
-//    for (auto i = a.begin(); i != a.end(); i++ ) {
-//        std::cout << *i << " ";
-//    }
-//    for (auto &&i : a)
-//        std::cout << i << " ";
-//    // a.output_vector();
-//
-//
-//
-//
-//    return 0;
-//}

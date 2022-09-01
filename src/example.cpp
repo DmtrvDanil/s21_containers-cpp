@@ -1,4 +1,5 @@
 #include "s21_containers.h"
+//#include "s21_containersplus.h"
 #include <vector>
 #include <array>
 int main(void){
@@ -102,8 +103,74 @@ int main(void){
 
 //    std::cout << *(i + 2) << std::endl;
 //    std::cout << *(j + 2) << std::endl;
-    std::array<int, 5> ai = {1,2,3,4};
-    for (int i = 0; i < ai.size(); i++)
-        std::cout << ai.at(i);
+//    std::array<int, 5> ai;
+//    for (int i = 0; i < ai.size(); i++)
+//        std::cout << ai.at(i);
+//    std::array<int, 3> a{1,2,3,4,5,6};
+
+//    std::array<int, 3> c{1,2,3};
+//    std::array<int, 3> v {8,7,6};
+//    c.swap(v);
+//    for (int i = 0; i < c.size(); i++) {
+//        std::cout << c.at(i);
+//    }
+//
+//    std::cout << std::endl;
+//
+//    for (int i = 0; i < v.size(); i++) {
+//        std::cout << v.at(i);
+//    }
+//
+//    std::cout << std::endl;
+//    s21::array<int, 4> b;
+//    s21::array<int, 4> a {8,7,6};
+//    b.swap(a);
+//    for (int i =0; i < b.size(); i++) {
+//        std::cout << b.at(i);
+//    }
+//    std::cout << std::endl;
+//
+//    for (int i = 0; i < a.size(); i++) {
+//        std::cout << a.at(i);
+//    }
+
+// move vector
+//    std::vector<int> *a = new std::vector<int>{1,2,3,4,5};
+//    std::vector<int> b = std::move(*a);
+//    for (int i = 0; i < a->size(); i++) {
+//        std::cout << a->at(i);
+//    }
+//    delete a;
+//    std::cout << std::endl;
+//    for (int i = 0; i < b.size(); i++) {
+//        std::cout << b.at(i);
+//    }
+//    std::cout << std::endl;
+//
+//    s21::Vector<int> *l = new s21::Vector<int>{1,2,3,4,5};
+//    std::cout << l->size() << " <> " << l->capacity() << std::endl;
+//    s21::Vector<int> k;
+//    k = std::move(*l);
+//    for (int i = 0; i < l->size(); i++) {
+//        std::cout << l->at(i);
+//    }
+//
+//    delete l;
+//    std::cout << k.size() << " <> " << k.capacity() << std::endl;
+//    std::cout << std::endl;
+//    for (int i = 0; i < k.size(); i++) {
+//        std::cout << k.at(i);
+//    }
+
+    s21::Vector<int> a{1,2,3};
+    a.erase(a.begin_4());
+    std::cout << a.size() << " " << a.capacity() << std::endl;
+    for (int i = 0; i < a.size(); i++) {
+        std::cout << a.at(i);
+    }
+    for (auto &&i : a) {
+        std::cout << i;
+    }
+
     return 0;
 }

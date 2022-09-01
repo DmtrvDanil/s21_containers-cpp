@@ -43,7 +43,7 @@ namespace s21 {
                 VectorConstIterator it_const(this->data_ + value);
                 return it_const;
             };
-            bool operator!=(pointer other) {
+            bool operator!=(VectorConstIterator &other) {
                 return this->data_ != other.data_;
             }
 

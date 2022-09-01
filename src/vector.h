@@ -97,9 +97,7 @@ namespace s21 {
 
     using iterator_ = T*;
         Vector() {
-            this->arr_ = nullptr;
-            this->m_capacity_ = 0;
-            this->m_size_ = 0;
+            this->bring_to_zero();
         }
 //        Vector() : this->m_size_(0U), this->m_capacity_(0U), this->arr_(nullptr) {}
 //        explicit Vector(size_type n) : m_size_(n), m_capacity_(n), arr_(n ? new T[n] : nullptr) {}
@@ -112,7 +110,10 @@ namespace s21 {
         Vector(const Vector &v)  {
             this->m_size_ = v.m_size_;
             this->m_capacity_ = v.m_capacity_;
-            this->arr_ = v.arr_;
+            this->arr_ = new T(v.m_size_);
+            for (int i = 0; i < v.m_size_; i++) {
+                this->arr_[i] = v.arr_[i];
+            }
         };
         Vector(Vector &&v);
         ~Vector() { clear_all();}
@@ -177,7 +178,7 @@ namespace s21 {
         VectorIterator& operator--();
         VectorIterator operator--(int);
         bool operator==(iterator& other);
-        bool operator!=(const iterator& other);
+//        bool operator!=(const iterator& other);
 
         value_type operator*();
 
