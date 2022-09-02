@@ -28,10 +28,7 @@ namespace s21 {
         return this->at(this->m_size_-1);
     }
 
-    template<class value_type>
-    typename abstract<value_type>::iterator abstract<value_type>::data() {
-        return this->begin();
-    }
+
 
     // >>>>>>>>>>>>> Const Iterator <<<<<<<<<<<<<<<<<<<<<<<<
     template<class value_type>
@@ -52,12 +49,12 @@ namespace s21 {
     }
 
     template<class value_type>
-    bool abstract<value_type>::VectorConstIterator::operator!=(VectorConstIterator &other) {
+    bool abstract<value_type>::VectorConstIterator::operator!=(const VectorConstIterator &other) const {
         return this->data_ != other.data_;
     }
 
     template<class value_type>
-    bool abstract<value_type>::VectorConstIterator::operator==(VectorConstIterator &other) {
+    bool abstract<value_type>::VectorConstIterator::operator==(const VectorConstIterator &other) const {
         return this->data_ == other.data_;
     }
 
@@ -128,7 +125,18 @@ namespace s21 {
         return it;
     }
 
+    template<class value_type>
+    typename abstract<value_type>::VectorIterator  abstract<value_type>::VectorIterator::operator-(const VectorIterator &value) {
+        return this->data_ - value;
+    }
+//    VectorIterator operator-(const VectorIterator &value);
 
+
+
+    template<class value_type>
+    typename abstract<value_type>::iterator abstract<value_type>::data()  {
+        return this->begin();
+    }
 
 
     //   >>>>>>>>>>>> Iterator begin end <<<<<<<<<<<<<<<<<<<<

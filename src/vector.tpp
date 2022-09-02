@@ -1,5 +1,5 @@
-//#include "vector.h"
-
+#include "vector.h"
+#include <cstring>
 namespace s21 {
 
     template<class value_type>
@@ -32,7 +32,7 @@ namespace s21 {
 //            throw std::invalid_argument("Bad size of initializer list");
 //        } else {
 //            m_capacity_ = items.size();
-//            Allocate_Memory();
+//            memory();
 //            for (auto element : items) {
 //                this->arr_[this->m_size_++] = element;
 //            }
@@ -41,24 +41,8 @@ namespace s21 {
 
     template<class value_type>
     Vector<value_type>::Vector(const Vector &v) {
-//        if (this != &v) {
-//
-//            this->Allocate_Memory();
-//            this->arr_ = new value_type(v.m_size_);
-////            this->bring_to_zero();
-//            this->m_size_ = v.m_size_;
-//            this->m_capacity_ = v.m_capacity_;
-//            for (int i = 0; i < v.m_size_ ; i++) {
-//                this->arr_[i] = v.arr_[i];
-//            }
-//        }
-        if (this->arr_ != v.arr_) {
-            this->m_size_ = v.m_size_;
-            this->m_capacity_ = v.m_capacity_;
-            this->arr_ = new value_type[this->m_capacity_]{};
-            for (size_type i = 0; i < this->m_size_; ++i)
-                this->arr_[i] = v.arr_[i];
-        }
+        this->bring_to_zero();
+        *this = v;
     }
 
 
@@ -75,6 +59,24 @@ namespace s21 {
             v.m_capacity_ = 0;
 
         }
+    }
+
+    template<class value_type>
+    Vector<value_type>&  Vector<value_type>::operator=(const Vector &v) {
+        if (this->arr_ != v.arr_) {
+            if (this->arr_ != nullptr) {
+                delete [] this->arr_;
+            }
+            if (this->m_capacity_ < v.m_size_) {
+                this->m_capacity_ = v.m_capacity_;
+            }
+
+            this->m_size_ = v.m_size_;
+            this->arr_ = new value_type[this->m_capacity_]{};
+            for (size_type i = 0; i < this->m_size_; ++i)
+                this->arr_[i] = v.arr_[i];
+        }
+        return *this;
     }
 
 
@@ -95,85 +97,83 @@ namespace s21 {
 
 
 
-template<class value_type>
-Vector<value_type>  Vector<value_type>::operator=(Vector &&v) {
-    if (this != &v) {
-        this->clear_all();
-        this->arr_ = v.arr_;
-        this->m_capacity_ = v.m_capacity_;
-        this->m_size_ = v.m_size_;
-//        *this = std::move(v);
-        v.m_size_ = 0;
-        v.m_capacity_ = 0;
-        v.arr_ = nullptr;
-    }
-    return *this;
-}
-
-
-template <class value_type>
-void Vector<value_type>::swap(Vector &other) {
-    if (this->arr_ != other.arr_) {
-        std::swap(this->m_size_, other.m_size_);
-        std::swap(this->m_capacity_, other.m_capacity_);
-        std::swap(this->arr_, other.arr_);
+    template<class value_type>
+    Vector<value_type>&  Vector<value_type>::operator=(Vector &&v) {
+        if (this != &v) {
+            this->clear_all();
+            this->arr_ = v.arr_;
+            this->m_capacity_ = v.m_capacity_;
+            this->m_size_ = v.m_size_;
+    //        *this = std::move(v);
+            v.m_size_ = 0;
+            v.m_capacity_ = 0;
+            v.arr_ = nullptr;
         }
-}
-
-
-
-template <typename value_type>
-void Vector<value_type>::clear_all() {
-    if (this->arr_ != nullptr) {
-        delete[] this->arr_;
+        return *this;
     }
-    this->arr_ = nullptr;
-    this->m_size_ = this->m_capacity_ = 0;
-}
 
 
-
-
-template<class value_type>
-void Vector<value_type>::output_vector() {
-    if (this->empty()) {
-        throw std::length_error("Your vector is empty!");
+    template <class value_type>
+    void Vector<value_type>::swap(Vector &other) {
+        if (this->arr_ != other.arr_) {
+            std::swap(this->m_size_, other.m_size_);
+            std::swap(this->m_capacity_, other.m_capacity_);
+            std::swap(this->arr_, other.arr_);
+            }
     }
-    std::cout << "This is your vector!!" << std::endl;
-    for (int i = 0; i < this->size(); i++) {
-        std::cout << this->arr_[i];
+
+
+
+    template <typename value_type>
+    void Vector<value_type>::clear_all() {
+        if (this->arr_ != nullptr) {
+            delete[] this->arr_;
+        }
+        this->arr_ = nullptr;
+        this->m_size_ = this->m_capacity_ = 0;
     }
-    std::cout << std::endl;
-}
-
-template<class value_type>
-void Vector<value_type>::bring_to_zero() {
-    this->arr_ = nullptr;
-    this->m_size_ = this->m_capacity_ = 0;
-}
-
-
-
-template<class value_type>
-void Vector<value_type>::pop_back() {
-    if (this->empty())
-        throw  std::runtime_error("Vector is empty!!");
-    this->arr_[this->m_size_--] = 0;
-}
-
-template <typename T>
-void Vector<T>::push_back(value_type v) {
-    if (this->m_size_ >= this->m_capacity_) {
-        reserve_more_capacity(this->m_size_ * 2, false);
-    }
-    this->arr_[this->m_size_++] = v;
-}
 
 
 
 
     template<class value_type>
-    void Vector<value_type>::Allocate_Memory() {
+    void Vector<value_type>::output_vector() {
+        if (this->empty()) {
+            throw std::length_error("Your vector is empty!");
+        }
+        std::cout << "This is your vector!!" << std::endl;
+        for (int i = 0; i < this->size(); i++) {
+            std::cout << this->arr_[i];
+        }
+        std::cout << std::endl;
+    }
+
+    template<class value_type>
+    void Vector<value_type>::bring_to_zero() {
+        this->arr_ = nullptr;
+        this->m_size_ = this->m_capacity_ = 0;
+    }
+
+
+
+    template<class value_type>
+    void Vector<value_type>::pop_back() {
+        if (this->empty())
+            throw  std::runtime_error("Vector is empty!!");
+        this->arr_[this->m_size_--] = 0;
+    }
+
+    template <typename T>
+    void Vector<T>::push_back(value_type v) {
+        if (this->m_size_ >= this->m_capacity_) {
+            reserve_more_capacity(this->m_size_ * 2, false);
+        }
+        this->arr_[this->m_size_++] = v;
+    }
+
+
+    template<class value_type>
+    void Vector<value_type>::memory() {
         if (!(this->arr_ = new value_type[this->m_capacity_ + 1]()))
             throw std::invalid_argument("Bad alloc");
     }
@@ -431,8 +431,7 @@ void Vector<value_type>::clear() {
 template<class value_type>
 typename Vector<value_type>::iterator
 Vector<value_type>::insert(iterator pos, const_reference value) {
-    size_type position = *pos - *this->arr_;
-
+    size_type position = &(*pos) - this->arr_;
     if (this->m_size_ + 1 >= this->m_capacity_) {
         this->reserve_more_capacity(this->m_capacity_ * 2, false);
     }
@@ -444,9 +443,10 @@ Vector<value_type>::insert(iterator pos, const_reference value) {
         this->arr_[i] = buff;
         buff = buff_2;
     }
+
+
 //    auto temp = this->begin();
 //    temp += pos;
-
 
     return this->arr_ + position;
 }

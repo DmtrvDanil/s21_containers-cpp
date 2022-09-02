@@ -28,8 +28,8 @@ namespace s21 {
             VectorConstIterator operator--(int);
             const_reference operator*();
             VectorConstIterator operator+(const size_t value);
-            bool operator!=(VectorConstIterator &other);
-            bool operator==(VectorConstIterator &other);
+            bool operator!=(const VectorConstIterator &other) const;
+            bool operator==(const VectorConstIterator &other) const;
         protected:
             pointer data_;
 
@@ -43,6 +43,7 @@ namespace s21 {
             VectorIterator& operator=(const value_type val);
             VectorIterator operator+(const size_t value);
             VectorIterator operator-(const size_t value);
+            VectorIterator operator-(const VectorIterator &value);
         };
         using iterator = VectorIterator;
         using const_iterator = VectorConstIterator;
@@ -53,8 +54,8 @@ namespace s21 {
         const_reference back();
         iterator data();
 
-        iterator begin();
-        iterator end();
+        iterator  begin();
+        iterator  end();
 
         bool empty();
         size_type size();

@@ -1,71 +1,12 @@
 #ifndef SRC_VECTOR_H_
 #define SRC_VECTOR_H_
 #include "vec_array/s21_abstract.h"
-//#include <iostream>
-//#include <stdexcept>
-//#include <cmath>
 
 namespace s21 {
-
     template <class T>
     class Vector : public abstract<T> {
-    private:
-//        size_t m_size_;
-        size_t m_capacity_;
-//        T *arr_;
+
     public:
-
-
-
-
-//        class VectorConstIterator {
-//        public:
-////            using pointer = T*;
-////            using value_type = T;
-////            using reference = T&;
-////            using const_reference = const T&;
-//
-//        public:
-//            VectorConstIterator() : data_(nullptr) {}
-//            VectorConstIterator(pointer pt) : data_(pt) {}
-//            ~VectorConstIterator() {}
-//            VectorConstIterator& operator++() {
-//                this->data_++;
-//                return *this;
-//            }
-//            VectorConstIterator operator++(int) {
-//                VectorConstIterator temp(*this);
-//                this->data_++;
-//                return temp;
-//            }
-//            const_reference operator*() {return *this->data_;}
-//            VectorConstIterator operator+(const size_t value) {
-//                VectorConstIterator it_const(this->data_ + value);
-//                return it_const;
-//            };
-//
-//        protected:
-//            pointer data_;
-//
-//        };
-//
-//        class VectorIterator_1 : public VectorConstIterator {
-//        public:
-//            VectorIterator_1() : VectorConstIterator() {}
-//            VectorIterator_1(pointer pt) : VectorConstIterator(pt) {}
-//            ~VectorIterator_1() {}
-//            reference operator*() {return *this->data_;}
-//            VectorIterator_1& operator=(const value_type val) {
-//                *this->data_ = val;
-//                return *this->data_;
-//            };
-//            VectorIterator_1 operator+(const size_t value) {
-//                VectorIterator_1 it(this->data_ + value);
-//                return it;
-//            };
-//
-//        };
-
         using pointer = typename abstract<T>::pointer;
         using value_type = typename abstract<T>::value_type;
         using reference = typename abstract<T>::reference;
@@ -79,101 +20,30 @@ namespace s21 {
         Vector(const Vector &v);
         Vector(Vector &&v);
         ~Vector() { clear_all(); }
-        void Allocate_Memory();
-
-
-
-
-//        iterator_2 begin_4() {
-
-//            iterator_2 temp(this->arr_);
-//            return temp;
-//        }
-//
-//        iterator_2 end_4() {
-//            iterator_2 temp(this->arr_ + this->m_size_);
-//            return temp;
-//        }
-        // using const_iterator = const T *;
-
+        void memory();
+        Vector &operator=(const Vector &v);
+        Vector &operator=(Vector &&v);
     private:
         void reserve_more_capacity(size_type size, bool shrink);
+        size_t m_capacity_;
 
     public:
-
-//    class VectorConstIterator;
-//    using const_iterator = VectorConstIterator;
-
-//    class VectorIterator;
-
-
-        using iterator_ = T *;
-
-
-
-
-//        Vector() : this->m_size_(0U), this->m_capacity_(0U), this->arr_(nullptr) {}
-//        explicit Vector(size_type n) : m_size_(n), m_capacity_(n), arr_(n ? new T[n] : nullptr) {}
-
-
-
-
-//        Vector(const Vector &v) : m_size_(v.m_size_), m_capacity_(v.m_capacity_), arr_(v.arr_) {};
-
-
-
-
-
-
-        // Vector& operator=(vector &&v);
-//        reference operator[](size_type i);
-        Vector operator=(Vector &&v);
-
-//        size_type size();
-//        size_type max_size();
+//        using iterator_ = T *;
         size_type capacity();
-
         void push_back(value_type v);
-
         void pop_back();
-
         void swap(Vector &other);
-
         void reserve(size_type size);
-
         void shrink_to_fit();
-
-//        reference at(size_type i);
-//        const_reference front();
-//        const_reference back();
-//        iterator data();
-
         void clear();
-
         iterator insert(iterator pos, const_reference value);
-//        iterator_1 test_insert(iterator_1 pos, const_reference value);
-
+        iterator insert_2(iterator pos, const_reference value);
         void erase(iterator pos);
-
         void clear_all();
-
-//        bool empty();
         void output_vector();
-
         void bring_to_zero();
-//        iterator begin();
-//        iterator end();
 
-//
-//        iterator_1 begin_1() noexcept { return this->arr_ ;};
-//        iterator_1 end_1() noexcept { return  this->arr_ +  this->m_size_;};
-//        const_iterator_1 begin_1() noexcept { return const_iterator_1(&this->arr_ );};
-//        const_iterator_1 end_1() noexcept { return  const_iterator_1(&this->arr_ +  this->m_size_);};
-
-//        friend std::ostream& operator<<(std::ostream& os, const iterator& iter);
-
-
-// };
+        void test(iterator i);
 
 //    template <class T>
 //    class Vector<T>::VectorIterator {
@@ -227,6 +97,6 @@ namespace s21 {
 
  }  // namespace s21
 
-#include "vector.cpp"
+#include "vector.tpp"
 
 #endif  //  SRC_VECTOR_H_

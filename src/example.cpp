@@ -2,6 +2,8 @@
 //#include "s21_containersplus.h"
 #include <vector>
 #include <array>
+
+
 int main(void){
 //    std::vector<int> a{1,2,3};
 //    s21::Vector<int> b{1,2,3};
@@ -150,7 +152,7 @@ int main(void){
 //    s21::Vector<int> *l = new s21::Vector<int>{1,2,3,4,5};
 //    std::cout << l->size() << " <> " << l->capacity() << std::endl;
 //    s21::Vector<int> k;
-//    k = std::move(*l);
+//    k = *l;
 //    for (int i = 0; i < l->size(); i++) {
 //        std::cout << l->at(i);
 //    }
@@ -173,13 +175,16 @@ int main(void){
 ////    for (int i = 0; i < a.size(); i++) {
 ////        std::cout << a.at(i);
 ////    }
-//    for (auto &&i : a) {
-//        std::cout << i;
-//    }
-    s21::Vector<int> a{1,2,3,4,5,7,8,9,10,11,96};
-    s21::Vector<int> b(a);
-    b.output_vector();
 
+
+    s21::Vector<int> a{1,2,43,5};
+    s21::Vector<int>::iterator  i = a.begin();
+
+    *i = 230;
+    a.insert_2(i, 666);
+    a.output_vector();
+    s21::Vector<int>::iterator  j = a.begin();
+    std::cout << *j;
 
     return 0;
 }
