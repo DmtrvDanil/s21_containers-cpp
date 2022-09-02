@@ -162,20 +162,24 @@ int main(void){
 //        std::cout << k.at(i);
 //    }
 
-    s21::Vector<int> a{1,2,3,4};
-    s21::Vector<int>::const_iterator j = a.begin() + 2;
-//    *j = 2;
-    std::cout << *j << std::endl;
-    --j;
-    std::cout << *j << std::endl;
-    a.erase(a.begin());
-    std::cout << a.size() << " " << a.capacity() << std::endl;
-//    for (int i = 0; i < a.size(); i++) {
-//        std::cout << a.at(i);
+//    s21::Vector<int> a{1,2,3,4};
+//    s21::Vector<int>::const_iterator j = a.begin() + 2;
+////    *j = 2;
+//    std::cout << *j << std::endl;
+//    --j;
+//    std::cout << *j << std::endl;
+//    a.erase(a.begin());
+//    std::cout << a.size() << " " << a.capacity() << std::endl;
+////    for (int i = 0; i < a.size(); i++) {
+////        std::cout << a.at(i);
+////    }
+//    for (auto &&i : a) {
+//        std::cout << i;
 //    }
-    for (auto &&i : a) {
-        std::cout << i;
-    }
+    s21::Vector<int> a{1,2,3,4,5,7,8,9,10,11,96};
+    s21::Vector<int> b(a);
+    b.output_vector();
+
 
     return 0;
 }

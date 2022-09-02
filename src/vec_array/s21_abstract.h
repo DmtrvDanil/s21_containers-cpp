@@ -40,23 +40,9 @@ namespace s21 {
             VectorIterator(pointer pt);
             ~VectorIterator() {}
             reference operator*() ;
-//            {return *this->data_;}
             VectorIterator& operator=(const value_type val);
-//            {
-//                *this->data_ = val;
-//                return *this->data_;
-//            };
             VectorIterator operator+(const size_t value);
-//            {
-//                VectorIterator it(this->data_ + value);
-//                return it;
-//            };
             VectorIterator operator-(const size_t value);
-//            {
-//                VectorIterator it(this->data_ - value);
-//                return it;
-//            };
-
         };
         using iterator = VectorIterator;
         using const_iterator = VectorConstIterator;

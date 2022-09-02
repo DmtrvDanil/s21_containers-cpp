@@ -2,21 +2,67 @@
 
 namespace s21 {
 
-// template<class value_type>
-// void Vector<value_type>::shrink_to_fit() {
-//     if (!this->arr_)
-//         throw std::runtime_error("Your vector is empty!!");
-//     for (size_type i = 0 ; i < this->m_size_; i++) {
-//         if (this->arr_[i] == 0) {
-//             del [] this->arr_[i];
-//         }
+    template<class value_type>
+    Vector<value_type>::Vector() {
+        this->bring_to_zero();
+    }
 
-//     }
-// }
+    template<class value_type>
+    Vector<value_type>::Vector(size_type n) {
+        if (n > this->max_size()) {
+            throw std::length_error("cannot create s21::vector larger than max_size()");
+        }
+        this->m_size_ = n;
+        this->m_capacity_ = n;
+        this->arr_ = n ? new value_type[n] : nullptr;
+    }
+
+    template<class value_type>
+    Vector<value_type>::Vector(std::initializer_list<value_type> const &items) {
+        this->bring_to_zero();
+        this->arr_ = new value_type[items.size()]{};
+        size_type i = 0;
+        for (auto it = items.begin(); it != items.end(); it++) {
+            this->arr_[i] = *it;
+            i++;
+        }
+        this->m_size_ = items.size();
+        this->m_capacity_ = items.size();
+//        if (items.size() == 0) {
+//            throw std::invalid_argument("Bad size of initializer list");
+//        } else {
+//            m_capacity_ = items.size();
+//            Allocate_Memory();
+//            for (auto element : items) {
+//                this->arr_[this->m_size_++] = element;
+//            }
+//        }
+    }
+
+    template<class value_type>
+    Vector<value_type>::Vector(const Vector &v) {
+//        if (this != &v) {
+//
+//            this->Allocate_Memory();
+//            this->arr_ = new value_type(v.m_size_);
+////            this->bring_to_zero();
+//            this->m_size_ = v.m_size_;
+//            this->m_capacity_ = v.m_capacity_;
+//            for (int i = 0; i < v.m_size_ ; i++) {
+//                this->arr_[i] = v.arr_[i];
+//            }
+//        }
+        if (this->arr_ != v.arr_) {
+            this->m_size_ = v.m_size_;
+            this->m_capacity_ = v.m_capacity_;
+            this->arr_ = new value_type[this->m_capacity_]{};
+            for (size_type i = 0; i < this->m_size_; ++i)
+                this->arr_[i] = v.arr_[i];
+        }
+    }
 
 
     template<class value_type>
-
     Vector<value_type>::Vector(Vector &&v) {
         this->bring_to_zero();
         if (this->arr_ != v.arr_) {
@@ -30,6 +76,23 @@ namespace s21 {
 
         }
     }
+
+
+
+// template<class value_type>
+// void Vector<value_type>::shrink_to_fit() {
+//     if (!this->arr_)
+//         throw std::runtime_error("Your vector is empty!!");
+//     for (size_type i = 0 ; i < this->m_size_; i++) {
+//         if (this->arr_[i] == 0) {
+//             del [] this->arr_[i];
+//         }
+
+//     }
+// }
+
+
+
 
 
 template<class value_type>
@@ -107,27 +170,7 @@ void Vector<T>::push_back(value_type v) {
 }
 
 
-template <typename T>
-Vector<T>::Vector(std::initializer_list<value_type> const &items) {
-    this->bring_to_zero();
-//    this->arr_ = new value_type[items.size()]{};
-//    size_type i = 0;
-//    for (auto it = items.begin(); it != items.end(); it++) {
-//        this->arr_[i] = *it;
-//        i++;
-//    }
-//    m_size_ = items.size();
-//    m_capacity_ = items.size();
-    if (items.size() == 0) {
-        throw std::invalid_argument("Bad size of initializer list");
-    } else {
-        m_capacity_ = items.size();
-        Allocate_Memory();
-        for (auto element : items) {
-            this->arr_[this->m_size_++] = element;
-        }
-    }
-};
+
 
     template<class value_type>
     void Vector<value_type>::Allocate_Memory() {

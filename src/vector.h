@@ -73,7 +73,19 @@ namespace s21 {
         using size_type = typename abstract<T>::size_type;
         using const_iterator = typename abstract<T>::VectorConstIterator;
         using iterator = typename abstract<T>::VectorIterator;
+        Vector();
+        explicit Vector(size_type n);
+        Vector(std::initializer_list <value_type> const &items);
+        Vector(const Vector &v);
+        Vector(Vector &&v);
+        ~Vector() { clear_all(); }
+        void Allocate_Memory();
+
+
+
+
 //        iterator_2 begin_4() {
+
 //            iterator_2 temp(this->arr_);
 //            return temp;
 //        }
@@ -97,35 +109,21 @@ namespace s21 {
 
         using iterator_ = T *;
 
-        Vector() {
-            this->bring_to_zero();
-        }
+
+
 
 //        Vector() : this->m_size_(0U), this->m_capacity_(0U), this->arr_(nullptr) {}
 //        explicit Vector(size_type n) : m_size_(n), m_capacity_(n), arr_(n ? new T[n] : nullptr) {}
-        explicit Vector(size_type n) {
-            this->m_size_ = n;
-            this->m_capacity_ = n;
-            this->arr_ = n ? new T[n] : nullptr;
-        }
 
-        Vector(std::initializer_list <value_type> const &items);
+
+
 
 //        Vector(const Vector &v) : m_size_(v.m_size_), m_capacity_(v.m_capacity_), arr_(v.arr_) {};
-        Vector(const Vector &v) {
-            this->m_size_ = v.m_size_;
-            this->m_capacity_ = v.m_capacity_;
-            this->arr_ = new T(v.m_size_);
-            for (int i = 0; i < v.m_size_; i++) {
-                this->arr_[i] = v.arr_[i];
-            }
-        };
 
-        Vector(Vector &&v);
 
-        ~Vector() { clear_all(); }
 
-        void Allocate_Memory();
+
+
 
         // Vector& operator=(vector &&v);
 //        reference operator[](size_type i);
