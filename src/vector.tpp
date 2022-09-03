@@ -1,4 +1,4 @@
-#include "vector.h"
+//#include "vector.h"
 #include <cstring>
 namespace s21 {
 
@@ -501,6 +501,19 @@ void Vector<value_type>::erase(iterator pos) {
 //    return pos;
 //}
 
+    template<typename value_type>
+    template<typename ... Args>
+    typename Vector<value_type>::iterator
+    Vector<value_type>::emplace(const_iterator pos, Args &&...args) {
+        iterator it(pos);
+        this->insert(it, value_type(std::forward<Args>(args)...));
+        return pos;
+    }
 
+    template<typename value_type>
+    template<typename ... Args>
+    void Vector<value_type>::emplace_back(Args &&...args) {
+        this->push_back(value_type(std::forward<Args>(args)...));
+    }
 
 }  // namespace s21

@@ -21,6 +21,7 @@ namespace s21 {
         public:
             VectorConstIterator();
             VectorConstIterator(pointer pt);
+            VectorConstIterator(const VectorConstIterator &other) : data_(other.data_) {}
             ~VectorConstIterator() {}
             VectorConstIterator& operator++();
             VectorConstIterator operator++(int);
@@ -38,6 +39,7 @@ namespace s21 {
         public:
             VectorIterator();
             VectorIterator(pointer pt);
+            VectorIterator(const VectorIterator &other) : VectorConstIterator(other) {}
             ~VectorIterator() {}
             reference operator*() ;
             VectorIterator& operator=(const value_type val);
@@ -65,5 +67,5 @@ namespace s21 {
 
 }  // namespace
 
-#include "s21_abstract.cpp"
+#include "s21_abstract.tpp"
 #endif // SRC_S21_ABSTRACT_H_

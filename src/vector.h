@@ -37,13 +37,20 @@ namespace s21 {
         void shrink_to_fit();
         void clear();
         iterator insert(iterator pos, const_reference value);
-        iterator insert_2(iterator pos, const_reference value);
+//        iterator insert_2(iterator pos, const_reference value);
         void erase(iterator pos);
+
+    public:
+        template <typename... Args>
+        iterator emplace(const_iterator pos, Args&&...args);
+        template <typename... Args>
+        void emplace_back(Args&&...args);
+//    private:
         void clear_all();
         void output_vector();
         void bring_to_zero();
 
-        void test(iterator i);
+//        void test(iterator i);
 
 //    template <class T>
 //    class Vector<T>::VectorIterator {

@@ -36,8 +36,6 @@ class Test_vector {
         s21::Vector<int> s21_vector_move{1, 2};
         std::vector<int> std_vector_move{1, 2};
 
-
-
 };
 
     TEST(Vector, constructor_default) {
@@ -107,28 +105,28 @@ class Test_vector {
         Test_vector logger;
         logger.s21_vector_copy_larger = logger.s21_vector_copy_larger;
         logger.std_vector_copy_larger = logger.std_vector_copy_larger;
-        ASSERT_EQ(logger.s21_vector_copy_larger[0], logger.std_vector_copy_larger[0]);
-        ASSERT_EQ(logger.s21_vector_copy_larger[1], logger.std_vector_copy_larger[1]);
-        ASSERT_EQ(logger.s21_vector_copy_larger.size(), logger.std_vector_copy_larger.size());
-        ASSERT_EQ(logger.s21_vector_copy_larger.capacity(), logger.std_vector_copy_larger.capacity());
-        ASSERT_EQ(logger.s21_vector_copy_larger.empty(), logger.std_vector_copy_larger.empty());
+        EXPECT_EQ(logger.s21_vector_copy_larger[0], logger.std_vector_copy_larger[0]);
+        EXPECT_EQ(logger.s21_vector_copy_larger[1], logger.std_vector_copy_larger[1]);
+        EXPECT_EQ(logger.s21_vector_copy_larger.size(), logger.std_vector_copy_larger.size());
+        EXPECT_EQ(logger.s21_vector_copy_larger.capacity(), logger.std_vector_copy_larger.capacity());
+        EXPECT_EQ(logger.s21_vector_copy_larger.empty(), logger.std_vector_copy_larger.empty());
     }
 
     TEST(Vector, move_assigment) {
         Test_vector logger;
         logger.s21_vector_move = std::move(logger.s21_vector_ass);
         logger.std_vector_move = std::move(logger.std_vector_ass);
-        ASSERT_EQ(logger.s21_vector_move[0], logger.std_vector_move[0]);
-        ASSERT_EQ(logger.s21_vector_move[1], logger.std_vector_move[1]);
-        ASSERT_EQ(logger.s21_vector_move[2], logger.std_vector_move[2]);
-        ASSERT_EQ(logger.s21_vector_move[3], logger.std_vector_move[3]);
-        ASSERT_EQ(logger.s21_vector_move[4], logger.std_vector_move[4]);
-        ASSERT_EQ(logger.s21_vector_move.size(), logger.std_vector_move.size());
-        ASSERT_EQ(logger.s21_vector_move.capacity(), logger.std_vector_move.capacity());
-        ASSERT_EQ(logger.s21_vector_move.empty(), logger.std_vector_move.empty());
-        ASSERT_EQ(logger.s21_vector_ass.size(), logger.std_vector_ass.size());
-        ASSERT_EQ(logger.s21_vector_ass.capacity(), logger.std_vector_ass.capacity());
-        ASSERT_EQ(logger.s21_vector_ass.empty(), logger.std_vector_ass.empty());
+        EXPECT_EQ(logger.s21_vector_move[0], logger.std_vector_move[0]);
+        EXPECT_EQ(logger.s21_vector_move[1], logger.std_vector_move[1]);
+        EXPECT_EQ(logger.s21_vector_move[2], logger.std_vector_move[2]);
+        EXPECT_EQ(logger.s21_vector_move[3], logger.std_vector_move[3]);
+        EXPECT_EQ(logger.s21_vector_move[4], logger.std_vector_move[4]);
+        EXPECT_EQ(logger.s21_vector_move.size(), logger.std_vector_move.size());
+        EXPECT_EQ(logger.s21_vector_move.capacity(), logger.std_vector_move.capacity());
+        EXPECT_EQ(logger.s21_vector_move.empty(), logger.std_vector_move.empty());
+        EXPECT_EQ(logger.s21_vector_ass.size(), logger.std_vector_ass.size());
+        EXPECT_EQ(logger.s21_vector_ass.capacity(), logger.std_vector_ass.capacity());
+        EXPECT_EQ(logger.s21_vector_ass.empty(), logger.std_vector_ass.empty());
     }
 
     TEST(Vector, function_at) {
@@ -157,7 +155,7 @@ class Test_vector {
         EXPECT_EQ(logger.five_Vector.back(), logger.origin_five_vector.back());
     }
 
-    TEST(vector_iterator_suit, iterator_element_access) {
+    TEST(Vector, iterator_element_access) {
         s21::Vector<char> s21_vector{'p', 'e', 'r', 'f', 'o', 'r', 'a', 't', 'o', 'r'};
         std::vector<char> std_vector{'p', 'e', 'r', 'f', 'o', 'r', 'a', 't', 'o', 'r'};
         s21::Vector<char>::iterator s21_it = s21_vector.begin();
@@ -454,15 +452,33 @@ TEST(vector_modifiers_suit, function_erase_multi) {
         EXPECT_EQ(logger.five_Vector.size(), logger.origin_five_vector.size());
     }
 
-
+        TEST(vector_modifiers_suit, function_emplace_begin) {
+            s21::Vector<int> s21_vector{1, 2, 3, 5, 9, 10};
+            std::vector<int> std_vector{1, 2, 3, 5, 9, 10};
+            s21::Vector<int>::const_iterator s21_it = s21_vector.begin();
+            std::vector<int>::iterator std_it = std_vector.begin();
+            s21_it = s21_vector.emplace(s21_it, 666);
+            std_it = std_vector.emplace(std_it, 666);
+            ASSERT_EQ(*s21_it, *std_it);
+            ASSERT_EQ(s21_vector.at(0), std_vector.at(0));
+            ASSERT_EQ(s21_vector.at(1), std_vector.at(1));
+            ASSERT_EQ(s21_vector.at(2), std_vector.at(2));
+            ASSERT_EQ(s21_vector.at(3), std_vector.at(3));
+            ASSERT_EQ(s21_vector.at(4), std_vector.at(4));
+            ASSERT_EQ(s21_vector.at(5), std_vector.at(5));
+            ASSERT_EQ(s21_vector.at(6), std_vector.at(6));
+            ASSERT_EQ(s21_vector.size(), std_vector.size());
+            ASSERT_EQ(s21_vector.capacity(), std_vector.capacity());
+            ASSERT_EQ(s21_vector.empty(), std_vector.empty());
+        }
 
 
 // >>>>>>>>>>> ARRAY <<<<<<<<<<<<<<<<
-    class Test_array {
-    public:
-      s21::array<int, 4> a;
-
-    };
+//    class Test_array {
+//    public:
+//      s21::array<int, 4> a;
+//
+//    };
 
 //}  // namespace 21
 

@@ -180,8 +180,10 @@ int main(void){
     s21::Vector<int> a{1,2,43,5};
     s21::Vector<int>::iterator  i = a.begin();
 
+    a.emplace(i, 230);
+
+
     *i = 230;
-    a.insert_2(i, 666);
     a.output_vector();
     s21::Vector<int>::iterator  j = a.begin();
     std::cout << *j;
