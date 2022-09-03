@@ -17,21 +17,11 @@
     <list default="true" id="98628e11-5e1b-433d-b0f4-b9fbb328099c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/a.out" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/a.out.dSYM/Contents/Info.plist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/a.out.dSYM/Contents/Resources/DWARF/a.out" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/example.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/example.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/s21_containers.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_containers.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/s21_containers.h.gch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/s21_containersplus.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_containersplus.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test" beforeDir="false" afterPath="$PROJECT_DIR$/src/test" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tests.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vec_array/array/s21_array.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/vec_array/array/s21_array.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/vec_array/array/s21_array.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/vec_array/array/s21_array.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vec_array/s21_abstract.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/vec_array/s21_abstract.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/vec_array/s21_abstract.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/vec_array/s21_abstract.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vector.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/vector.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vector.tpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/vector.tpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,7 +132,8 @@
       <workItem from="1662148310364" duration="323000" />
       <workItem from="1662199867296" duration="2553000" />
       <workItem from="1662211309290" duration="7710000" />
-      <workItem from="1662220495233" duration="4168000" />
+      <workItem from="1662220495233" duration="4720000" />
+      <workItem from="1662233719806" duration="1514000" />
     </task>
     <servers />
   </component>

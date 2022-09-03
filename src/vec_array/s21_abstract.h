@@ -13,6 +13,7 @@ namespace s21 {
         size_t m_size_;
     public:
         using pointer = T*;
+        using const_pointer = const T&;
         using value_type = T;
         using reference = T&;
         using const_reference = const T&;
@@ -27,6 +28,7 @@ namespace s21 {
             VectorConstIterator operator++(int);
             VectorConstIterator& operator--();
             VectorConstIterator operator--(int);
+            operator const_pointer() { return this->data_;}
             const_reference operator*();
             VectorConstIterator operator+(const size_t value);
             bool operator!=(const VectorConstIterator &other) const;
@@ -44,6 +46,7 @@ namespace s21 {
             ~VectorIterator() {}
             reference operator*() ;
             VectorIterator& operator=(const value_type val);
+            operator pointer() { return this->data_;}
             VectorIterator operator+(const size_t value);
             VectorIterator operator-(const size_t value);
             VectorIterator operator-(const VectorIterator &value);

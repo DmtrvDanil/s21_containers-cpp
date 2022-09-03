@@ -5,7 +5,7 @@
 namespace s21 {
     template<class T, size_t N>
     class array : public abstract<T> {
-    private:
+    public:
         using pointer = typename abstract<T>::pointer;
         using value_type = typename abstract<T>::value_type;
         using reference = typename abstract<T>::reference;

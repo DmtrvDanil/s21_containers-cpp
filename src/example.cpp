@@ -178,5 +178,7 @@ int main(void){
 ////    }
 
     s21::array<int, 5> a;
+    s21::array<int, 5>::iterator d;
+    std::array<int,3>::iterator sl;
     return 0;
 }
