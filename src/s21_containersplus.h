@@ -4,4 +4,5 @@
 
 #include "vec_array/array/s21_array.h"
 
+
 #endif  // SRC_S21_CONTAINERS_H_

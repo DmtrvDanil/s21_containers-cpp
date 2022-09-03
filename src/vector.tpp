@@ -14,7 +14,12 @@ namespace s21 {
         }
         this->m_size_ = n;
         this->m_capacity_ = n;
-        this->arr_ = n ? new value_type[n] : nullptr;
+        this->arr_ = n ? this->alloc_.allocate(n) : nullptr;
+        if (this->arr_) {
+            for (size_t i = 0; i < n; i++) {
+                alloc_.construct(this->arr_, value_type());
+            }
+        }
     }
 
     template<class value_type>
@@ -126,6 +131,12 @@ namespace s21 {
 
     template <typename value_type>
     void Vector<value_type>::clear_all() {
+
+        for (size_t i = 0; i < this->m_size_; i++) {
+            alloc_.destroy(arr_ + i);
+        }
+        this->alloc_.deallocate(this->arr_, this->m_capacity_);
+
         if (this->arr_ != nullptr) {
             delete[] this->arr_;
         }
@@ -141,6 +152,7 @@ namespace s21 {
         if (this->empty()) {
             throw std::length_error("Your vector is empty!");
         }
+        std::cout this->arr_ << std::endl;
         std::cout << "This is your vector!!" << std::endl;
         for (int i = 0; i < this->size(); i++) {
             std::cout << this->arr_[i];
@@ -151,7 +163,8 @@ namespace s21 {
     template<class value_type>
     void Vector<value_type>::bring_to_zero() {
         this->arr_ = nullptr;
-        this->m_size_ = this->m_capacity_ = 0;
+        this->m_size_ = 0;
+        this->m_capacity_ = 0;
     }
 
 
@@ -187,7 +200,7 @@ void Vector<value_type>::reserve_more_capacity(size_type size, bool flag) {
     value_type *buff = new value_type[size];
 
     for (size_t i = 0; i < this->m_size_; ++i)
-    buff[i] = std::move(this->arr_[i]);
+        buff[i] = std::move(this->arr_[i]);
 
     delete[] this->arr_;
     this->arr_ = buff;
@@ -404,6 +417,7 @@ void Vector<value_type>::reserve(size_type size) {
     }
 //    if (size > this->m_capacity_ )
     reserve_more_capacity(size, false);
+
 //    reserve_more_capacity(size, false);
 }
 

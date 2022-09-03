@@ -59,7 +59,7 @@ namespace s21 {
         iterator  begin();
         iterator  end();
 
-        bool empty();
+//        bool empty();
         size_type size();
         size_type max_size();
 
@@ -67,5 +67,5 @@ namespace s21 {
 
 }  // namespace
 
-#include "s21_abstract.tpp"
+#include "s21_abstract.cpp"
 #endif // SRC_S21_ABSTRACT_H_

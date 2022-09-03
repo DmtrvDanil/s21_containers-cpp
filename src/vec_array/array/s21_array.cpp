@@ -1,4 +1,4 @@
-
+#include "s21_array.h"
 
 namespace s21 {
     template<class value_type, size_t N>
@@ -81,4 +81,4 @@ namespace s21 {
     }
 
 
-}
+}  // namespace s21

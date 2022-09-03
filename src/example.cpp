@@ -1,5 +1,5 @@
 #include "s21_containers.h"
-//#include "s21_containersplus.h"
+#include "s21_containersplus.h"
 #include <vector>
 #include <array>
 
@@ -175,18 +175,12 @@ int main(void){
 ////    for (int i = 0; i < a.size(); i++) {
 ////        std::cout << a.at(i);
 ////    }
-
-
-    s21::Vector<int> a{1,2,43,5};
-    s21::Vector<int>::iterator  i = a.begin();
-
-    a.emplace(i, 230);
-
-
-    *i = 230;
+    s21::Vector<int> a;
+    std::cout << a.empty() << std::endl;
+    a.reserve(200);
+    std::cout << a.capacity() << " : "<< a.size() << std::endl;
+    std::cout << a.empty() << std::endl;
     a.output_vector();
-    s21::Vector<int>::iterator  j = a.begin();
-    std::cout << *j;
 
     return 0;
 }

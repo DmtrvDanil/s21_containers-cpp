@@ -6,6 +6,7 @@
 //namespace  s21 {
 // >>>>>>> VECTOR <<<<<<<<
 
+
 class Test_vector {
     public:
         s21::Vector<int> empty_Vector;
@@ -35,6 +36,12 @@ class Test_vector {
         std::vector<int> std_vector_ass{-333, -999, 123, 11765, 3};
         s21::Vector<int> s21_vector_move{1, 2};
         std::vector<int> std_vector_move{1, 2};
+        s21::Vector<int> s21_vector_s{111, 222, 333, 444, 555};
+        std::vector<int> std_vector_s{111, 222, 333, 444, 555};
+        s21::Vector<int> s21_vector_swap{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        std::vector<int> std_vector_swap{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+
 
 };
 
@@ -48,9 +55,9 @@ class Test_vector {
     TEST(Vector, constructor_init) {
         s21::Vector<int> s21_vector(3);
         std::vector<int> std_vector(3);
-        ASSERT_EQ(s21_vector.size(), std_vector.size());
-        ASSERT_EQ(s21_vector.capacity(), std_vector.capacity());
-        ASSERT_EQ(s21_vector.empty(), std_vector.empty());
+        EXPECT_EQ(s21_vector.size(), std_vector.size());
+        EXPECT_EQ(s21_vector.capacity(), std_vector.capacity());
+        EXPECT_EQ(s21_vector.empty(), std_vector.empty());
     }
 
     TEST(Vector, constructor_initializer_lit) {
@@ -161,7 +168,7 @@ class Test_vector {
         s21::Vector<char>::iterator s21_it = s21_vector.begin();
         std::vector<char>::iterator std_it = std_vector.begin();
         while (s21_it != s21_vector.end()) {
-            ASSERT_EQ(*s21_it, *std_it);
+            EXPECT_EQ(*s21_it, *std_it);
             ++s21_it;
             ++std_it;
         }
@@ -173,7 +180,7 @@ class Test_vector {
         s21::Vector<char>::const_iterator s21_it = s21_vector.begin();
         std::vector<char>::const_iterator std_it = std_vector.begin();
         while (s21_it != s21_vector.end()) {
-            ASSERT_EQ(*s21_it, *std_it);
+            EXPECT_EQ(*s21_it, *std_it);
             ++s21_it;
             ++std_it;
         }
@@ -187,12 +194,12 @@ class Test_vector {
     TEST(vector_element_acces_suit, function_data) {
         s21::Vector<char> s21_vector_empty;
         std::vector<char> std_vector_empty;
-        ASSERT_EQ(s21_vector_empty.data(), nullptr);
-        ASSERT_EQ(std_vector_empty.data(), nullptr);
+        EXPECT_EQ(s21_vector_empty.data(), nullptr);
+        EXPECT_EQ(std_vector_empty.data(), nullptr);
         s21::Vector<char> s21_vector{'L', 'I', 'Z', 'A'};
         std::vector<char> std_vector{'L', 'I', 'Z', 'A'};
-        ASSERT_NE(s21_vector.data(), nullptr);
-        ASSERT_NE(std_vector.data(), nullptr);
+        EXPECT_NE(s21_vector.data(), nullptr);
+        EXPECT_NE(std_vector.data(), nullptr);
     }
 
     TEST(Vector, function_insert_begin) {
@@ -202,17 +209,17 @@ class Test_vector {
         std::vector<int>::iterator std_it = std_vector.begin();
         s21_it = s21_vector.insert(s21_it, 666);
         std_it = std_vector.insert(std_it, 666);
-        ASSERT_EQ(*s21_it, *std_it);
-        ASSERT_EQ(s21_vector.at(0), std_vector.at(0));
-        ASSERT_EQ(s21_vector.at(1), std_vector.at(1));
-        ASSERT_EQ(s21_vector.at(2), std_vector.at(2));
-        ASSERT_EQ(s21_vector.at(3), std_vector.at(3));
-        ASSERT_EQ(s21_vector.at(4), std_vector.at(4));
-        ASSERT_EQ(s21_vector.at(5), std_vector.at(5));
-        ASSERT_EQ(s21_vector.at(6), std_vector.at(6));
-        ASSERT_EQ(s21_vector.size(), std_vector.size());
-        ASSERT_EQ(s21_vector.capacity(), std_vector.capacity());
-        ASSERT_EQ(s21_vector.empty(), std_vector.empty());
+        EXPECT_EQ(*s21_it, *std_it);
+        EXPECT_EQ(s21_vector.at(0), std_vector.at(0));
+        EXPECT_EQ(s21_vector.at(1), std_vector.at(1));
+        EXPECT_EQ(s21_vector.at(2), std_vector.at(2));
+        EXPECT_EQ(s21_vector.at(3), std_vector.at(3));
+        EXPECT_EQ(s21_vector.at(4), std_vector.at(4));
+        EXPECT_EQ(s21_vector.at(5), std_vector.at(5));
+        EXPECT_EQ(s21_vector.at(6), std_vector.at(6));
+        EXPECT_EQ(s21_vector.size(), std_vector.size());
+        EXPECT_EQ(s21_vector.capacity(), std_vector.capacity());
+        EXPECT_EQ(s21_vector.empty(), std_vector.empty());
     }
 
     TEST(vector_modifiers_suit, function_insert_mid) {
@@ -228,17 +235,17 @@ class Test_vector {
         ++std_it;
         s21_it = s21_vector.insert(s21_it, 666);
         std_it = std_vector.insert(std_it, 666);
-        ASSERT_EQ(*s21_it, *std_it);
-        ASSERT_EQ(s21_vector.at(0), std_vector.at(0));
-        ASSERT_EQ(s21_vector.at(1), std_vector.at(1));
-        ASSERT_EQ(s21_vector.at(2), std_vector.at(2));
-        ASSERT_EQ(s21_vector.at(3), std_vector.at(3));
-        ASSERT_EQ(s21_vector.at(4), std_vector.at(4));
-        ASSERT_EQ(s21_vector.at(5), std_vector.at(5));
-        ASSERT_EQ(s21_vector.at(6), std_vector.at(6));
-        ASSERT_EQ(s21_vector.size(), std_vector.size());
-        ASSERT_EQ(s21_vector.capacity(), std_vector.capacity());
-        ASSERT_EQ(s21_vector.empty(), std_vector.empty());
+        EXPECT_EQ(*s21_it, *std_it);
+        EXPECT_EQ(s21_vector.at(0), std_vector.at(0));
+        EXPECT_EQ(s21_vector.at(1), std_vector.at(1));
+        EXPECT_EQ(s21_vector.at(2), std_vector.at(2));
+        EXPECT_EQ(s21_vector.at(3), std_vector.at(3));
+        EXPECT_EQ(s21_vector.at(4), std_vector.at(4));
+        EXPECT_EQ(s21_vector.at(5), std_vector.at(5));
+        EXPECT_EQ(s21_vector.at(6), std_vector.at(6));
+        EXPECT_EQ(s21_vector.size(), std_vector.size());
+        EXPECT_EQ(s21_vector.capacity(), std_vector.capacity());
+        EXPECT_EQ(s21_vector.empty(), std_vector.empty());
     }
 
 TEST(vector_modifiers_suit, function_insert_end) {
@@ -248,17 +255,17 @@ TEST(vector_modifiers_suit, function_insert_end) {
     std::vector<int>::iterator std_it = std_vector.end();
     s21_it = s21_vector.insert(s21_it, 666);
     std_it = std_vector.insert(std_it, 666);
-    ASSERT_EQ(*s21_it, *std_it);
-    ASSERT_EQ(s21_vector.at(0), std_vector.at(0));
-    ASSERT_EQ(s21_vector.at(1), std_vector.at(1));
-    ASSERT_EQ(s21_vector.at(2), std_vector.at(2));
-    ASSERT_EQ(s21_vector.at(3), std_vector.at(3));
-    ASSERT_EQ(s21_vector.at(4), std_vector.at(4));
-    ASSERT_EQ(s21_vector.at(5), std_vector.at(5));
-    ASSERT_EQ(s21_vector.at(6), std_vector.at(6));
-    ASSERT_EQ(s21_vector.size(), std_vector.size());
-    ASSERT_EQ(s21_vector.capacity(), std_vector.capacity());
-    ASSERT_EQ(s21_vector.empty(), std_vector.empty());
+    EXPECT_EQ(*s21_it, *std_it);
+    EXPECT_EQ(s21_vector.at(0), std_vector.at(0));
+    EXPECT_EQ(s21_vector.at(1), std_vector.at(1));
+    EXPECT_EQ(s21_vector.at(2), std_vector.at(2));
+    EXPECT_EQ(s21_vector.at(3), std_vector.at(3));
+    EXPECT_EQ(s21_vector.at(4), std_vector.at(4));
+    EXPECT_EQ(s21_vector.at(5), std_vector.at(5));
+    EXPECT_EQ(s21_vector.at(6), std_vector.at(6));
+    EXPECT_EQ(s21_vector.size(), std_vector.size());
+    EXPECT_EQ(s21_vector.capacity(), std_vector.capacity());
+    EXPECT_EQ(s21_vector.empty(), std_vector.empty());
 }
 
 TEST(vector_modifiers_suit, function_insert_multi) {
@@ -276,18 +283,18 @@ TEST(vector_modifiers_suit, function_insert_multi) {
     ++std_it;
     s21_it = s21_vector.insert(s21_it, 666);
     std_it = std_vector.insert(std_it, 666);
-    ASSERT_EQ(*s21_it, *std_it);
-    ASSERT_EQ(s21_vector.at(0), std_vector.at(0));
-    ASSERT_EQ(s21_vector.at(1), std_vector.at(1));
-    ASSERT_EQ(s21_vector.at(2), std_vector.at(2));
-    ASSERT_EQ(s21_vector.at(3), std_vector.at(3));
-    ASSERT_EQ(s21_vector.at(4), std_vector.at(4));
-    ASSERT_EQ(s21_vector.at(5), std_vector.at(5));
-    ASSERT_EQ(s21_vector.at(6), std_vector.at(6));
-    ASSERT_EQ(s21_vector.at(7), std_vector.at(7));
-    ASSERT_EQ(s21_vector.size(), std_vector.size());
-    ASSERT_EQ(s21_vector.capacity(), std_vector.capacity());
-    ASSERT_EQ(s21_vector.empty(), std_vector.empty());
+    EXPECT_EQ(*s21_it, *std_it);
+    EXPECT_EQ(s21_vector.at(0), std_vector.at(0));
+    EXPECT_EQ(s21_vector.at(1), std_vector.at(1));
+    EXPECT_EQ(s21_vector.at(2), std_vector.at(2));
+    EXPECT_EQ(s21_vector.at(3), std_vector.at(3));
+    EXPECT_EQ(s21_vector.at(4), std_vector.at(4));
+    EXPECT_EQ(s21_vector.at(5), std_vector.at(5));
+    EXPECT_EQ(s21_vector.at(6), std_vector.at(6));
+    EXPECT_EQ(s21_vector.at(7), std_vector.at(7));
+    EXPECT_EQ(s21_vector.size(), std_vector.size());
+    EXPECT_EQ(s21_vector.capacity(), std_vector.capacity());
+    EXPECT_EQ(s21_vector.empty(), std_vector.empty());
 }
 
 TEST(vector_modifiers_suit, function_erase_begin) {
@@ -297,14 +304,14 @@ TEST(vector_modifiers_suit, function_erase_begin) {
     std::vector<int>::iterator std_it = std_vector.begin();
     s21_vector.erase(s21_it);
     std_vector.erase(std_it);
-    ASSERT_EQ(s21_vector.at(0), std_vector.at(0));
-    ASSERT_EQ(s21_vector.at(1), std_vector.at(1));
-    ASSERT_EQ(s21_vector.at(2), std_vector.at(2));
-    ASSERT_EQ(s21_vector.at(3), std_vector.at(3));
-    ASSERT_EQ(s21_vector.at(4), std_vector.at(4));
-    ASSERT_EQ(s21_vector.size(), std_vector.size());
-    ASSERT_EQ(s21_vector.capacity(), std_vector.capacity());
-    ASSERT_EQ(s21_vector.empty(), std_vector.empty());
+    EXPECT_EQ(s21_vector.at(0), std_vector.at(0));
+    EXPECT_EQ(s21_vector.at(1), std_vector.at(1));
+    EXPECT_EQ(s21_vector.at(2), std_vector.at(2));
+    EXPECT_EQ(s21_vector.at(3), std_vector.at(3));
+    EXPECT_EQ(s21_vector.at(4), std_vector.at(4));
+    EXPECT_EQ(s21_vector.size(), std_vector.size());
+    EXPECT_EQ(s21_vector.capacity(), std_vector.capacity());
+    EXPECT_EQ(s21_vector.empty(), std_vector.empty());
 }
 
 TEST(vector_modifiers_suit, function_erase_mid) {
@@ -320,14 +327,14 @@ TEST(vector_modifiers_suit, function_erase_mid) {
     ++std_it;
     s21_vector.erase(s21_it);
     std_vector.erase(std_it);
-    ASSERT_EQ(s21_vector.at(0), std_vector.at(0));
-    ASSERT_EQ(s21_vector.at(1), std_vector.at(1));
-    ASSERT_EQ(s21_vector.at(2), std_vector.at(2));
-    ASSERT_EQ(s21_vector.at(3), std_vector.at(3));
-    ASSERT_EQ(s21_vector.at(4), std_vector.at(4));
-    ASSERT_EQ(s21_vector.size(), std_vector.size());
-    ASSERT_EQ(s21_vector.capacity(), std_vector.capacity());
-    ASSERT_EQ(s21_vector.empty(), std_vector.empty());
+    EXPECT_EQ(s21_vector.at(0), std_vector.at(0));
+    EXPECT_EQ(s21_vector.at(1), std_vector.at(1));
+    EXPECT_EQ(s21_vector.at(2), std_vector.at(2));
+    EXPECT_EQ(s21_vector.at(3), std_vector.at(3));
+    EXPECT_EQ(s21_vector.at(4), std_vector.at(4));
+    EXPECT_EQ(s21_vector.size(), std_vector.size());
+    EXPECT_EQ(s21_vector.capacity(), std_vector.capacity());
+    EXPECT_EQ(s21_vector.empty(), std_vector.empty());
 }
 
 TEST(vector_modifiers_suit, function_erase_end) {
@@ -337,14 +344,14 @@ TEST(vector_modifiers_suit, function_erase_end) {
     std::vector<int>::iterator std_it = std_vector.end() - 1;
     s21_vector.erase(s21_it);
     std_vector.erase(std_it);
-    ASSERT_EQ(s21_vector.at(0), std_vector.at(0));
-    ASSERT_EQ(s21_vector.at(1), std_vector.at(1));
-    ASSERT_EQ(s21_vector.at(2), std_vector.at(2));
-    ASSERT_EQ(s21_vector.at(3), std_vector.at(3));
-    ASSERT_EQ(s21_vector.at(4), std_vector.at(4));
-    ASSERT_EQ(s21_vector.size(), std_vector.size());
-    ASSERT_EQ(s21_vector.capacity(), std_vector.capacity());
-    ASSERT_EQ(s21_vector.empty(), std_vector.empty());
+    EXPECT_EQ(s21_vector.at(0), std_vector.at(0));
+    EXPECT_EQ(s21_vector.at(1), std_vector.at(1));
+    EXPECT_EQ(s21_vector.at(2), std_vector.at(2));
+    EXPECT_EQ(s21_vector.at(3), std_vector.at(3));
+    EXPECT_EQ(s21_vector.at(4), std_vector.at(4));
+    EXPECT_EQ(s21_vector.size(), std_vector.size());
+    EXPECT_EQ(s21_vector.capacity(), std_vector.capacity());
+    EXPECT_EQ(s21_vector.empty(), std_vector.empty());
 }
 
 TEST(vector_modifiers_suit, function_erase_multi) {
@@ -364,13 +371,13 @@ TEST(vector_modifiers_suit, function_erase_multi) {
     std_it = std_vector.begin();
     s21_vector.erase(s21_it);
     std_vector.erase(std_it);
-    ASSERT_EQ(s21_vector.at(0), std_vector.at(0));
-    ASSERT_EQ(s21_vector.at(1), std_vector.at(1));
-    ASSERT_EQ(s21_vector.at(2), std_vector.at(2));
-    ASSERT_EQ(s21_vector.at(3), std_vector.at(3));
-    ASSERT_EQ(s21_vector.size(), std_vector.size());
-    ASSERT_EQ(s21_vector.capacity(), std_vector.capacity());
-    ASSERT_EQ(s21_vector.empty(), std_vector.empty());
+    EXPECT_EQ(s21_vector.at(0), std_vector.at(0));
+    EXPECT_EQ(s21_vector.at(1), std_vector.at(1));
+    EXPECT_EQ(s21_vector.at(2), std_vector.at(2));
+    EXPECT_EQ(s21_vector.at(3), std_vector.at(3));
+    EXPECT_EQ(s21_vector.size(), std_vector.size());
+    EXPECT_EQ(s21_vector.capacity(), std_vector.capacity());
+    EXPECT_EQ(s21_vector.empty(), std_vector.empty());
 }
 
 
@@ -399,8 +406,6 @@ TEST(vector_modifiers_suit, function_erase_multi) {
         Test_vector logger;
         logger.five_Vector.reserve(2);
         logger.origin_five_vector.reserve(2);
-        std::cout << logger.five_Vector.capacity() << std::endl;
-        std::cout << logger.origin_five_vector.capacity() << std::endl;
         EXPECT_EQ(logger.five_Vector.capacity(), logger.origin_five_vector.capacity());
         logger.five_Vector.reserve(1000);
         logger.origin_five_vector.reserve(1000);
@@ -452,33 +457,142 @@ TEST(vector_modifiers_suit, function_erase_multi) {
         EXPECT_EQ(logger.five_Vector.size(), logger.origin_five_vector.size());
     }
 
-        TEST(vector_modifiers_suit, function_emplace_begin) {
-            s21::Vector<int> s21_vector{1, 2, 3, 5, 9, 10};
-            std::vector<int> std_vector{1, 2, 3, 5, 9, 10};
-            s21::Vector<int>::const_iterator s21_it = s21_vector.begin();
-            std::vector<int>::iterator std_it = std_vector.begin();
-            s21_it = s21_vector.emplace(s21_it, 666);
-            std_it = std_vector.emplace(std_it, 666);
-            ASSERT_EQ(*s21_it, *std_it);
-            ASSERT_EQ(s21_vector.at(0), std_vector.at(0));
-            ASSERT_EQ(s21_vector.at(1), std_vector.at(1));
-            ASSERT_EQ(s21_vector.at(2), std_vector.at(2));
-            ASSERT_EQ(s21_vector.at(3), std_vector.at(3));
-            ASSERT_EQ(s21_vector.at(4), std_vector.at(4));
-            ASSERT_EQ(s21_vector.at(5), std_vector.at(5));
-            ASSERT_EQ(s21_vector.at(6), std_vector.at(6));
-            ASSERT_EQ(s21_vector.size(), std_vector.size());
-            ASSERT_EQ(s21_vector.capacity(), std_vector.capacity());
-            ASSERT_EQ(s21_vector.empty(), std_vector.empty());
-        }
+    TEST(Vector, function_swap) {
+        Test_vector logger;
+        logger.s21_vector_s.swap(logger.s21_vector_swap);
+        logger.std_vector_s.swap(logger.std_vector_swap);
+        EXPECT_EQ(logger.s21_vector_swap.at(0), logger.std_vector_swap.at(0));
+        EXPECT_EQ(logger.s21_vector_swap.at(1), logger.std_vector_swap.at(1));
+        EXPECT_EQ(logger.s21_vector_swap.at(2), logger.std_vector_swap.at(2));
+        EXPECT_EQ(logger.s21_vector_swap.at(3), logger.std_vector_swap.at(3));
+        EXPECT_EQ(logger.s21_vector_swap.at(4), logger.std_vector_swap.at(4));
+        EXPECT_EQ(logger.s21_vector_swap.size(), logger.std_vector_swap.size());
+        EXPECT_EQ(logger.s21_vector_swap.capacity(), logger.std_vector_swap.capacity());
+        EXPECT_EQ(logger.std_vector_s.at(0), logger.std_vector_s.at(0));
+        EXPECT_EQ(logger.std_vector_s.at(1), logger.std_vector_s.at(1));
+        EXPECT_EQ(logger.std_vector_s.at(2), logger.std_vector_s.at(2));
+        EXPECT_EQ(logger.std_vector_s.at(3), logger.std_vector_s.at(3));
+        EXPECT_EQ(logger.std_vector_s.at(4), logger.std_vector_s.at(4));
+        EXPECT_EQ(logger.std_vector_s.at(5), logger.std_vector_s.at(5));
+        EXPECT_EQ(logger.std_vector_s.at(6), logger.std_vector_s.at(6));
+        EXPECT_EQ(logger.std_vector_s.at(7), logger.std_vector_s.at(7));
+        EXPECT_EQ(logger.std_vector_s.at(8), logger.std_vector_s.at(8));
+        EXPECT_EQ(logger.std_vector_s.at(9), logger.std_vector_s.at(9));
+        EXPECT_EQ(logger.std_vector_s.size(), logger.std_vector_s.size());
+        EXPECT_EQ(logger.std_vector_s.capacity(), logger.std_vector_s.capacity());
+        EXPECT_EQ(logger.std_vector_s.empty(), logger.std_vector_s.empty());
+    }
+
+    TEST(Vector, function_push_back) {
+        s21::Vector<int> s21_vector{1, 2, 3};
+        std::vector<int> std_vector{1, 2, 3};
+        s21_vector.push_back(666);
+        std_vector.push_back(666);
+        s21_vector.push_back(123);
+        std_vector.push_back(123);
+        ASSERT_EQ(s21_vector.at(0), std_vector.at(0));
+        ASSERT_EQ(s21_vector.at(1), std_vector.at(1));
+        ASSERT_EQ(s21_vector.at(2), std_vector.at(2));
+        ASSERT_EQ(s21_vector.at(3), std_vector.at(3));
+        ASSERT_EQ(s21_vector.at(4), std_vector.at(4));
+        ASSERT_EQ(s21_vector.size(), std_vector.size());
+        ASSERT_EQ(s21_vector.capacity(), std_vector.capacity());
+        ASSERT_EQ(s21_vector.empty(), std_vector.empty());
+    }
+
+    TEST(Vector, function_pop_back) {
+        s21::Vector<int> s21_vector{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        std::vector<int> std_vector{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        s21_vector.pop_back();
+        std_vector.pop_back();
+        s21_vector.pop_back();
+        std_vector.pop_back();
+        ASSERT_EQ(s21_vector.at(0), std_vector.at(0));
+        ASSERT_EQ(s21_vector.at(1), std_vector.at(1));
+        ASSERT_EQ(s21_vector.at(2), std_vector.at(2));
+        ASSERT_EQ(s21_vector.at(3), std_vector.at(3));
+        ASSERT_EQ(s21_vector.at(4), std_vector.at(4));
+        ASSERT_EQ(s21_vector.at(5), std_vector.at(5));
+        ASSERT_EQ(s21_vector.at(6), std_vector.at(6));
+        ASSERT_EQ(s21_vector.at(7), std_vector.at(7));
+        ASSERT_EQ(s21_vector.size(), std_vector.size());
+        ASSERT_EQ(s21_vector.capacity(), std_vector.capacity());
+        ASSERT_EQ(s21_vector.empty(), std_vector.empty());
+    }
+
+//    TEST(Vector, function_reserve) {
+//        s21::Vector<double> s21_vector_empty;
+//        std::vector<double> std_vector_empty;
+//        s21_vector_empty.reserve(100);
+//        std_vector_empty.reserve(100);
+//        ASSERT_EQ(s21_vector_empty.size(), std_vector_empty.size());
+//        ASSERT_EQ(s21_vector_empty.capacity(), std_vector_empty.capacity());
+//        ASSERT_EQ(s21_vector_empty.empty(), std_vector_empty.empty());
+//        s21::Vector<int> s21_vector{1, 2, 3};
+//        std::vector<int> std_vector{1, 2, 3};
+//        s21_vector.reserve(50);
+//        std_vector.reserve(50);
+//        ASSERT_EQ(s21_vector.at(0), std_vector.at(0));
+//        ASSERT_EQ(s21_vector.at(1), std_vector.at(1));
+//        ASSERT_EQ(s21_vector.at(2), std_vector.at(2));
+//        ASSERT_EQ(s21_vector.size(), std_vector.size());
+//        ASSERT_EQ(s21_vector.capacity(), std_vector.capacity());
+//        ASSERT_EQ(s21_vector.empty(), std_vector.empty());
+//    }
+
+    TEST(Vector, function_shrink_to_fit) {
+        s21::Vector<int> s21_vector{1, 2, 3};
+        std::vector<int> std_vector{1, 2, 3};
+        s21_vector.reserve(50);
+        std_vector.reserve(50);
+        s21_vector.shrink_to_fit();
+        std_vector.shrink_to_fit();
+        ASSERT_EQ(s21_vector.at(0), std_vector.at(0));
+        ASSERT_EQ(s21_vector.at(1), std_vector.at(1));
+        ASSERT_EQ(s21_vector.at(2), std_vector.at(2));
+        ASSERT_EQ(s21_vector.size(), std_vector.size());
+        ASSERT_EQ(s21_vector.capacity(), std_vector.capacity());
+        ASSERT_EQ(s21_vector.empty(), std_vector.empty());
+    }
+
+//        TEST(vector_modifiers_suit, function_emplace_begin) {
+//            s21::Vector<int> s21_vector{1, 2, 3, 5, 9, 10};
+//            std::vector<int> std_vector{1, 2, 3, 5, 9, 10};
+//            s21::Vector<int>::const_iterator s21_it = s21_vector.begin();
+//            std::vector<int>::iterator std_it = std_vector.begin();
+//            s21_it = s21_vector.emplace(s21_it, 666);
+//            std_it = std_vector.emplace(std_it, 666);
+//            EXPECT_EQ(*s21_it, *std_it);
+//            EXPECT_EQ(s21_vector.at(0), std_vector.at(0));
+//            EXPECT_EQ(s21_vector.at(1), std_vector.at(1));
+//            EXPECT_EQ(s21_vector.at(2), std_vector.at(2));
+//            EXPECT_EQ(s21_vector.at(3), std_vector.at(3));
+//            EXPECT_EQ(s21_vector.at(4), std_vector.at(4));
+//            EXPECT_EQ(s21_vector.at(5), std_vector.at(5));
+//            EXPECT_EQ(s21_vector.at(6), std_vector.at(6));
+//            EXPECT_EQ(s21_vector.size(), std_vector.size());
+//            EXPECT_EQ(s21_vector.capacity(), std_vector.capacity());
+//            EXPECT_EQ(s21_vector.empty(), std_vector.empty());
+//        }
 
 
 // >>>>>>>>>>> ARRAY <<<<<<<<<<<<<<<<
-//    class Test_array {
-//    public:
-//      s21::array<int, 4> a;
-//
-//    };
+class Teset_array {
+public:
+
+
+};
+TEST(array_test_suit, simple_test) {
+    std::array<int, 3> orig_array {234, 21, 11};
+    s21::array<int, 3>copy_array {234, 21, 11};
+    for (int i {}; i < 3; i++)
+        ASSERT_EQ(orig_array.at(i), copy_array.at(i));
+    ASSERT_EQ(orig_array.size(), copy_array.size());
+    ASSERT_EQ(orig_array.max_size(), copy_array.max_size());
+    std::array<char, 0> orig_ar1;
+    s21::array<char, 0> copy_ar1;
+    ASSERT_EQ(orig_ar1.empty(), copy_ar1.empty());
+}
 
 //}  // namespace 21
 
