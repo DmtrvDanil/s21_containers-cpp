@@ -21,6 +21,7 @@ namespace s21 {
         ~array() { fill(0);}
         array& operator=(array &&a);
 
+        size_type max_size();
         void swap(array& other);
         void fill(const_reference value);
     private:

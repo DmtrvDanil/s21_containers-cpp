@@ -3,7 +3,8 @@
 #include "vec_array/s21_abstract.h"
 
 namespace s21 {
-    template <class T, class Alloc = std::allocator<T> >
+//    template <class T, class Alloc = std::allocator<T> >
+    template <class T >
     class Vector : public abstract<T> {
 
     public:
@@ -14,7 +15,7 @@ namespace s21 {
         using size_type = typename abstract<T>::size_type;
         using const_iterator = typename abstract<T>::VectorConstIterator;
         using iterator = typename abstract<T>::VectorIterator;
-        using allocator_type = Alloc;
+//        using allocator_type = Alloc;
         Vector();
         explicit Vector(size_type n);
         Vector(std::initializer_list <value_type> const &items);
@@ -27,7 +28,7 @@ namespace s21 {
     private:
         void reserve_more_capacity(size_type size, bool shrink);
         size_t m_capacity_;
-        allocator_type alloc_;
+//        allocator_type alloc_;
 
     public:
 //        using iterator_ = T *;
@@ -41,6 +42,7 @@ namespace s21 {
         iterator insert(iterator pos, const_reference value);
 //        iterator insert_2(iterator pos, const_reference value);
         void erase(iterator pos);
+
 
     public:
         template <typename... Args>

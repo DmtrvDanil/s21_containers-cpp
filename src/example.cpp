@@ -1,8 +1,9 @@
 #include "s21_containers.h"
 #include "s21_containersplus.h"
+//#include "vec_array/array/s21_array.h"
 #include <vector>
 #include <array>
-
+//#include "vector.h"
 
 int main(void){
 //    std::vector<int> a{1,2,3};
@@ -175,12 +176,7 @@ int main(void){
 ////    for (int i = 0; i < a.size(); i++) {
 ////        std::cout << a.at(i);
 ////    }
-    s21::Vector<int> a;
-    std::cout << a.empty() << std::endl;
-    a.reserve(200);
-    std::cout << a.capacity() << " : "<< a.size() << std::endl;
-    std::cout << a.empty() << std::endl;
-    a.output_vector();
 
+    s21::array<int, 5> a;
     return 0;
 }

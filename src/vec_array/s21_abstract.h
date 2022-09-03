@@ -40,6 +40,7 @@ namespace s21 {
             VectorIterator();
             VectorIterator(pointer pt);
             VectorIterator(const VectorIterator &other) : VectorConstIterator(other) {}
+            VectorIterator(const VectorConstIterator &other) : VectorConstIterator(other)  {}
             ~VectorIterator() {}
             reference operator*() ;
             VectorIterator& operator=(const value_type val);
@@ -59,9 +60,9 @@ namespace s21 {
         iterator  begin();
         iterator  end();
 
-//        bool empty();
+        bool empty();
         size_type size();
-        size_type max_size();
+       virtual size_type max_size();
 
     };
 

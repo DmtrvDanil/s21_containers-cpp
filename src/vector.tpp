@@ -1,4 +1,4 @@
-//#include "vector.h"
+#include "vector.h"
 #include <cstring>
 namespace s21 {
 
@@ -14,12 +14,13 @@ namespace s21 {
         }
         this->m_size_ = n;
         this->m_capacity_ = n;
-        this->arr_ = n ? this->alloc_.allocate(n) : nullptr;
-        if (this->arr_) {
-            for (size_t i = 0; i < n; i++) {
-                alloc_.construct(this->arr_, value_type());
-            }
-        }
+//        this->arr_ = n ? this->alloc_.allocate(n) : nullptr;
+        this->arr_ = n ? new value_type[n] : nullptr;
+//        if (this->arr_) {
+//            for (size_t i = 0; i < n; i++) {
+//                alloc_.construct(this->arr_, value_type());
+//            }
+//        }
     }
 
     template<class value_type>
@@ -132,10 +133,10 @@ namespace s21 {
     template <typename value_type>
     void Vector<value_type>::clear_all() {
 
-        for (size_t i = 0; i < this->m_size_; i++) {
-            alloc_.destroy(arr_ + i);
-        }
-        this->alloc_.deallocate(this->arr_, this->m_capacity_);
+//        for (size_t i = 0; i < this->m_size_; i++) {
+//            alloc_.destroy(arr_ + i);
+//        }
+//        this->alloc_.deallocate(this->arr_, this->m_capacity_);
 
         if (this->arr_ != nullptr) {
             delete[] this->arr_;
@@ -152,7 +153,6 @@ namespace s21 {
         if (this->empty()) {
             throw std::length_error("Your vector is empty!");
         }
-        std::cout this->arr_ << std::endl;
         std::cout << "This is your vector!!" << std::endl;
         for (int i = 0; i < this->size(); i++) {
             std::cout << this->arr_[i];
@@ -520,8 +520,8 @@ void Vector<value_type>::erase(iterator pos) {
     typename Vector<value_type>::iterator
     Vector<value_type>::emplace(const_iterator pos, Args &&...args) {
         iterator it(pos);
-        this->insert(it, value_type(std::forward<Args>(args)...));
-        return pos;
+        it = this->insert(it, value_type(std::forward<Args>(args)...));
+        return it;
     }
 
     template<typename value_type>
@@ -529,5 +529,7 @@ void Vector<value_type>::erase(iterator pos) {
     void Vector<value_type>::emplace_back(Args &&...args) {
         this->push_back(value_type(std::forward<Args>(args)...));
     }
+
+
 
 }  // namespace s21

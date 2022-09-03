@@ -1,5 +1,4 @@
-//#include "s21_abstract.h"
-#include <iostream>
+#include "s21_abstract.h"
 namespace s21 {
 
     //  >>>>>>>>>>>>>> Access <<<<<<<<<<<<<<<<<<<<<<
@@ -160,13 +159,11 @@ namespace s21 {
 
     template <class value_type>
     bool abstract<value_type>::empty() {
-        std::cout << "SIZE -----" << this->m_size_ << std::endl;
         return this->m_size_ > 0 ? false : true;
     }
 
     template<class value_type>
     typename abstract<value_type>::size_type abstract<value_type>::size() {
-        std::cout << "SIZE -----" << this->m_size_ << std::endl;
         return this->m_size_;
     }
 

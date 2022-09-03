@@ -1,4 +1,4 @@
-#include "s21_array.h"
+
 
 namespace s21 {
     template<class value_type, size_t N>
@@ -76,8 +76,13 @@ namespace s21 {
     }
     template<class T, size_t N>
     void array<T, N>::size_N() {
-        if (this->len_N < 1)
+        if (this->len_N < 0)
             throw std::invalid_argument("Error size for array!");
+    }
+
+    template <typename T, size_t N>
+    typename array<T, N>::size_type array<T, N>::max_size()  {
+        return N;
     }
 
 
