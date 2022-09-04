@@ -5,7 +5,7 @@
 /* #include "queue.h" */
 /* #include "map.h" */
 /* #include "set.h" */
-/* #include "stack.h" */
+#include "s21_stack.h"
 #include "vector.h"
 
 #endif  // SRC_S21_CONTAINERS_H_

@@ -2,8 +2,7 @@
 #include "s21_containersplus.h"
 //#include "vec_array/array/s21_array.h"
 #include <vector>
-#include <array>
-//#include "vector.h"
+#include <stack>
 
 int main(void){
 //    std::vector<int> a{1,2,3};
@@ -177,8 +176,8 @@ int main(void){
 ////        std::cout << a.at(i);
 ////    }
 
-    s21::array<int, 5> a;
-    s21::array<int, 5>::iterator d;
-    std::array<int,3>::iterator sl;
+    s21::stack<int, std::vector<int> > s({1,2,3,4});
+//    std::stack<int > s();
+    std::cout << s.empty() << std::endl;
     return 0;
 }

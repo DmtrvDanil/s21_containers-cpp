@@ -18,9 +18,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/example.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/example.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test" beforeDir="false" afterPath="$PROJECT_DIR$/src/test" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vec_array/array/s21_array.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/vec_array/array/s21_array.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/s21_containers.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_containers.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/vec_array/s21_abstract.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/vec_array/s21_abstract.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -62,6 +60,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="structure.view.defaults.are.configured" value="true" />
   </component>
   <component name="RunManager">
     <configuration name="s21_containers_cpp" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="s21_containers_cpp" TARGET_NAME="s21_containers_cpp" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="s21_containers_cpp" RUN_TARGET_NAME="s21_containers_cpp">
@@ -134,6 +133,9 @@
       <workItem from="1662211309290" duration="7710000" />
       <workItem from="1662220495233" duration="4720000" />
       <workItem from="1662233719806" duration="1514000" />
+      <workItem from="1662275463580" duration="223000" />
+      <workItem from="1662287069866" duration="455000" />
+      <workItem from="1662305552517" duration="3598000" />
     </task>
     <servers />
   </component>

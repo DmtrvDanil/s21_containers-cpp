@@ -35,7 +35,6 @@ namespace s21 {
             bool operator==(const VectorConstIterator &other) const;
         protected:
             pointer data_;
-
         };
         class VectorIterator : public VectorConstIterator {
         public:
