@@ -2,7 +2,7 @@
 #include "s21_containersplus.h"
 #include <gtest/gtest.h>
 #include "vector"
-
+#include <stack>
 namespace  s21 {
 // >>>>>>> VECTOR <<<<<<<<
 
@@ -635,70 +635,234 @@ TEST(vector_modifiers_suit, function_erase_multi) {
     }
 
 
-TEST(array_test_suit, move_constructor_test) {
-    std::array<int, 5> orig_array1 {234, 21, 11, 34, 999};
-    s21::array<int, 5>copy_array1 {234, 21, 11, 34, 999};
-    std::array<int, 5>orig_array2(std::move(orig_array1));
-    s21::array<int, 5>copy_array2(std::move(copy_array1));
-    for (size_t i {}; i < copy_array2.size(); i++) {
-        ASSERT_EQ(orig_array2.at(i), copy_array2.at(i));
+    TEST(array_test_suit, move_constructor_test) {
+        std::array<int, 5> orig_array1 {234, 21, 11, 34, 999};
+        s21::array<int, 5>copy_array1 {234, 21, 11, 34, 999};
+        std::array<int, 5>orig_array2(std::move(orig_array1));
+        s21::array<int, 5>copy_array2(std::move(copy_array1));
+        for (size_t i {}; i < copy_array2.size(); i++) {
+            ASSERT_EQ(orig_array2.at(i), copy_array2.at(i));
+        }
+        ASSERT_EQ(orig_array1.size(), copy_array1.size());
+        ASSERT_EQ(orig_array1.max_size(), copy_array1.max_size());
+        ASSERT_EQ(orig_array2.size(), copy_array2.size());
+        ASSERT_EQ(orig_array2.max_size(), copy_array2.max_size());
+        std::array<char, 0> orig_ar1;
+        s21::array<char, 0> copy_ar1;
+        ASSERT_EQ(orig_ar1.empty(), copy_ar1.empty());
     }
-    ASSERT_EQ(orig_array1.size(), copy_array1.size());
-    ASSERT_EQ(orig_array1.max_size(), copy_array1.max_size());
-    ASSERT_EQ(orig_array2.size(), copy_array2.size());
-    ASSERT_EQ(orig_array2.max_size(), copy_array2.max_size());
-    std::array<char, 0> orig_ar1;
-    s21::array<char, 0> copy_ar1;
-    ASSERT_EQ(orig_ar1.empty(), copy_ar1.empty());
-}
 
-TEST(array_test_suit, move_operator_test) {
-    std::array<int, 5> orig_array1 {234, 21, 11, 34, 999};
-    s21::array<int, 5>copy_array1 {234, 21, 11, 34, 999};
-    std::array<int, 5>orig_array2 {25};
-    s21::array<int, 5>copy_array2 {25};
-    orig_array2 = std::move(orig_array1);
-    copy_array2 = std::move(copy_array1);
-    for (size_t i {}; i < copy_array2.size(); i++) {
-        ASSERT_EQ(orig_array2.at(i), copy_array2.at(i));
+    TEST(array_test_suit, move_operator_test) {
+        std::array<int, 5> orig_array1 {234, 21, 11, 34, 999};
+        s21::array<int, 5>copy_array1 {234, 21, 11, 34, 999};
+        std::array<int, 5>orig_array2 {25};
+        s21::array<int, 5>copy_array2 {25};
+        orig_array2 = std::move(orig_array1);
+        copy_array2 = std::move(copy_array1);
+        for (size_t i {}; i < copy_array2.size(); i++) {
+            ASSERT_EQ(orig_array2.at(i), copy_array2.at(i));
+        }
+        ASSERT_EQ(orig_array1.size(), copy_array1.size());
+        ASSERT_EQ(orig_array1.max_size(), copy_array1.max_size());
+        ASSERT_EQ(orig_array2.size(), copy_array2.size());
+        ASSERT_EQ(orig_array2.max_size(), copy_array2.max_size());
+        std::array<char, 0> orig_ar1;
+        s21::array<char, 0> copy_ar1;
+        ASSERT_EQ(orig_ar1.empty(), copy_ar1.empty());
     }
-    ASSERT_EQ(orig_array1.size(), copy_array1.size());
-    ASSERT_EQ(orig_array1.max_size(), copy_array1.max_size());
-    ASSERT_EQ(orig_array2.size(), copy_array2.size());
-    ASSERT_EQ(orig_array2.max_size(), copy_array2.max_size());
-    std::array<char, 0> orig_ar1;
-    s21::array<char, 0> copy_ar1;
-    ASSERT_EQ(orig_ar1.empty(), copy_ar1.empty());
-}
 
-TEST(array_test_suit, iterator_test) {
-    std::array<int, 5> orig_array1 {234, 21, 11, 34, 999};
-    s21::array<int, 5>copy_array1 {234, 21, 11, 34, 999};
-    int *orig_beg = orig_array1.begin();
-    int *copy_beg = copy_array1.begin();
-    int *orig_end = orig_array1.end();
-    int *copy_end = copy_array1.end();
-    while (orig_beg < orig_end && copy_beg < copy_end) {
-        ASSERT_EQ(*orig_beg++, *copy_beg++);
+    TEST(array_test_suit, iterator_test) {
+        std::array<int, 5> orig_array1 {234, 21, 11, 34, 999};
+        s21::array<int, 5>copy_array1 {234, 21, 11, 34, 999};
+        int *orig_beg = orig_array1.begin();
+        int *copy_beg = copy_array1.begin();
+        int *orig_end = orig_array1.end();
+        int *copy_end = copy_array1.end();
+        while (orig_beg < orig_end && copy_beg < copy_end) {
+            ASSERT_EQ(*orig_beg++, *copy_beg++);
+        }
+        ASSERT_EQ(orig_array1.size(), copy_array1.size());
+        ASSERT_EQ(orig_array1.max_size(), copy_array1.max_size());
+        s21::array<char, 0> copy_ar1;
+        ASSERT_TRUE(copy_ar1.begin() == copy_ar1.end());
+        s21::array<double, 3> my_arr {2.3, 4.5555, 6.1234};
+        double *d = my_arr.data();
+        ASSERT_DOUBLE_EQ(my_arr[0], *d);
     }
-    ASSERT_EQ(orig_array1.size(), copy_array1.size());
-    ASSERT_EQ(orig_array1.max_size(), copy_array1.max_size());
-    s21::array<char, 0> copy_ar1;
-    ASSERT_TRUE(copy_ar1.begin() == copy_ar1.end());
-    s21::array<double, 3> my_arr {2.3, 4.5555, 6.1234};
-    double *d = my_arr.data();
-    ASSERT_DOUBLE_EQ(my_arr[0], *d);
-}
 
-TEST(array_test_suit, fill_test) {
-    std::array<size_t, 10> orig_array;
-    s21::array<size_t, 10>my_arr;
-    orig_array.fill(555);
-    my_arr.fill(555);
-    for (size_t i = 0; i < orig_array.size(); i++)
-        ASSERT_EQ(orig_array[i], my_arr[i]);
-    ASSERT_EQ(orig_array.size(), my_arr.size());;
-}
+    TEST(array_test_suit, fill_test) {
+        std::array<size_t, 10> orig_array;
+        s21::array<size_t, 10>my_arr;
+        orig_array.fill(555);
+        my_arr.fill(555);
+        for (size_t i = 0; i < orig_array.size(); i++)
+            ASSERT_EQ(orig_array[i], my_arr[i]);
+        ASSERT_EQ(orig_array.size(), my_arr.size());;
+    }
+//  >>>>>>>>> STACK <<<<<<<<<<<<<<
+    TEST(stack_test_suit, simple_test) {
+        s21::stack<int> my_stack;
+        std::stack<int> orig_stack;
+        my_stack.push(1);
+        my_stack.push(2);
+        my_stack.push(2555);
+        my_stack.push(365434);
+        orig_stack.push(1);
+        orig_stack.push(2);
+        orig_stack.push(2555);
+        orig_stack.push(365434);
+        while (!orig_stack.empty() && !my_stack.empty()) {
+            ASSERT_EQ(orig_stack.top(), my_stack.top());
+            orig_stack.pop();
+            my_stack.pop();
+        }
+        ASSERT_EQ(orig_stack.empty(), my_stack.empty());
+    }
+    TEST(stack_test_suit, swap_test) {
+        std::stack<double> orig_stack1;
+        orig_stack1.push(2.55);
+        orig_stack1.push(3.55);
+        orig_stack1.push(222.55);
+        orig_stack1.push(984.55);
+        orig_stack1.push(123.55);
+        orig_stack1.push(0.55);
+        orig_stack1.push(-34.55);
+        std::stack<double> orig_stack2;
+        orig_stack2.push(342.22);
+        orig_stack2.push(355.01);
+        orig_stack2.push(123.99);
+        orig_stack2.push(888.34);
+        orig_stack2.push(-23.11);
+        orig_stack2.push(1002.88);
+        orig_stack2.push(1.55);
+        s21::stack<double> my_stack1;
+        my_stack1.push(2.55);
+        my_stack1.push(3.55);
+        my_stack1.push(222.55);
+        my_stack1.push(984.55);
+        my_stack1.push(123.55);
+        my_stack1.push(0.55);
+        my_stack1.push(-34.55);
+        s21::stack<double> my_stack2;
+        my_stack2.push(342.22);
+        my_stack2.push(355.01);
+        my_stack2.push(123.99);
+        my_stack2.push(888.34);
+        my_stack2.push(-23.11);
+        my_stack2.push(1002.88);
+        my_stack2.push(1.55);
+        orig_stack1.swap(orig_stack2);
+        my_stack1.swap(my_stack2);
+        while (!orig_stack1.empty() && !my_stack1.empty()) {
+            ASSERT_DOUBLE_EQ(orig_stack1.top(), my_stack1.top());
+            orig_stack1.pop();
+            my_stack1.pop();
+        }
+        while (!orig_stack2.empty() && !my_stack2.empty()) {
+            ASSERT_DOUBLE_EQ(orig_stack2.top(), my_stack2.top());
+            orig_stack2.pop();
+            my_stack2.pop();
+        }
+        ASSERT_EQ(orig_stack2.empty(), my_stack2.empty());
+    }
+
+    TEST(stack_test_suit, copy_constructor_test) {
+        std::stack<int> orig_stack1;
+        orig_stack1.push(55);
+        orig_stack1.push(555);
+        orig_stack1.push(5555);
+        orig_stack1.push(55555);
+        std::stack<int> orig_stack2(orig_stack1);
+        s21::stack<int> my_stack1;
+        my_stack1.push(55);
+        my_stack1.push(555);
+        my_stack1.push(5555);
+        my_stack1.push(55555);
+        s21::stack<int>my_stack2(my_stack1);
+        while (!orig_stack2.empty() && !my_stack2.empty()) {
+            ASSERT_EQ(orig_stack2.top(), my_stack2.top());
+            orig_stack2.pop();
+            my_stack2.pop();
+        }
+        s21::stack<int> my_stack3;
+        std::stack<int> orig_stack3;
+        s21::stack<int> my_stack4(my_stack3);
+        std::stack<int> orig_stack4(orig_stack3);
+        ASSERT_EQ(orig_stack4.empty(), my_stack4.empty());
+    }
+
+    TEST(stack_test_suit, move_constructor_test) {
+        std::stack<int> orig_stack1;
+        orig_stack1.push(55);
+        orig_stack1.push(555);
+        orig_stack1.push(5555);
+        orig_stack1.push(55555);
+        std::stack<int> orig_stack2(std::move(orig_stack1));
+        s21::stack<int> copy_stack1;
+        copy_stack1.push(55);
+        copy_stack1.push(555);
+        copy_stack1.push(5555);
+        copy_stack1.push(55555);
+        std::cout << copy_stack1.size() << std::endl;
+        copy_stack1.output_s();
+        s21::stack<int> copy_stack2(std::move(copy_stack1));
+        while (!orig_stack2.empty() && !copy_stack2.empty()) {
+            ASSERT_EQ(orig_stack2.top(), copy_stack2.top());
+            orig_stack2.pop();
+            copy_stack2.pop();
+        }
+        ASSERT_EQ(orig_stack1.size(), copy_stack1.size());
+    }
+
+    TEST(stack_test_suit, move_operator_test) {
+        std::stack<int> orig_stack1;
+        orig_stack1.push(55);
+        orig_stack1.push(555);
+        orig_stack1.push(5555);
+        orig_stack1.push(55555);
+        std::stack<int> orig_stack2;
+        orig_stack2.push(1);
+        orig_stack2.push(2);
+        orig_stack2 = std::move(orig_stack1);
+        s21::stack<int> copy_stack1;
+        copy_stack1.push(55);
+        copy_stack1.push(555);
+        copy_stack1.push(5555);
+        copy_stack1.push(55555);
+        s21::stack<int> copy_stack2 {1, 2};
+        copy_stack2 = std::move(copy_stack1);
+        while (!orig_stack2.empty() && !copy_stack2.empty()) {
+            ASSERT_EQ(orig_stack2.top(), copy_stack2.top());
+            orig_stack2.pop();
+            copy_stack2.pop();
+        }
+        ASSERT_EQ(orig_stack1.size(), copy_stack1.size());
+    }
+
+    TEST(stack_test_suit, emplace_test) {
+        std::stack<int> orig_stack1;
+        orig_stack1.push(55);
+        orig_stack1.push(555);
+        orig_stack1.push(5555);
+        orig_stack1.push(55555);
+        orig_stack1.emplace(345);
+        orig_stack1.emplace(234);
+        orig_stack1.emplace(889);
+        s21::stack<int> copy_stack1;
+        copy_stack1.push(55);
+        copy_stack1.push(555);
+        copy_stack1.push(5555);
+        copy_stack1.push(55555);
+        copy_stack1.emplace_front(345);
+        copy_stack1.emplace_front(234);
+        copy_stack1.emplace_front(889);
+        while (!orig_stack1.empty() && !copy_stack1.empty()) {
+            ASSERT_EQ(orig_stack1.top(), copy_stack1.top());
+            orig_stack1.pop();
+            copy_stack1.pop();
+        }
+        ASSERT_EQ(orig_stack1.size(), copy_stack1.size());
+    }
 
 }  // namespace 21
 

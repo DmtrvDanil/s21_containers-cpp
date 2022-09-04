@@ -3,7 +3,7 @@
 //#include "vec_array/array/s21_array.h"
 #include <vector>
 #include <stack>
-
+#include <array>
 int main(void){
 //    std::vector<int> a{1,2,3};
 //    s21::Vector<int> b{1,2,3};
@@ -175,9 +175,27 @@ int main(void){
 ////    for (int i = 0; i < a.size(); i++) {
 ////        std::cout << a.at(i);
 ////    }
+    s21::Vector<int> sd{1,23};
+    std::vector<int> as{1,234};
+    sd.pop_back();
+    as.pop_back();
+    std::cout << sd.size() << std::endl;
+    std::cout << as.size() << std::endl;
 
-    s21::stack<int, std::vector<int> > s({1,2,3,4});
-//    std::stack<int > s();
-    std::cout << s.empty() << std::endl;
+    s21::stack<int> a;
+
+    std::stack<int> d;
+    d.push(1);
+    d.push(2);
+    d.push(3);
+    d.push(4);
+    d.pop();
+    std::cout << d.size() << std::endl;
+    a.push(1);
+    a.push(2);
+    a.push(3);
+    a.push(4);
+    a.pop();
+    std::cout << a.size() << std::endl;
     return 0;
 }

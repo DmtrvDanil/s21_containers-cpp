@@ -1,8 +1,5 @@
 #ifndef SRC_S21_STACK_H
 #define SRC_S21_STACK_H
-#include <iostream>
-#include <stdexcept>
-#include <cmath>
 #include "vector.h"
 
 namespace s21 {
@@ -20,11 +17,12 @@ namespace s21 {
         public:
             stack() : c() {}
             stack(std::initializer_list<value_type> const &items) : c(items) {}
-            stack(const stack &s) : c(s) {}
-            stack(stack &&s) : c(s) {}
+            stack(const stack &s) : c(s.c) {}
+            stack(stack &&s) : c(std::move(s.c)) {}
             ~stack() {}
             stack &operator=(stack &&s) {
                 this->c  = std::move(s.c);
+                return *this;
             }
             const_reference top() {
                 return c.back();
@@ -44,9 +42,14 @@ namespace s21 {
             void swap(stack& other) {
                 this->c.swap(other.c);
             }
-
+            void output_s() {
+                this->c.output_vector();
+            }
+            template <typename... Args>
+            void emplace_front(Args&&... args) {
+                this->c.emplace_back(std::forward<Args>(args)...);
+            }
         };
-
 
 } //  namespace s21
 
