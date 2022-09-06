@@ -17,9 +17,11 @@
     <list default="true" id="98628e11-5e1b-433d-b0f4-b9fbb328099c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/a.out" beforeDir="false" afterPath="$PROJECT_DIR$/src/a.out" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/example.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/example.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/s21_containers.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_containers.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vec_array/s21_abstract.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/vec_array/s21_abstract.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/s21_list.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_list.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/s21_list.tpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_list.tpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,6 +138,12 @@
       <workItem from="1662275463580" duration="223000" />
       <workItem from="1662287069866" duration="455000" />
       <workItem from="1662305552517" duration="3598000" />
+      <workItem from="1662314734214" duration="4982000" />
+      <workItem from="1662382409538" duration="3288000" />
+      <workItem from="1662459392430" duration="830000" />
+      <workItem from="1662462763929" duration="334000" />
+      <workItem from="1662463756053" duration="4056000" />
+      <workItem from="1662476660611" duration="3514000" />
     </task>
     <servers />
   </component>
