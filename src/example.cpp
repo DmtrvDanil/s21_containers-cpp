@@ -2,24 +2,40 @@
 //#include "s21_containersplus.h"
 //#include "vec_array/array/s21_array.h"
 //#include "s21_list.h"
-//#include <vector>
+#include <vector>
 //#include <stack>
 //#include <array>
 #include <list>
+#include <string>
 int main(void){
-    s21::list<int> a;
 
-    a.push_back(1);
+
+//    s21::list<int> a;
+//    std::cout << a.empty() << std::endl;
+//
+//
+//    std::cout << *d.end() << std::endl;
+//std::list<char> l;
+
+s21::list<int> a;
+a.push_front(2);
+a.push_front(2);
+a.push_front(2);
+//std::cout << "sdfs";
+    std::cout << *a.end();
+//    a.push_back(1);
 //    std::cout << "HEAD = " << a.front() << "\nTAIL = " << a.back() << std::endl;
-    a.push_back(2);
-    a.push_back(3);
-    std::cout << "HEAD = " << a.front() << "\nTAIL = " << a.back() << std::endl;
-    std::list<int>::iterator i = a.end();
-    i++;
-    i++;
-    i++;
-    i++;
-    std::cout << "END = " << *i << std::endl;
+//    a.push_back(2);
+//    a.push_back(3);
+//    a.push_front(4);
+//    std::cout << "HEAD = " << a.front() << "\nTAIL = " << a.back() << std::endl;
+//    s21::list<int>::iterator i = a.end();
+//    ++i;
+//    ++i;
+//    ++i;
+//    ++i;
+//    std::cout << "END = " << *i << std::endl;
+//
 //    s21::list<int> s;
 ////    std::cout << "HEAD = " << s.front() << "\nTAIL = " << s.back() << std::endl;
 //    s.push_back(8);
