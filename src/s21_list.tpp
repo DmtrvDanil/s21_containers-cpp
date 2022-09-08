@@ -15,28 +15,118 @@ namespace s21{
     }
 
     template<class value_type>
+    list<value_type>::list(size_type n) {
+        if (n >= max_size())
+            throw std::out_of_range("Limit of the container is exceeded");
+        this->InitList();
+        for (; n > 0; --n) {
+            push_back(this->two_with_->value_);
+        }
+
+    }
+
+    template<class value_type>
+    list<value_type>::list(std::initializer_list<value_type> const &items) {
+        this->InitList();
+        for (auto &i : items) {
+            this->push_back(i);
+        }
+    }
+
+    template<class value_type>
+    list<value_type>::list(const list &l) {
+        *this = l;
+    }
+
+    template<class value_type>
+    list<value_type>::list(list &&l) {
+        if (this == &l) {
+            throw std::invalid_argument("Error move!");
+        }
+        this->InitList();
+        this->SwapList(std::move(l));
+    }
+
+    template<class value_type>
     list<value_type>::~list() {
         this->clear();
-//        delete this->two_with_;
+        delete this->two_with_;
 //        this->tail_->prev_->next_ = nullptr;
 //        for (node* point = this->head_; point != nullptr; point = point->next_) {
 //            delete point;
 //        }
     }
+
+    template<class value_type>
+    list<value_type>& list<value_type>::operator=(list &&other) {
+        if (this == &other) {
+            throw std::invalid_argument("Error move!");
+        }
+        this->SwapList(std::move(other));
+        return *this;
+    }
+
+    template<class value_type>
+    list<value_type>& list<value_type>::operator=(const list &other) {
+        this->InitList();
+        if (this != &other) {
+//            for (auto iter = l.begin(); iter != l.end(); ++iter) {
+//                this->push_back(*iter);
+//            }
+            node *tmp = other.two_with_->next_;
+            if (!tmp) {
+                throw std::bad_alloc();}
+            for (size_type i = 0; i < other.m_size_; i++)  {
+                push_back(tmp->value_);
+                tmp = tmp->next_;
+            }
+        }
+        return *this;
+
+    }
+    template<class value_type>
+    typename list<value_type>::const_reference list<value_type>::front() {
+        return this->two_with_->next_->value_;
+    }
+
+    template<class value_type>
+    typename list<value_type>::const_reference list<value_type>::back() {
+        return this->two_with_->prev_->value_;
+    }
+
+    template<class value_type>
+    typename list<value_type>::iterator list<value_type>::begin() const {
+        return iterator(this->two_with_->next_);
+    }
+
+    template<class value_type>
+    typename list<value_type>::iterator list<value_type>::end() const {
+        return iterator(this->two_with_);
+    }
     template<class value_type>
     void list<value_type>::InitList() {
-//    this->two_with_ = new node();
-    this->two_with_ = &this->two_with_1;
+    this->two_with_ = new node();
+//    this->two_with_ = &this->two_with_1;
+    if (!this->two_with_) {
+        throw std::bad_alloc();
+    }
     this->two_with_->next_ = this->two_with_;
     this->two_with_->prev_ = this->two_with_;
     this->m_size_ = 0;
     }
 
     template<class value_type>
-    bool list<value_type>::empty() {
+    bool list<value_type>::empty() const noexcept {
 //        std::cout << "Before segmentation fault";
 //        return this->head_->next_ == this->tail_ ? true : false;
         return this->two_with_->next_ == nullptr;
+    }
+
+    template<class value_type>
+    size_t list<value_type>::max_size() const noexcept{
+        size_type max_size =
+                (std::numeric_limits<size_type>::max() / sizeof(node) / 2);
+        return max_size;
     }
     template<class value_type>
     void list<value_type>::Connect() {
@@ -56,6 +146,8 @@ namespace s21{
 
     template<class value_type>
     void list<value_type>::push_back(const_reference value) {
+        if (size() >= max_size())
+            throw std::out_of_range("Limit of the container is exceeded");
         node* tmp = new node(value);
         if (!tmp)
             throw std::bad_alloc();
@@ -68,6 +160,8 @@ namespace s21{
 
     template<class value_type>
     void list<value_type>::push_front(const_reference value) {
+        if (size() >= max_size())
+            throw std::out_of_range("Limit of the container is exceeded");
         node* tmp = new node(value);
         if (!tmp)
             throw std::bad_alloc();
@@ -80,7 +174,7 @@ namespace s21{
     }
 
     template<class value_type>
-    typename list<value_type>::size_type list<value_type>::size() {
+    typename list<value_type>::size_type list<value_type>::size()const noexcept {
         size_type size = 0U;
         node* temp = this->two_with_->next_;
         while(temp != two_with_) {
@@ -112,9 +206,26 @@ namespace s21{
         this->two_with_->prev_->next_ = this->two_with_;
         delete tmp;
         this->m_size_--;
-
     }
 
+    template<class value_type>
+    void list<value_type>::pop_front() {
+        if (this->empty()) {
+            throw std::invalid_argument("the list is empty");
+        }
+        node *tmp;
+        tmp = this->two_with_->next_;
+        this->two_with_->next_ = this->two_with_->next_->next_;
+        this->two_with_->next_->prev_ = this->two_with_;
+        delete tmp;
+        this->m_size_--;
+    }
+    template<class value_type>
+    typename list<value_type>::iterator list<value_type>::insert(iterator pos, const_reference value) {
+
+
+
+    }
 
 
 
@@ -139,5 +250,11 @@ namespace s21{
 //        left_node->next_ = node_to_push;
 //        right_node->prev_ = node_to_push;
 //    }
+
+    template<class value_type>
+    void list<value_type>::SwapList(list &&l) {
+        std::swap(this->two_with_, l.two_with_);
+        std::swap(this->m_size_, l.m_size_);
+    }
 
 }  // namespace s21

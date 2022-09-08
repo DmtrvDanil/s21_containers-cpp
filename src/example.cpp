@@ -16,13 +16,26 @@ int main(void){
 //
 //    std::cout << *d.end() << std::endl;
 //std::list<char> l;
+//std::
 
 s21::list<int> a;
-a.push_front(2);
-a.push_front(2);
-a.push_front(2);
+
+std::cout << a.size() << std::endl;
+a.clear();
+std::cout << a.size();
+
+
+
+//std::cout << *a.end() << std::endl;
+//std::cout << a.size();
+
+//std::list<double> a(1);
+//std::cout << *a.end() << std::endl;
+//std::cout << a.size();
+//a.output_list();
+
 //std::cout << "sdfs";
-    std::cout << *a.end();
+//    std::cout << *a.end();
 //    a.push_back(1);
 //    std::cout << "HEAD = " << a.front() << "\nTAIL = " << a.back() << std::endl;
 //    a.push_back(2);
