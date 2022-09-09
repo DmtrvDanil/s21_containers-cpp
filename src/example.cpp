@@ -18,10 +18,10 @@ int main(void){
 //std::list<char> l;
 //std::
 
-    s21::list<int> a{1,2,3,4,5,6};
-    s21::list<int>::const_iterator i = a.begin();
-    i = i + 2;
-    std::cout << *i << std::endl;
+    s21::list<int> a = {1,2,3,4,5,6};
+    s21::list<int>::iterator i = a.begin();
+    *i =  95;
+    std::cout << *i;
 
 
 //std::cout << *a.end() << std::endl;

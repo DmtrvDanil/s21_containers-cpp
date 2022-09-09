@@ -614,7 +614,7 @@ TEST(vector_modifiers_suit, function_erase_multi) {
     }
 
     TEST(array_test_suit, copy_constructor_test) {
-        std::array<int, 3> orig_array3 {234, 21, 11};
+        std::array<int, 3>orig_array3 {234, 21, 11};
         s21::array<int, 3>copy_array3 {234, 21, 11};
         std::array<int, 3>orig_array4(orig_array3);
         s21::array<int, 3>copy_array4(copy_array3);

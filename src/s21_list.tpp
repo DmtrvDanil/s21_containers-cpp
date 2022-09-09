@@ -274,9 +274,10 @@ namespace s21{
 
     template<class value_type>
     typename list<value_type>::ConstIterator list<value_type>::ConstIterator::operator++(int) {
+        ConstIterator temp(this->data_);
         this->data_ = this->data_->next_;
 //        return *this->data_->value_;
-        return *this;
+        return temp;
     }
 
     template<class value_type>
@@ -293,7 +294,11 @@ namespace s21{
 
     template<class value_type>
     typename list<value_type>::ConstIterator list<value_type>::ConstIterator::operator+(const size_type value) {
-        ConstIterator it_const(this->data_->next_ + value);
+        node* tmp = this->data_;
+        for (size_type i = 0; i < value; i++) {
+            tmp = tmp->next_;
+        }
+        ConstIterator it_const(tmp);
         return it_const;
     }
 
@@ -301,6 +306,37 @@ namespace s21{
     typename list<value_type>::ConstIterator list<value_type>::ConstIterator::operator-(const size_type value) {
         ConstIterator it_const(this->data_->prev_ - value);
         return it_const;
+    }
+
+    template<class value_type>
+    bool list<value_type>::ConstIterator::operator!=(const ConstIterator &other) const {
+        return this != other;
+    }
+
+    template<class value_type>
+    bool list<value_type>::ConstIterator::operator==(const ConstIterator &other) const {
+        return this == other;
+    }
+
+    // Iterator
+    template<class value_type>
+    list<value_type>::Iterator::Iterator() : ConstIterator() {}
+
+    template<class value_type>
+    list<value_type>::Iterator::Iterator(node *value) : ConstIterator(value){}
+
+    template<class value_type>
+    list<value_type>::Iterator::Iterator(const Iterator &other) : ConstIterator(other) {}
+
+    template<class value_type>
+    list<value_type>::Iterator::Iterator(const ConstIterator &other) : ConstIterator(other) {}
+
+    template<class value_type>
+    typename list<value_type>::refernce list<value_type>::Iterator::operator*() {
+        if (this->data_ == nullptr) {
+            throw std::invalid_argument("Bad <*> parameter!");
+        }
+        return this->data_->value_;
     }
 
 }  // namespace s21

@@ -77,29 +77,31 @@ template<class T>
             ConstIterator operator++(int);
             ConstIterator& operator--();
             ConstIterator operator--(int);
-            operator const_pointer() { return this->data_;} // see this
             const_reference operator*() const;
             ConstIterator operator+(const size_type value);  // see this
             ConstIterator operator-(const size_type value);  // see this
-            bool operator!=(const )
+            bool operator!=(const ConstIterator &other) const;
+            bool operator==(const ConstIterator &other) const;
 
         };
         class Iterator : public ConstIterator {
         public:
-            Iterator() : ConstIterator() {
-//                this->data_ = nullptr;
+            Iterator();
+            Iterator(node* value);
+            Iterator(const Iterator &other);
+            Iterator(const ConstIterator &other);
+            ~Iterator() {}
+            refernce operator*();
+
+            Iterator operator+(const size_type value) {
+                node* tmp = this->data_;
+                for (size_type i = 0; i < value; i++) {
+                    tmp = tmp->next_;
+                }
+                Iterator iter(tmp);
+                return iter;
             }
-            Iterator(node* value) : ConstIterator(value){
-//                this->data_ = value;
-            }
-//
-//            T& operator++() {
-//                this->data_ = this->data_->next_;
-//                return this->data_->value_;
-//            }
-            T& operator*() {
-                return this->data_->value_;
-            }
+
             Iterator& operator=(const Iterator other) {
                 this->data_ = other.data_;
                 return *this;
@@ -108,6 +110,7 @@ template<class T>
             bool operator==(Iterator const& other) {
                 return this->data_ == other.data_;
             }
+
 
             bool operator!=(Iterator const& other) {
                 return this->data_ != other.data_;
