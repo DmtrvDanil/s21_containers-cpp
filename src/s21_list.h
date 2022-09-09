@@ -13,6 +13,7 @@ template<class T>
             using refernce = T&;
             using const_reference = const T&;
             using pointer = T*;
+            using const_pointer = const T*;
             using size_type = size_t;
 
         struct ListNode {
@@ -60,40 +61,62 @@ template<class T>
         void push_front(const_reference value);
         void pop_front();
         void _push_node(node* node_to_push, node* left_node, node* right_node);
-        class ListIterator {
-        private:
+        class ConstIterator {
+        protected:
             node* data_;
         public:
-            ListIterator() {
+            ConstIterator() {
                 this->data_ = nullptr;
             }
-            ListIterator(node* value){
+            ConstIterator(node* value) {
                 this->data_ = value;
             }
+            ConstIterator(const ConstIterator &other) : data_(other.data_) {}
+            ~ConstIterator() {}
+            ConstIterator& operator++();
+            ConstIterator operator++(int);
+            ConstIterator& operator--();
+            ConstIterator operator--(int);
+            operator const_pointer() { return this->data_;} // see this
+            const_reference operator*() const;
+            ConstIterator operator+(const size_type value);  // see this
+            ConstIterator operator-(const size_type value);  // see this
+            bool operator!=(const )
 
-            T& operator++() {
-                this->data_ = this->data_->next_;
-                return this->data_->value_;
+        };
+        class Iterator : public ConstIterator {
+        public:
+            Iterator() : ConstIterator() {
+//                this->data_ = nullptr;
             }
+            Iterator(node* value) : ConstIterator(value){
+//                this->data_ = value;
+            }
+//
+//            T& operator++() {
+//                this->data_ = this->data_->next_;
+//                return this->data_->value_;
+//            }
             T& operator*() {
                 return this->data_->value_;
             }
-            ListIterator& operator=(const ListIterator other) {
+            Iterator& operator=(const Iterator other) {
                 this->data_ = other.data_;
                 return *this;
 
             }
-            bool operator==(ListIterator const& other) {
+            bool operator==(Iterator const& other) {
                 return this->data_ == other.data_;
             }
 
-            bool operator!=(ListIterator const& other) {
+            bool operator!=(Iterator const& other) {
                 return this->data_ != other.data_;
             }
         };
 
     public:
-        using iterator = ListIterator;
+        using iterator = Iterator;
+        using const_iterator = ConstIterator;
         iterator begin() const;
 //        {
 //            return iterator(this->two_with_->next_);

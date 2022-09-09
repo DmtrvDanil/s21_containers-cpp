@@ -257,4 +257,50 @@ namespace s21{
         std::swap(this->m_size_, l.m_size_);
     }
 
+    // ConstIterator
+    template<class value_type>
+    typename list<value_type>::const_reference list<value_type>::ConstIterator::operator*() const {
+        if (this->data_ == nullptr)
+            throw std::invalid_argument("Bad <*> parameter!");
+        return this->data_->value_;
+    }
+
+    template<class value_type>
+    typename list<value_type>::ConstIterator& list<value_type>::ConstIterator::operator++() {
+            this->data_ = this->data_->next_;
+//            return *this->data_->value_;
+            return *this;
+    }
+
+    template<class value_type>
+    typename list<value_type>::ConstIterator list<value_type>::ConstIterator::operator++(int) {
+        this->data_ = this->data_->next_;
+//        return *this->data_->value_;
+        return *this;
+    }
+
+    template<class value_type>
+    typename list<value_type>::ConstIterator& list<value_type>::ConstIterator::operator--() {
+        this->data_ = this->data_->prev_;
+        return *this;
+    }
+
+    template<class value_type>
+    typename list<value_type>::ConstIterator list<value_type>::ConstIterator::operator--(int) {
+        this->data_ = this->data_->prev_;
+        return *this;
+    }
+
+    template<class value_type>
+    typename list<value_type>::ConstIterator list<value_type>::ConstIterator::operator+(const size_type value) {
+        ConstIterator it_const(this->data_->next_ + value);
+        return it_const;
+    }
+
+    template<class value_type>
+    typename list<value_type>::ConstIterator list<value_type>::ConstIterator::operator-(const size_type value) {
+        ConstIterator it_const(this->data_->prev_ - value);
+        return it_const;
+    }
+
 }  // namespace s21

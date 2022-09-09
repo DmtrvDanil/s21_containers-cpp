@@ -28,7 +28,6 @@ namespace s21 {
             VectorConstIterator operator++(int);
             VectorConstIterator& operator--();
             VectorConstIterator operator--(int);
-
             operator const_pointer() { return this->data_;}
             const_reference operator*();
             VectorConstIterator operator+(const size_t value);

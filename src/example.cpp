@@ -18,12 +18,10 @@ int main(void){
 //std::list<char> l;
 //std::
 
-s21::list<int> a;
-
-std::cout << a.size() << std::endl;
-a.clear();
-std::cout << a.size();
-
+    s21::list<int> a{1,2,3,4,5,6};
+    s21::list<int>::const_iterator i = a.begin();
+    i = i + 2;
+    std::cout << *i << std::endl;
 
 
 //std::cout << *a.end() << std::endl;
