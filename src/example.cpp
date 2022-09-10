@@ -17,11 +17,11 @@ int main(void){
 //    std::cout << *d.end() << std::endl;
 //std::list<char> l;
 //std::
-
-    s21::list<int> a = {1,2,3,4,5,6};
+    s21::list<int>a{1,2,3,4};
     s21::list<int>::iterator i = a.begin();
-    *i =  95;
-    std::cout << *i;
+    a.insert(i, 100);
+    for (auto &i : a)
+        std::cout << i;
 
 
 //std::cout << *a.end() << std::endl;

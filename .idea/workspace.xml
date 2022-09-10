@@ -21,7 +21,6 @@
       <change beforePath="$PROJECT_DIR$/src/example.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/example.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/s21_list.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_list.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/s21_list.tpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_list.tpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -158,6 +157,7 @@
       <workItem from="1662640482117" duration="8088000" />
       <workItem from="1662722190814" duration="3797000" />
       <workItem from="1662734569030" duration="3445000" />
+      <workItem from="1662800799026" duration="2121000" />
     </task>
     <servers />
   </component>

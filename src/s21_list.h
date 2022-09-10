@@ -92,29 +92,10 @@ template<class T>
             Iterator(const ConstIterator &other);
             ~Iterator() {}
             refernce operator*();
-
-            Iterator operator+(const size_type value) {
-                node* tmp = this->data_;
-                for (size_type i = 0; i < value; i++) {
-                    tmp = tmp->next_;
-                }
-                Iterator iter(tmp);
-                return iter;
-            }
-
-            Iterator& operator=(const Iterator other) {
-                this->data_ = other.data_;
-                return *this;
-
-            }
-            bool operator==(Iterator const& other) {
-                return this->data_ == other.data_;
-            }
-
-
-            bool operator!=(Iterator const& other) {
-                return this->data_ != other.data_;
-            }
+            Iterator operator+(const size_type value);
+//            Iterator operator+(Iterator &other);
+            Iterator operator-(const size_type value);
+            Iterator& operator=(const Iterator other);
         };
 
     public:

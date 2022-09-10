@@ -46,7 +46,7 @@ namespace s21{
         this->InitList();
         this->SwapList(std::move(l));
     }
-
+//  Modifiers
     template<class value_type>
     list<value_type>::~list() {
         this->clear();
@@ -55,6 +55,18 @@ namespace s21{
 //        for (node* point = this->head_; point != nullptr; point = point->next_) {
 //            delete point;
 //        }
+    }
+
+    template<class value_type>
+    typename list<value_type>::iterator list<value_type>::insert(iterator pos, const_reference value) {
+        node* element = pos.data_;
+        node* convertion = new node(value);
+        convertion->next_ = element;
+        convertion->prev_ = element->prev_;
+        element->prev_->next_ = convertion;
+        element->prev_ = convertion;
+        this->m_size_++;
+        return Iterator(convertion);
     }
 
     template<class value_type>
@@ -337,6 +349,38 @@ namespace s21{
             throw std::invalid_argument("Bad <*> parameter!");
         }
         return this->data_->value_;
+    }
+    template<class value_type>
+    typename list<value_type>::Iterator list<value_type>::Iterator::operator+(const size_type value) {
+        node* tmp = this->data_;
+        for (size_type i = 0; i < value; i++) {
+            tmp = tmp->next_;
+        }
+        Iterator iter(tmp);
+        return iter;
+    }
+
+//    template<class value_type>
+//    typename list<value_type>::Iterator list<value_type>::Iterator::operator+(Iterator &other) {
+//        return  this->data_ + other.data_;
+////        Iterator tmp(this->data_);
+////        return tmp;
+//    }
+
+    template<class value_type>
+    typename list<value_type>::Iterator list<value_type>::Iterator::operator-(const size_type value) {
+        node* tmp = this->data_;
+        for (size_type i = 0; i < value; i++) {
+            tmp = tmp->prev_;
+        }
+        Iterator iter(tmp);
+        return tmp;
+    }
+
+    template<class value_type>
+    typename list<value_type>::Iterator& list<value_type>::Iterator::operator=(const Iterator other) {
+        this->data_ = other.data_;
+        return *this;
     }
 
 }  // namespace s21
