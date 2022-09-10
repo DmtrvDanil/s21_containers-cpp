@@ -15,15 +15,17 @@ int main(void){
 //
 //
 //    std::cout << *d.end() << std::endl;
-//std::list<char> l;
-//std::
-    s21::list<int>a{1,2,3,4};
-    s21::list<int>::iterator i = a.begin();
-    a.insert(i, 100);
+//std::list<char>  l;
+    s21::list<int> a{1,2,3,4};
+    s21::list<int> b{5,6,7};
+    b.Merge(a);
+    std::cout << a.size() << std::endl;
     for (auto &i : a)
         std::cout << i;
-
-
+    std::cout << std::endl;
+    std::cout <<  b.size() << std::endl;
+    for (auto &l : b)
+        std::cout << l;
 //std::cout << *a.end() << std::endl;
 //std::cout << a.size();
 

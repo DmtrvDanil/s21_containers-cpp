@@ -62,7 +62,7 @@ template<class T>
         void pop_front();
         void _push_node(node* node_to_push, node* left_node, node* right_node);
         class ConstIterator {
-        protected:
+        public:
             node* data_;
         public:
             ConstIterator() {
@@ -121,8 +121,11 @@ template<class T>
         size_t max_size() const noexcept;
         void clear();
         iterator insert(iterator pos, const_reference value);
+        void erase(iterator pos);
+        void Swap(list& other);
+        void Merge(list& other);
     private:
-        void SwapList(list &&l);
+        void SwapList(list &l);
 
         void Connect();
         void InitList();

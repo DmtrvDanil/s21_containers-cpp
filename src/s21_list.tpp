@@ -70,6 +70,42 @@ namespace s21{
     }
 
     template<class value_type>
+    void list<value_type>::erase(iterator pos) {
+        node* element = pos.data_;
+        element->prev_->next_ = element->next_;
+        element->next_->prev_ = element->prev_;
+        delete element;
+        this->m_size_--;
+    }
+
+    template<class value_type>
+    void list<value_type>::Swap(list& other) {
+        this->SwapList(other);
+    }
+
+    template<class value_type>
+    void list<value_type>::Merge(list& other){
+        if (this != &other) {
+            iterator oit = other.begin();
+            iterator it = this->begin();
+            while (!other.empty()) {
+                if (it == this->end()) {
+                    this->insert(it, *oit);
+                    other.erase(oit);
+                    ++oit;
+                } else if (*oit < *it) {
+                    this->insert(it, *oit);
+                    other.erase(oit);
+                    ++oit;
+                } else {
+                    ++it;
+                }
+            }
+        }
+    }
+    
+
+    template<class value_type>
     list<value_type>& list<value_type>::operator=(list &&other) {
         if (this == &other) {
             throw std::invalid_argument("Error move!");
@@ -232,12 +268,7 @@ namespace s21{
         delete tmp;
         this->m_size_--;
     }
-    template<class value_type>
-    typename list<value_type>::iterator list<value_type>::insert(iterator pos, const_reference value) {
 
-
-
-    }
 
 
 
@@ -264,7 +295,7 @@ namespace s21{
 //    }
 
     template<class value_type>
-    void list<value_type>::SwapList(list &&l) {
+    void list<value_type>::SwapList(list &l) {
         std::swap(this->two_with_, l.two_with_);
         std::swap(this->m_size_, l.m_size_);
     }
@@ -322,7 +353,7 @@ namespace s21{
 
     template<class value_type>
     bool list<value_type>::ConstIterator::operator!=(const ConstIterator &other) const {
-        return this != other;
+        return this->data_ != other.data_;
     }
 
     template<class value_type>
