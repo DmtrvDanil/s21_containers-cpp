@@ -454,9 +454,28 @@ namespace s21{
         return *this;
     }
 
-    template <class value_type>
+    template<class value_type>
     bool list<value_type>::is_cicle( node *N) {
         return N == two_with_;
     }
+
+    template<class value_type>
+    template<typename... Args>
+    typename list<value_type>::iterator list<value_type>::emplace(const_iterator pos, Args&&... args) {
+        return this->insert(pos, std::forward<Args>(args)...);
+    }
+
+    template<class value_type>
+    template<typename... Args>
+    void list<value_type>::emplace_back(Args &&...args) {
+        this->push_back(value_type(std::forward<Args>(args)...));
+    }
+
+    template<class value_type>
+    template<typename... Args>
+    void list<value_type>::emplace_front(Args &&...args) {
+        this->push_front(value_type(std::forward<Args>(args)...));
+    }
+
 
 }  // namespace s21

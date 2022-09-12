@@ -127,7 +127,7 @@ template<class T>
         void Splice(const_iterator pos, list& other);
         void Reverse();
         void Unique();
-        
+
         void Sort();
         template <typename... Args>
         iterator emplace(const_iterator pos, Args&&... args);
