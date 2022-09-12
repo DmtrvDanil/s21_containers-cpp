@@ -45,7 +45,7 @@ template<class T>
         ~list();
         list& operator=(const list& other);
         list& operator=(list&& other);
-        bool empty() const noexcept;
+        bool empty() ;
         void say() {std::cout << "Hello World!"; }
         void output_list() {
             std::cout << "This is your list: " << std::endl;
@@ -124,7 +124,19 @@ template<class T>
         void erase(iterator pos);
         void Swap(list& other);
         void Merge(list& other);
+        void Splice(const_iterator pos, list& other);
+        void Reverse();
+        void Unique();
+        
+        void Sort();
+        template <typename... Args>
+        iterator emplace(const_iterator pos, Args&&... args);
+        template <typename... Args>
+        void emplace_back(Args&&... args);
+        template <typename... Args>
+        void emplace_front(Args&&... args);
     private:
+        bool is_cicle(node *N);
         void SwapList(list &l);
 
         void Connect();

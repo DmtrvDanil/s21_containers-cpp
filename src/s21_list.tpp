@@ -103,7 +103,45 @@ namespace s21{
             }
         }
     }
-    
+
+    template<class value_type>
+    void list<value_type>::Splice(const_iterator pos, list &other) {
+        for (iterator iter = other.begin(); iter != other.end(); ++iter) {
+            this->insert(pos, *iter);
+            other.erase(iter);
+        }
+    }
+
+    template<class value_type>
+    void list<value_type>::Reverse() {
+        node* tmp = this->two_with_->next_;
+        std::swap(this->two_with_->next_, this->two_with_->prev_);
+        while (tmp != this->two_with_) {
+            std::swap(tmp->prev_, tmp->next_);
+            tmp = tmp->prev_;
+        }
+    }
+
+    template<class value_type>
+    void list<value_type>::Unique() {
+        for (iterator iter = this->begin(); iter != this->end();) {
+            std::cout << "Values of iterator  in loop: " << *iter << std::endl;
+            std::cin.ignore();
+            if (*iter == *(++iter)) {
+                this->erase(iter);
+            }
+        }
+
+//        for (iterator iter2 = begin(); iter2.data_ != this->two_with_->prev_; ++iter2) {
+//            iterator iter3 = iter2;
+//            ++iter3;
+//            if (*iter2 == *iter3) {
+//                this->erase(iter3);
+//            }
+//        }
+    }
+
+
 
     template<class value_type>
     list<value_type>& list<value_type>::operator=(list &&other) {
@@ -164,10 +202,12 @@ namespace s21{
     }
 
     template<class value_type>
-    bool list<value_type>::empty() const noexcept {
+    bool list<value_type>::empty()  {
 //        std::cout << "Before segmentation fault";
 //        return this->head_->next_ == this->tail_ ? true : false;
-        return this->two_with_->next_ == nullptr;
+//        return this->two_with_->next_ == nullptr;
+//        return is_cicle(this->two_with_->next_);
+        return this->two_with_->next_ == this->two_with_;
     }
 
     template<class value_type>
@@ -358,7 +398,7 @@ namespace s21{
 
     template<class value_type>
     bool list<value_type>::ConstIterator::operator==(const ConstIterator &other) const {
-        return this == other;
+        return this->data_ == other.data_;
     }
 
     // Iterator
@@ -412,6 +452,11 @@ namespace s21{
     typename list<value_type>::Iterator& list<value_type>::Iterator::operator=(const Iterator other) {
         this->data_ = other.data_;
         return *this;
+    }
+
+    template <class value_type>
+    bool list<value_type>::is_cicle( node *N) {
+        return N == two_with_;
     }
 
 }  // namespace s21
