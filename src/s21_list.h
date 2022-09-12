@@ -129,6 +129,10 @@ template<class T>
         void Unique();
 
         void Sort();
+        void ssort();
+        void QuickSort(iterator first_element, iterator last_element);
+        iterator _partition(iterator first_element, iterator last_element);
+
         template <typename... Args>
         iterator emplace(const_iterator pos, Args&&... args);
         template <typename... Args>

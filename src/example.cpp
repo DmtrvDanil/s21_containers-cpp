@@ -16,12 +16,11 @@ int main(void){
 //
 //    std::cout << *d.end() << std::endl;
 //std::list<char>  l;
-    s21::list<int> a{1,2,2,2,2,2,2,2,3,3,4, 1};
-    std::cout << a.size() << std::endl;
-    a.Unique();
+    s21::list<int> a{70,4,45,7,8,2,6};
+    a.ssort();
     std::cout << a.size() << std::endl;
     for (auto &i : a)
-        std::cout << i;
+        std::cout << i << " ";
     std::cout << std::endl;
 //std::cout << *a.end() << std::endl;
 //std::cout << a.size();

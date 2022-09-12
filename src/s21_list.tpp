@@ -84,7 +84,7 @@ namespace s21{
     }
 
     template<class value_type>
-    void list<value_type>::Merge(list& other){
+        void list<value_type>::Merge(list& other){
         if (this != &other) {
             iterator oit = other.begin();
             iterator it = this->begin();
@@ -125,8 +125,6 @@ namespace s21{
     template<class value_type>
     void list<value_type>::Unique() {
         for (iterator iter = this->begin(); iter != this->end();) {
-            std::cout << "Values of iterator  in loop: " << *iter << std::endl;
-            std::cin.ignore();
             if (*iter == *(++iter)) {
                 this->erase(iter);
             }
@@ -139,6 +137,11 @@ namespace s21{
 //                this->erase(iter3);
 //            }
 //        }
+    }
+
+    template<class value_type>
+    void list<value_type>::Sort() {
+
     }
 
 
@@ -477,5 +480,38 @@ namespace s21{
         this->push_front(value_type(std::forward<Args>(args)...));
     }
 
+    template <typename T>
+    void list<T>::ssort() {
+        if (this->size() > 1) {
+            iterator it = this->end() - 1;
+            this->QuickSort(this->begin(), it);
+        }
+    }
+
+    template <typename T>
+    void list<T>::QuickSort(iterator first_element, iterator last_element) {
+        if (last_element != this->begin() - 1 && first_element != last_element && first_element != last_element + 1) {
+            iterator iter = this->_partition(first_element, last_element);
+            this->QuickSort(first_element, iter - 1);
+            this->QuickSort(iter + 1, last_element);
+        }
+    }
+
+    template <typename T>
+    typename list<T>::iterator list<T>::_partition(iterator first_element, iterator last_element) {
+        value_type x = *last_element;
+        iterator i = first_element - 1;
+        for (iterator j = first_element; j != last_element; ++j) {
+            if (*j < x) {
+                i = i + 1;
+                std::swap(*i, *j);
+            }
+        }
+        i = i + 1;
+        std::swap(*i, *last_element);
+        return i;
+    }
+
 
 }  // namespace s21
+
