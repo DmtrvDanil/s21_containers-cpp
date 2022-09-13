@@ -11,8 +11,8 @@ namespace s21 {
         using reference = typename abstract<T>::reference;
         using const_reference = typename abstract<T>::const_reference;
         using size_type = typename abstract<T>::size_type;
-        using iterator = typename abstract<T>::VectorIterator;
-        using const_iterator = typename abstract<T>::VectorConstIterator;
+        using iterator = typename abstract<T>::Iterator;
+        using const_iterator = typename abstract<T>::ConstIterator;
     public:
         array();
         array(std::initializer_list<value_type> const &items);

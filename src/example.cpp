@@ -9,12 +9,12 @@
 #include <string>
 int main(void){
 
-    s21::list<int> a(3);
-    std::list<int> b(3);
-    for (auto &i : b)
-        std::cout << i; 
-    a.output_list();
-
+    s21::list<int> a;
+    std::cout << a.front() << std::endl;
+    std::cout << a.back() << std::endl;
+    std::list<int> v;
+    std::cout << v.back() << std::endl;
+    std::cout << v.front() << std::endl;
 //    s21::list<int> a;
 //    std::cout << a.empty() << std::endl;
 //

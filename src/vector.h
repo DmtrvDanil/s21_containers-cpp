@@ -13,8 +13,8 @@ namespace s21 {
         using reference = typename abstract<T>::reference;
         using const_reference = typename abstract<T>::const_reference;
         using size_type = typename abstract<T>::size_type;
-        using const_iterator = typename abstract<T>::VectorConstIterator;
-        using iterator = typename abstract<T>::VectorIterator;
+        using const_iterator = typename abstract<T>::ConstIterator;
+        using iterator = typename abstract<T>::Iterator;
 //        using allocator_type = Alloc;
         Vector();
         explicit Vector(size_type n);

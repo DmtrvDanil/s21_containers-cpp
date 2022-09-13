@@ -1,5 +1,6 @@
 #ifndef SRC_S21_LIST_H
 #define SRC_S21_LIST_H
+#include "vec_array/s21_abstract.h"
 #include <iostream>
 #include <stdexcept>
 #include <cmath>
@@ -7,14 +8,14 @@
 
 namespace s21{
 template<class T>
-    class list {
+    class list : public abstract<T>{
         public:
-            using value_type = T;
-            using refernce = T&;
-            using const_reference = const T&;
-            using pointer = T*;
-            using const_pointer = const T*;
-            using size_type = size_t;
+        using pointer = typename abstract<T>::pointer;
+        using const_pointer = typename abstract<T>::const_pointer ;
+        using value_type = typename abstract<T>::value_type;
+        using reference = typename abstract<T>::reference;
+        using const_reference = typename abstract<T>::const_reference;
+        using size_type = typename abstract<T>::size_type;
 
         struct ListNode {
         public:
@@ -28,12 +29,9 @@ template<class T>
 
     public:
         using node = ListNode;
-
     private:
         size_type m_size_;
         node* two_with_;
-        node* head_;
-        node* tail_;
     public:
         list();
         explicit list(size_type n);
@@ -43,7 +41,7 @@ template<class T>
         ~list();
         list& operator=(const list& other);
         list& operator=(list&& other);
-        bool empty() const noexcept override;;
+        bool empty() const noexcept override;
 
         void output_list() {
             std::cout << "This is your list: " << std::endl;
@@ -89,7 +87,7 @@ template<class T>
             Iterator(const Iterator &other);
             Iterator(const ConstIterator &other);
             ~Iterator() {}
-            refernce operator*();
+            reference operator*();
             Iterator operator+(const size_type value);
 //            Iterator operator+(Iterator &other);
             Iterator operator-(const size_type value);
@@ -100,23 +98,11 @@ template<class T>
         using iterator = Iterator;
         using const_iterator = ConstIterator;
         iterator begin() const;
-//        {
-//            return iterator(this->two_with_->next_);
-//        }
         iterator end() const;
-//        {
-//            return iterator(this->two_with_);
-//        }
-        const_reference front();
-//        {
-//            return this->two_with_->next_->value_;
-//        }
-        const_reference back();
-//        {
-//            return this->two_with_->prev_->value_;
-//        }
-        size_type  size() const noexcept;
-        size_t max_size() const noexcept;
+        const_reference front() override;
+        const_reference back() override;
+        size_type  size() const noexcept override;
+        size_t max_size() const noexcept override;
         void clear();
         iterator insert(iterator pos, const_reference value);
         void erase(iterator pos);

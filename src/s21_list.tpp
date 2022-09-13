@@ -4,14 +4,6 @@ namespace s21{
     template<class value_type>
     list<value_type>::list() {
         this->InitList();
-//        std::cout << "Before segmentation fault";
-//        this->Connect();
-//        std::cout << "Before segmentation fault";
-//        this->head_ = nullptr;
-//        this->tail_ = nullptr;
-//        std::cout << "Before segmentation fault";
-//        this->m_size_ = 0;
-//        std::cout << "Before segmentation fault";
     }
 
     template<class value_type>
@@ -195,7 +187,6 @@ namespace s21{
     template<class value_type>
     void list<value_type>::InitList() {
     this->two_with_ = new node();
-//    this->two_with_ = &this->two_with_1;
     if (!this->two_with_) {
         throw std::bad_alloc();
     }
@@ -205,7 +196,7 @@ namespace s21{
     }
 
     template<class value_type>
-    bool list<value_type>::empty()  {
+    bool list<value_type>::empty() const noexcept  {
 //        std::cout << "Before segmentation fault";
 //        return this->head_->next_ == this->tail_ ? true : false;
 //        return this->two_with_->next_ == nullptr;
@@ -237,7 +228,7 @@ namespace s21{
 
     template<class value_type>
     void list<value_type>::push_back(const_reference value) {
-        if (size() >= max_size())
+        if (this->size() >= this->max_size())
             throw std::out_of_range("Limit of the container is exceeded");
         node* tmp = new node(value);
         if (!tmp)
@@ -251,7 +242,7 @@ namespace s21{
 
     template<class value_type>
     void list<value_type>::push_front(const_reference value) {
-        if (size() >= max_size())
+        if (this->size() >= this->max_size())
             throw std::out_of_range("Limit of the container is exceeded");
         node* tmp = new node(value);
         if (!tmp)
@@ -418,7 +409,7 @@ namespace s21{
     list<value_type>::Iterator::Iterator(const ConstIterator &other) : ConstIterator(other) {}
 
     template<class value_type>
-    typename list<value_type>::refernce list<value_type>::Iterator::operator*() {
+    typename list<value_type>::reference list<value_type>::Iterator::operator*() {
         if (this->data_ == nullptr) {
             throw std::invalid_argument("Bad <*> parameter!");
         }

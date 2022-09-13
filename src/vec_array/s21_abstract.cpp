@@ -33,101 +33,101 @@ namespace s21 {
 
     // >>>>>>>>>>>>> Const Iterator <<<<<<<<<<<<<<<<<<<<<<<<
     template<class value_type>
-    abstract<value_type>::VectorConstIterator::VectorConstIterator() {
+    abstract<value_type>::ConstIterator::ConstIterator() {
         this->data_ = nullptr;
     }
 
     template<class value_type>
-    abstract<value_type>::VectorConstIterator::VectorConstIterator(pointer pt) {
+    abstract<value_type>::ConstIterator::ConstIterator(pointer pt) {
         this->data_ = pt;
     }
 
     template<class value_type>
-    typename abstract<value_type>::const_reference  abstract<value_type>::VectorConstIterator::operator*() {
+    typename abstract<value_type>::const_reference  abstract<value_type>::ConstIterator::operator*() {
     if (this->data_ == nullptr)
         throw std::invalid_argument("Bad <*> parameters!");
         return *this->data_;
     }
 
     template<class value_type>
-    bool abstract<value_type>::VectorConstIterator::operator!=(const VectorConstIterator &other) const {
+    bool abstract<value_type>::ConstIterator::operator!=(const ConstIterator &other) const {
         return this->data_ != other.data_;
     }
 
     template<class value_type>
-    bool abstract<value_type>::VectorConstIterator::operator==(const VectorConstIterator &other) const {
+    bool abstract<value_type>::ConstIterator::operator==(const ConstIterator &other) const {
         return this->data_ == other.data_;
     }
 
 
     template<class value_type>
-    typename abstract<value_type>::VectorConstIterator  abstract<value_type>::VectorConstIterator::operator+(const size_t value) {
-        VectorConstIterator it_const(this->data_ + value);
+    typename abstract<value_type>::ConstIterator  abstract<value_type>::ConstIterator::operator+(const size_t value) {
+        ConstIterator it_const(this->data_ + value);
         return it_const;
     }
 
     template<class value_type>
-    typename abstract<value_type>::VectorConstIterator&  abstract<value_type>::VectorConstIterator::operator++() {
+    typename abstract<value_type>::ConstIterator&  abstract<value_type>::ConstIterator::operator++() {
         this->data_++;
         return *this;
     }
 
     template<class value_type>
-    typename abstract<value_type>::VectorConstIterator  abstract<value_type>::VectorConstIterator::operator++(int) {
-        VectorConstIterator temp(*this);
+    typename abstract<value_type>::ConstIterator  abstract<value_type>::ConstIterator::operator++(int) {
+        ConstIterator temp(*this);
         this->data_++;
         return temp;
     }
 
     template<class value_type>
-    typename abstract<value_type>::VectorConstIterator&  abstract<value_type>::VectorConstIterator::operator--() {
+    typename abstract<value_type>::ConstIterator&  abstract<value_type>::ConstIterator::operator--() {
         this->data_--;
         return *this;
     }
 
     template<class value_type>
-    typename abstract<value_type>::VectorConstIterator  abstract<value_type>::VectorConstIterator::operator--(int) {
-        VectorConstIterator temp(*this);
+    typename abstract<value_type>::ConstIterator  abstract<value_type>::ConstIterator::operator--(int) {
+        ConstIterator temp(*this);
         this->data_--;
         return temp;
     }
 
     // >>>>>>>>>>>>> Iterator  <<<<<<<<<<<<<<<<<<<<<<<<
     template<class value_type>
-    abstract<value_type>::VectorIterator::VectorIterator() :
-        VectorConstIterator() {}
+    abstract<value_type>::Iterator::Iterator() :
+        ConstIterator() {}
 
     template<class value_type>  //see this function need some fixed
-    abstract<value_type>::VectorIterator::VectorIterator(pointer pt) :
-        VectorConstIterator(pt) {}
+    abstract<value_type>::Iterator::Iterator(pointer pt) :
+        ConstIterator(pt) {}
 
     template<class value_type>
-    typename abstract<value_type>::reference  abstract<value_type>::VectorIterator::operator*() {
+    typename abstract<value_type>::reference  abstract<value_type>::Iterator::operator*() {
         if (this->data_ == nullptr)
             throw std::invalid_argument("Bad <*> parameters!");
         return *this->data_;
     }
 
     template<class value_type>
-    typename abstract<value_type>::VectorIterator&  abstract<value_type>::VectorIterator::operator=(const value_type val) {
+    typename abstract<value_type>::Iterator&  abstract<value_type>::Iterator::operator=(const value_type val) {
         *this->data_ = val;
         return *this->data_;
     }
 
     template<class value_type>
-    typename abstract<value_type>::VectorIterator  abstract<value_type>::VectorIterator::operator+(const size_t value) {
-        VectorIterator it(this->data_ + value);
+    typename abstract<value_type>::Iterator  abstract<value_type>::Iterator::operator+(const size_t value) {
+        Iterator it(this->data_ + value);
         return it;
     }
 
     template<class value_type>
-    typename abstract<value_type>::VectorIterator  abstract<value_type>::VectorIterator::operator-(const size_t value) {
-        VectorIterator it(this->data_ - value);
+    typename abstract<value_type>::Iterator  abstract<value_type>::Iterator::operator-(const size_t value) {
+        Iterator it(this->data_ - value);
         return it;
     }
 
     template<class value_type>
-    typename abstract<value_type>::VectorIterator  abstract<value_type>::VectorIterator::operator-(const VectorIterator &value) {
+    typename abstract<value_type>::Iterator  abstract<value_type>::Iterator::operator-(const Iterator &value) {
         return this->data_ - value;
     }
 //    VectorIterator operator-(const VectorIterator &value);
@@ -142,7 +142,7 @@ namespace s21 {
 
     //   >>>>>>>>>>>> Iterator begin end <<<<<<<<<<<<<<<<<<<<
     template<class value_type>
-    typename abstract<value_type>::iterator abstract<value_type>::begin() {
+    typename abstract<value_type>::iterator abstract<value_type>::begin(){
         iterator temp(this->arr_);
         return temp;
     }
@@ -158,26 +158,31 @@ namespace s21 {
     //  >>>>>>>>>>> Capacity <<<<<<<<<<<<<<<
 
     template <class value_type>
-    bool abstract<value_type>::empty() {
+    bool abstract<value_type>::empty() const noexcept {
         return this->m_size_ > 0 ? false : true;
     }
 
     template<class value_type>
-    typename abstract<value_type>::size_type abstract<value_type>::size() {
+    typename abstract<value_type>::size_type abstract<value_type>::size() const noexcept{
         return this->m_size_;
     }
 
     template<class value_type>
-    typename abstract<value_type>::size_type abstract<value_type>::max_size() {
-        double sys = 0.0;
-
-        #if __WORDSIZE == 64
-            sys = 64.0;
-        #else
-            sys = 32.0;
-        #endif
-//    return static_cast<size_type>(std::pow(2.0, sys)) / static_cast<value_type>(sizeof(value_type)) ;
-        return static_cast<size_type>(std::pow(2.0, sys) / static_cast<value_type>(sizeof(value_type))) / 2 - 1;  // fixed with chaer
+    typename abstract<value_type>::size_type abstract<value_type>::max_size() const noexcept{
+//        double sys = 0.0;
+//
+//        #if __WORDSIZE == 64
+//            sys = 64.0;
+//        #else
+//            sys = 32.0;
+//        #endif
+////    return static_cast<size_type>(std::pow(2.0, sys)) / static_cast<value_type>(sizeof(value_type)) ;
+//        return static_cast<size_type>(std::pow(2.0, sys) / static_cast<value_type>(sizeof(value_type))) / 2 - 1;  // fixed with chaer
+        char bits = 63;
+        if (sizeof(void *) == 4) {
+            bits = 31;
+        }
+        return static_cast<size_type>(pow(2, bits)) / sizeof(value_type) - 1;
     }
 
 

@@ -871,18 +871,21 @@ TEST(vector_modifiers_suit, function_erase_multi) {
         s21::list<int> s21_list_empty;
         s21::list<int> s21_list_three{1,2,3};
         s21::list<int> s21_lesser{534789, 2479056, 987654, 110101024, 62348710, 1, 35674};
+        s21::list<char> s21_char_list{'L', 'I', 'S', 'T'};
 
 
         std::list<int> std_list_empty;
         std::list<int> std_list_three{1,2,3};
         std::list<int> std_lesser{534789, 2479056, 987654, 110101024, 62348710, 1, 35674};
+        std::list<char> std_char_list{'L', 'I', 'S', 'T'};
+
 
     };
 
     TEST(List, default_constructor) {
         TestList tester;
-        ASSERT_EQ(tester.s21_list_empty.size(), tester.std_list_empty.size());
-        ASSERT_EQ(tester.s21_list_empty.empty(), tester.std_list_empty.empty());
+        EXPECT_EQ(tester.s21_list_empty.size(), tester.std_list_empty.size());
+        EXPECT_EQ(tester.s21_list_empty.empty(), tester.std_list_empty.empty());
     }
 
     TEST(List, init_constructor) {
@@ -983,6 +986,47 @@ TEST(vector_modifiers_suit, function_erase_multi) {
         EXPECT_EQ(s21_list_move.size(), std_list_move.size());
         EXPECT_EQ(s21_list_move.empty(), std_list_move.empty());
     }
+
+    TEST(List, function_front) {
+        TestList tester;
+        EXPECT_EQ(tester.s21_char_list.front(), tester.std_char_list.front());
+    }
+    TEST(List, function_front_empty) {
+        TestList tester;
+        EXPECT_EQ(tester.s21_list_empty.front(), tester.std_list_empty.front());
+    }
+
+    TEST(List, function_back) {
+        TestList tester;
+        EXPECT_EQ(tester.s21_char_list.back(), tester.std_char_list.back());
+    }
+    TEST(List, function_back_empty) {
+        TestList tester;
+        EXPECT_EQ(tester.s21_list_empty.back(), tester.std_list_empty.back());
+    }
+
+    TEST(List, iterator_access){
+        TestList tester;
+        s21::list<char>::iterator s21_iter = tester.s21_char_list.begin();
+        std::list<char>::iterator std_iter = tester.std_char_list.begin();
+        while(s21_iter != tester.s21_char_list.end()) {
+            EXPECT_EQ(*s21_iter, *std_iter);
+            ++s21_iter;
+            ++std_iter;
+        }
+    }
+
+    TEST(List, const_iterator_access) {
+        TestList tester;
+        s21::list<char>::const_iterator s21_const_iter = tester.s21_char_list.begin();
+        std::list<char>::const_iterator std_const_iter = tester.std_char_list.begin();
+        while(s21_const_iter != tester.s21_char_list.end()) {
+            EXPECT_EQ(*s21_const_iter, *std_const_iter);
+            ++s21_const_iter;
+            ++std_const_iter;
+        }
+    }
+
 
 
 
