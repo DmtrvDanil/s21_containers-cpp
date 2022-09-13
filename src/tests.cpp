@@ -1,8 +1,9 @@
 #include "s21_containers.h"
 #include "s21_containersplus.h"
 #include <gtest/gtest.h>
-#include "vector"
+#include <vector>
 #include <stack>
+#include <list>
 namespace  s21 {
 // >>>>>>> VECTOR <<<<<<<<
 
@@ -864,6 +865,128 @@ TEST(vector_modifiers_suit, function_erase_multi) {
         ASSERT_EQ(orig_stack1.size(), copy_stack1.size());
     }
 
+// List Testing
+    class TestList {
+        public:
+        s21::list<int> s21_list_empty;
+        s21::list<int> s21_list_three{1,2,3};
+        s21::list<int> s21_lesser{534789, 2479056, 987654, 110101024, 62348710, 1, 35674};
+
+
+        std::list<int> std_list_empty;
+        std::list<int> std_list_three{1,2,3};
+        std::list<int> std_lesser{534789, 2479056, 987654, 110101024, 62348710, 1, 35674};
+
+    };
+
+    TEST(List, default_constructor) {
+        TestList tester;
+        ASSERT_EQ(tester.s21_list_empty.size(), tester.std_list_empty.size());
+        ASSERT_EQ(tester.s21_list_empty.empty(), tester.std_list_empty.empty());
+    }
+
+    TEST(List, init_constructor) {
+        TestList tester;
+        s21::list<int> a(3);
+        std::list<int> b(3);
+        s21::list<int>::iterator s21_it = a.begin();
+        std::list<int>::iterator std_it = b.begin();
+        while (s21_it != a.end()) {
+            ASSERT_EQ(*s21_it, *std_it);
+            ++s21_it;
+            ++std_it;
+        }
+    }
+
+    TEST(List, initializer_constructor) {
+        TestList tester;
+        s21::list<int>::iterator s21_iter = tester.s21_list_three.begin();
+        std::list<int>::iterator std_iter = tester.std_list_three.begin();
+        while (s21_iter != tester.s21_list_three.end()) {
+            EXPECT_EQ(*s21_iter, *std_iter);
+            ++s21_iter;
+            ++std_iter;
+        }
+        EXPECT_EQ(tester.s21_list_three.size(), tester.std_list_three.size());
+        EXPECT_EQ(tester.s21_list_three.empty(), tester.std_list_three.empty());
+    }
+
+    TEST(List, copy_constructor) {
+        TestList tester;
+        s21::list<int> s21_list_copy(tester.s21_list_three);
+        std::list<int> std_list_copy(tester.std_list_three);
+        s21::list<int>::iterator s21_iter = s21_list_copy.begin();
+        std::list<int>::iterator std_iter = std_list_copy.begin();
+        while (s21_iter != s21_list_copy.end()) {
+            EXPECT_EQ(*s21_iter, *std_iter);
+            ++s21_iter;
+            ++std_iter;
+        }
+        EXPECT_EQ(s21_list_copy.size(), std_list_copy.size());
+        EXPECT_EQ(s21_list_copy.empty(), std_list_copy.empty());
+    }
+
+    TEST(List, move_constructor) {
+        TestList tester;
+        s21::list<int> s21_list_move(std::move(tester.s21_list_three));
+        std::list<int> std_list_move(std::move(tester.std_list_three));
+        s21::list<int>::iterator s21_iter = s21_list_move.begin();
+        std::list<int>::iterator std_iter = std_list_move.begin();
+        while (s21_iter != s21_list_move.end()) {
+            EXPECT_EQ(*s21_iter, *std_iter);
+            ++s21_iter;
+            ++std_iter;
+        }
+        EXPECT_EQ(s21_list_move.size(), std_list_move.size());
+        EXPECT_EQ(s21_list_move.empty(), std_list_move.empty());
+        s21_iter = tester.s21_list_three.begin();
+        std_iter = tester.std_list_three.begin();
+        while (s21_iter != tester.s21_list_three.end()) {
+            EXPECT_EQ(*s21_iter, *std_iter);
+            ++s21_iter;
+            ++std_iter;
+        }
+        EXPECT_EQ(tester.s21_list_three.size(), tester.std_list_three.size());
+        EXPECT_EQ(tester.s21_list_three.empty(), tester.std_list_three.empty());
+    }
+
+    TEST(List, copy_assigment_lesser) {
+        TestList tester;
+        s21::list<int> s21_list_copy{1,2};
+        std::list<int> std_list_copy{1,2};
+        s21_list_copy = tester.s21_lesser;
+        std_list_copy = tester.std_lesser;
+        s21::list<int>::iterator s21_iter = s21_list_copy.begin();
+        std::list<int>::iterator std_iter = std_list_copy.begin();
+        while (s21_iter != s21_list_copy.end()) {
+            EXPECT_EQ(*s21_iter, *std_iter);
+            ++s21_iter;
+            ++std_iter;
+        }
+        EXPECT_EQ(s21_list_copy.size(), std_list_copy.size());
+        EXPECT_EQ(s21_list_copy.empty(), std_list_copy.empty());
+    }
+
+    TEST(List, move_assigment) {
+        TestList tester;
+        s21::list<int> s21_list_move{1,2};
+        std::list<int> std_list_move{1,2};
+        s21_list_move = std::move(tester.s21_lesser);
+        std_list_move = std::move(tester.std_lesser);
+        s21::list<int>::iterator s21_iter = s21_list_move.begin();
+        std::list<int>::iterator std_iter = std_list_move.begin();
+        while(s21_iter != s21_list_move.end()) {
+            EXPECT_EQ(*s21_iter, *std_iter);
+            ++s21_iter;
+            ++std_iter;
+        }
+        EXPECT_EQ(s21_list_move.size(), std_list_move.size());
+        EXPECT_EQ(s21_list_move.empty(), std_list_move.empty());
+    }
+
+
+
+    
 }  // namespace 21
 
 int main(int argc, char *argv[]) {

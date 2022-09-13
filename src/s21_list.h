@@ -18,7 +18,6 @@ template<class T>
 
         struct ListNode {
         public:
-
 //            ~ListNode() {};
             value_type value_;
             ListNode* next_;
@@ -31,22 +30,21 @@ template<class T>
         using node = ListNode;
 
     private:
-//        node two_with_1;
         size_type m_size_;
         node* two_with_;
         node* head_;
         node* tail_;
     public:
         list();
-        list(size_type n);
+        explicit list(size_type n);
         list(std::initializer_list<value_type> const &items);
         list(const list &l);
         list(list &&l);
         ~list();
         list& operator=(const list& other);
         list& operator=(list&& other);
-        bool empty() ;
-        void say() {std::cout << "Hello World!"; }
+        bool empty() const noexcept override;;
+
         void output_list() {
             std::cout << "This is your list: " << std::endl;
             if (this->empty()) {

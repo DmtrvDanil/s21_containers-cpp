@@ -9,6 +9,11 @@
 #include <string>
 int main(void){
 
+    s21::list<int> a(3);
+    std::list<int> b(3);
+    for (auto &i : b)
+        std::cout << i; 
+    a.output_list();
 
 //    s21::list<int> a;
 //    std::cout << a.empty() << std::endl;
@@ -16,12 +21,6 @@ int main(void){
 //
 //    std::cout << *d.end() << std::endl;
 //std::list<char>  l;
-    s21::list<int> a{70,4,45,7,8,2,6};
-    a.ssort();
-    std::cout << a.size() << std::endl;
-    for (auto &i : a)
-        std::cout << i << " ";
-    std::cout << std::endl;
 //std::cout << *a.end() << std::endl;
 //std::cout << a.size();
 
@@ -30,8 +29,7 @@ int main(void){
 //std::cout << a.size();
 //a.output_list();
 
-//std::cout << "sdfs";
-//    std::cout << *a.end();
+//std::cout << "sdfs"; //    std::cout << *a.end();
 //    a.push_back(1);
 //    std::cout << "HEAD = " << a.front() << "\nTAIL = " << a.back() << std::endl;
 //    a.push_back(2);

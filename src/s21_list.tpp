@@ -44,7 +44,7 @@ namespace s21{
             throw std::invalid_argument("Error move!");
         }
         this->InitList();
-        this->SwapList(std::move(l));
+        this->SwapList(l);
     }
 //  Modifiers
     template<class value_type>
@@ -151,7 +151,7 @@ namespace s21{
         if (this == &other) {
             throw std::invalid_argument("Error move!");
         }
-        this->SwapList(std::move(other));
+        this->SwapList(other);
         return *this;
     }
 
