@@ -107,13 +107,13 @@ template<class T>
         iterator insert(iterator pos, const_reference value);
         void erase(iterator pos);
         void swap(list& other);
-        void Merge(list& other);
-        void Splice(const_iterator pos, list& other);
-        void Reverse();
-        void Unique();
+        void merge(list& other);
+        void splice(const_iterator pos, list& other);
+        void reverse();
+        void unique();
 
         void Sort();
-        void ssort();
+        void sort();
         void QuickSort(iterator first_element, iterator last_element);
         iterator _partition(iterator first_element, iterator last_element);
 

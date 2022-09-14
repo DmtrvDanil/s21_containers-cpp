@@ -76,7 +76,7 @@ namespace s21{
     }
 
     template<class value_type>
-        void list<value_type>::Merge(list& other){
+        void list<value_type>::merge(list& other){
         if (this != &other) {
             iterator oit = other.begin();
             iterator it = this->begin();
@@ -97,7 +97,7 @@ namespace s21{
     }
 
     template<class value_type>
-    void list<value_type>::Splice(const_iterator pos, list &other) {
+    void list<value_type>::splice(const_iterator pos, list &other) {
         for (iterator iter = other.begin(); iter != other.end(); ++iter) {
             this->insert(pos, *iter);
             other.erase(iter);
@@ -105,7 +105,7 @@ namespace s21{
     }
 
     template<class value_type>
-    void list<value_type>::Reverse() {
+    void list<value_type>::reverse() {
         node* tmp = this->two_with_->next_;
         std::swap(this->two_with_->next_, this->two_with_->prev_);
         while (tmp != this->two_with_) {
@@ -115,7 +115,7 @@ namespace s21{
     }
 
     template<class value_type>
-    void list<value_type>::Unique() {
+    void list<value_type>::unique() {
         for (iterator iter = this->begin(); iter != this->end();) {
             if (*iter == *(++iter)) {
                 this->erase(iter);
@@ -472,7 +472,7 @@ namespace s21{
     }
 
     template <typename T>
-    void list<T>::ssort() {
+    void list<T>::sort() {
         if (this->size() > 1) {
             iterator it = this->end() - 1;
             this->QuickSort(this->begin(), it);
