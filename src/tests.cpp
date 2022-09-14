@@ -872,13 +872,14 @@ TEST(vector_modifiers_suit, function_erase_multi) {
         s21::list<int> s21_list_three{1,2,3};
         s21::list<int> s21_lesser{534789, 2479056, 987654, 110101024, 62348710, 1, 35674};
         s21::list<char> s21_char_list{'L', 'I', 'S', 'T'};
+        s21::list<int> s21_list_ten{1, 2, 3, 5, 9, 10};
 
 
         std::list<int> std_list_empty;
         std::list<int> std_list_three{1,2,3};
         std::list<int> std_lesser{534789, 2479056, 987654, 110101024, 62348710, 1, 35674};
         std::list<char> std_char_list{'L', 'I', 'S', 'T'};
-
+        std::list<int> std_list_ten{1, 2, 3, 5, 9, 10};
 
     };
 
@@ -1061,18 +1062,286 @@ TEST(vector_modifiers_suit, function_erase_multi) {
         s21_it = tester.s21_list_empty.begin();
         std_it = tester.std_list_empty.begin();
         while (s21_it != tester.s21_list_empty.end()) {
+            EXPECT_EQ(*s21_it, *std_it);
+            ++s21_it;
+            ++std_it;
+        }
+        EXPECT_EQ(tester.s21_list_empty.size(), tester.std_list_empty.size());
+        EXPECT_EQ(tester.s21_list_empty.empty(), tester.std_list_empty.empty());
+    }
+
+    TEST(List, function_insert_mid) {
+        TestList tester;
+        s21::list<int>::iterator s21_it = tester.s21_list_ten.begin();
+        std::list<int>::iterator std_it = tester.std_list_ten.begin();
+        ++s21_it;
+        ++std_it;
+        ++s21_it;
+        ++std_it;
+        ++s21_it;
+        ++std_it;
+        s21_it = tester.s21_list_ten.insert(s21_it, 666);
+        std_it = tester.std_list_ten.insert(std_it, 666);
+        ASSERT_EQ(*s21_it, *std_it);
+        s21_it = tester.s21_list_ten.begin();
+        std_it = tester.std_list_ten.begin();
+        while (s21_it != tester.s21_list_ten.end()) {
             ASSERT_EQ(*s21_it, *std_it);
             ++s21_it;
             ++std_it;
         }
-        ASSERT_EQ(tester.s21_list_empty.size(), tester.std_list_empty.size());
-        ASSERT_EQ(tester.s21_list_empty.empty(), tester.std_list_empty.empty());
+        EXPECT_EQ(tester.s21_list_ten.size(), tester.std_list_ten.size());
+        EXPECT_EQ(tester.s21_list_ten.empty(), tester.std_list_ten.empty());
     }
 
-    TEST(List, function_insert_mid) {
-
+    TEST(List, function_insert_end) {
+        TestList tester;
+        s21::list<int>::iterator s21_it = tester.s21_list_ten.end();
+        std::list<int>::iterator std_it = tester.std_list_ten.end();
+        s21_it = tester.s21_list_ten.insert(s21_it, 666);
+        std_it = tester.std_list_ten.insert(std_it, 666);
+        EXPECT_EQ(*s21_it, *std_it);
+        s21_it = tester.s21_list_ten.begin();
+        std_it = tester.std_list_ten.begin();
+        while (s21_it != tester.s21_list_ten.end()) {
+            EXPECT_EQ(*s21_it, *std_it);
+            ++s21_it;
+            ++std_it;
+        }
+        EXPECT_EQ(tester.s21_list_ten.size(), tester.std_list_ten.size());
+        EXPECT_EQ(tester.s21_list_ten.empty(), tester.std_list_ten.empty());
     }
 
+    TEST(List, function_insert_multi) {
+        TestList tester;
+        s21::list<int>::iterator s21_it = tester.s21_list_ten.begin();
+        std::list<int>::iterator std_it = tester.std_list_ten.begin();
+        s21_it = tester.s21_list_ten.insert(s21_it, 666);
+        std_it = tester.std_list_ten.insert(std_it, 666);
+        ++s21_it;
+        ++std_it;
+        ++s21_it;
+        ++std_it;
+        ++s21_it;
+        ++std_it;
+        s21_it = tester.s21_list_ten.insert(s21_it, 666);
+        std_it = tester.std_list_ten.insert(std_it, 666);
+        EXPECT_EQ(*s21_it, *std_it);
+        s21_it = tester.s21_list_ten.begin();
+        std_it = tester.std_list_ten.begin();
+        while (s21_it != tester.s21_list_ten.end()) {
+            ASSERT_EQ(*s21_it, *std_it);
+            ++s21_it;
+            ++std_it;
+        }
+        EXPECT_EQ(tester.s21_list_ten.size(), tester.std_list_ten.size());
+        EXPECT_EQ(tester.s21_list_ten.empty(), tester.std_list_ten.empty());
+    }
+
+    TEST(List, function_erase_begin) {
+        TestList tester;
+        s21::list<int>::iterator s21_it = tester.s21_list_ten.begin();
+        std::list<int>::iterator std_it = tester.std_list_ten.begin();
+        tester.s21_list_ten.erase(s21_it);
+        tester.std_list_ten.erase(std_it);
+        s21_it = tester.s21_list_ten.begin();
+        std_it = tester.std_list_ten.begin();
+        while (s21_it != tester.s21_list_ten.end()) {
+            EXPECT_EQ(*s21_it, *std_it);
+            ++s21_it;
+            ++std_it;
+        }
+        EXPECT_EQ(tester.s21_list_ten.size(), tester.std_list_ten.size());
+        EXPECT_EQ(tester.s21_list_ten.empty(), tester.std_list_ten.empty());
+    }
+
+    TEST(List, function_erase_mid) {
+        TestList tester;
+        s21::list<int>::iterator s21_it = tester.s21_list_ten.begin();
+        std::list<int>::iterator std_it = tester.std_list_ten.begin();
+        ++s21_it;
+        ++std_it;
+        ++s21_it;
+        ++std_it;
+        ++s21_it;
+        ++std_it;
+        tester.s21_list_ten.erase(s21_it);
+        tester.std_list_ten.erase(std_it);
+        s21_it = tester.s21_list_ten.begin();
+        std_it = tester.std_list_ten.begin();
+        while (s21_it != tester.s21_list_ten.end()) {
+            EXPECT_EQ(*s21_it, *std_it);
+            ++s21_it;
+            ++std_it;
+        }
+        EXPECT_EQ(tester.s21_list_ten.size(), tester.std_list_ten.size());
+        EXPECT_EQ(tester.s21_list_ten.empty(), tester.std_list_ten.empty());
+    }
+
+    TEST(List, function_erase_end) {
+        TestList tester;
+        s21::list<int>::iterator s21_it = tester.s21_list_ten.end();
+        std::list<int>::iterator std_it = tester.std_list_ten.end();
+        --s21_it;
+        --std_it;
+        tester.s21_list_ten.erase(s21_it);
+        tester.std_list_ten.erase(std_it);
+        s21_it = tester.s21_list_ten.begin();
+        std_it = tester.std_list_ten.begin();
+        while (s21_it != tester.s21_list_ten.end()) {
+            EXPECT_EQ(*s21_it, *std_it);
+            ++s21_it;
+            ++std_it;
+        }
+        EXPECT_EQ(tester.s21_list_ten.size(), tester.std_list_ten.size());
+        EXPECT_EQ(tester.s21_list_ten.empty(), tester.std_list_ten.empty());
+    }
+
+    TEST(List, function_erase_multi) {
+        TestList tester;
+        s21::list<int>::iterator s21_it = tester.s21_list_ten.begin();
+        std::list<int>::iterator std_it = tester.std_list_ten.begin();
+        ++s21_it;
+        ++std_it;
+        ++s21_it;
+        ++std_it;
+        ++s21_it;
+        ++std_it;
+        tester.s21_list_ten.erase(s21_it);
+        tester.std_list_ten.erase(std_it);
+        s21_it = tester.s21_list_ten.begin();
+        std_it = tester.std_list_ten.begin();
+        tester.s21_list_ten.erase(s21_it);
+        tester.std_list_ten.erase(std_it);
+        s21_it = tester.s21_list_ten.begin();
+        std_it = tester.std_list_ten.begin();
+        while (s21_it != tester.s21_list_ten.end()) {
+            EXPECT_EQ(*s21_it, *std_it);
+            ++s21_it;
+            ++std_it;
+        }
+        EXPECT_EQ(tester.s21_list_ten.size(), tester.std_list_ten.size());
+        EXPECT_EQ(tester.s21_list_ten.empty(), tester.std_list_ten.empty());
+    }
+    TEST(List, function_push_back) {
+        TestList tester;
+        tester.s21_list_three.push_back(666);
+        tester.std_list_three.push_back(666);
+        tester.s21_list_three.push_back(123);
+        tester.std_list_three.push_back(123);
+        s21::list<int>::iterator s21_it = tester.s21_list_three.begin();
+        std::list<int>::iterator std_it = tester.std_list_three.begin();
+        while (s21_it != tester.s21_list_three.end()) {
+            EXPECT_EQ(*s21_it, *std_it);
+            ++s21_it;
+            ++std_it;
+        }
+        EXPECT_EQ(tester.s21_list_three.size(), tester.std_list_three.size());
+        EXPECT_EQ(tester.s21_list_three.empty(), tester.std_list_three.empty());
+    }
+
+    TEST(List, function_pop_back) {
+        TestList tester;
+        tester.s21_list_ten.pop_back();
+        tester.std_list_ten.pop_back();
+        tester.s21_list_ten.pop_back();
+        tester.std_list_ten.pop_back();
+        s21::list<int>::iterator s21_it = tester.s21_list_ten.begin();
+        std::list<int>::iterator std_it = tester.std_list_ten.begin();
+        while (s21_it != tester.s21_list_ten.end()) {
+            EXPECT_EQ(*s21_it, *std_it);
+            ++s21_it;
+            ++std_it;
+        }
+        EXPECT_EQ(tester.s21_list_ten.size(), tester.std_list_ten.size());
+        EXPECT_EQ(tester.s21_list_ten.empty(), tester.std_list_ten.empty());
+    }
+
+    TEST(list_modifiers_suit, function_push_front) {
+        TestList tester;
+        tester.s21_list_ten.push_front(666);
+        tester.std_list_ten.push_front(666);
+        tester.s21_list_ten.push_front(123);
+        tester.std_list_ten.push_front(123);
+        s21::list<int>::iterator s21_it = tester.s21_list_ten.begin();
+        std::list<int>::iterator std_it = tester.std_list_ten.begin();
+        while (s21_it != tester.s21_list_ten.end()) {
+            EXPECT_EQ(*s21_it, *std_it);
+            ++s21_it;
+            ++std_it;
+        }
+        EXPECT_EQ(tester.s21_list_ten.size(), tester.std_list_ten.size());
+        EXPECT_EQ(tester.s21_list_ten.empty(), tester.std_list_ten.empty());
+    }
+
+    TEST(list_modifiers_suit, function_pop_front) {
+        TestList tester;
+        tester.s21_list_ten.pop_front();
+        tester.std_list_ten.pop_front();
+        tester.s21_list_ten.pop_front();
+        tester.std_list_ten.pop_front();
+        s21::list<int>::iterator s21_it = tester.s21_list_ten.begin();
+        std::list<int>::iterator std_it = tester.std_list_ten.begin();
+        while (s21_it != tester.s21_list_ten.end()) {
+            EXPECT_EQ(*s21_it, *std_it);
+            ++s21_it;
+            ++std_it;
+        }
+        EXPECT_EQ(tester.s21_list_ten.size(), tester.std_list_ten.size());
+        EXPECT_EQ(tester.s21_list_ten.empty(), tester.std_list_ten.empty());
+    }
+
+    TEST(List, function_swap) {
+        TestList tester;
+        s21::list<int> s21_list_swap{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        std::list<int> std_list_swap{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        tester.s21_lesser.swap(s21_list_swap);
+        tester.std_lesser.swap(std_list_swap);
+        s21::list<int>::iterator s21_it = s21_list_swap.begin();
+        std::list<int>::iterator std_it = std_list_swap.begin();
+        while (s21_it != s21_list_swap.end()) {
+            EXPECT_EQ(*s21_it, *std_it);
+            ++s21_it;
+            ++std_it;
+        }
+        EXPECT_EQ(s21_list_swap.size(), std_list_swap.size());
+        EXPECT_EQ(s21_list_swap.empty(), std_list_swap.empty());
+        s21_it = tester.s21_lesser.begin();
+        std_it = tester.std_lesser.begin();
+        while (s21_it != tester.s21_lesser.end()) {
+            ASSERT_EQ(*s21_it, *std_it);
+            ++s21_it;
+            ++std_it;
+        }
+        EXPECT_EQ(tester.s21_lesser.size(), tester.std_lesser.size());
+        EXPECT_EQ(tester.s21_lesser.empty(), tester.std_lesser.empty());
+    }
+    TEST(list_modifiers_suit, function_merge_nonsorted) {
+        s21::list<int> s21_list{123, 5574, 37821, 546892, 43869, 111, 6457, 8888, 666};
+        std::list<int> std_list{123, 5574, 37821, 546892, 43869, 111, 6457, 8888, 666};
+        s21::list<int> s21_list_merge{77, 125890, 430235, -236, 32858, 7457};
+        std::list<int> std_list_merge{77, 125890, 430235, -236, 32858, 7457};
+        s21_list.Merge(s21_list_merge);
+        std_list.merge(std_list_merge);
+        s21::list<int>::iterator s21_it = s21_list_merge.begin();
+        std::list<int>::iterator std_it = std_list_merge.begin();
+        while (s21_it != s21_list_merge.end()) {
+            ASSERT_EQ(*s21_it, *std_it);
+            ++s21_it;
+            ++std_it;
+        }
+        ASSERT_EQ(s21_list_merge.size(), std_list_merge.size());
+        ASSERT_EQ(s21_list_merge.empty(), std_list_merge.empty());
+        s21_it = s21_list.begin();
+        std_it = std_list.begin();
+        while (s21_it != s21_list.end()) {
+            ASSERT_EQ(*s21_it, *std_it);
+            ++s21_it;
+            ++std_it;
+        }
+        ASSERT_EQ(s21_list.size(), std_list.size());
+        ASSERT_EQ(s21_list.empty(), std_list.empty());
+    }
 
 
 

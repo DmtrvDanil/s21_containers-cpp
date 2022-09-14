@@ -106,7 +106,7 @@ template<class T>
         void clear();
         iterator insert(iterator pos, const_reference value);
         void erase(iterator pos);
-        void Swap(list& other);
+        void swap(list& other);
         void Merge(list& other);
         void Splice(const_iterator pos, list& other);
         void Reverse();

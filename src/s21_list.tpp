@@ -71,7 +71,7 @@ namespace s21{
     }
 
     template<class value_type>
-    void list<value_type>::Swap(list& other) {
+    void list<value_type>::swap(list& other) {
         this->SwapList(other);
     }
 
