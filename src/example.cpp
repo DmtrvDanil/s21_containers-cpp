@@ -9,12 +9,22 @@
 #include <string>
 int main(void){
 
-    s21::list<int> a;
-    std::cout << a.front() << std::endl;
-    std::cout << a.back() << std::endl;
-    std::list<int> v;
-    std::cout << v.back() << std::endl;
-    std::cout << v.front() << std::endl;
+    s21::list<int> a{1,2,3,4};
+    s21::list<int> b{5,6,7,8};
+    b = a;
+    a.output_list();
+    std::cout << std::endl;
+    b.output_list();
+
+    std::list<int> j{1,2,3,4};
+    std::list<int> i{5,6,7,8};
+    j = i;
+    for (auto &l : j)
+        std::cout << l;
+    std::cout << std::endl;
+    for (auto &e : i)
+        std::cout << e;
+
 //    s21::list<int> a;
 //    std::cout << a.empty() << std::endl;
 //

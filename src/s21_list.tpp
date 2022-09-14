@@ -27,6 +27,7 @@ namespace s21{
 
     template<class value_type>
     list<value_type>::list(const list &l) {
+        this->InitList();
         *this = l;
     }
 
@@ -149,18 +150,23 @@ namespace s21{
 
     template<class value_type>
     list<value_type>& list<value_type>::operator=(const list &other) {
-        this->InitList();
+
+//            this->InitList();
         if (this != &other) {
-//            for (auto iter = l.begin(); iter != l.end(); ++iter) {
+            this->clear();
+
+
+//            for (auto iter = other.begin(); iter != other.end(); ++iter) {
 //                this->push_back(*iter);
 //            }
             node *tmp = other.two_with_->next_;
             if (!tmp) {
                 throw std::bad_alloc();}
-            for (size_type i = 0; i < other.m_size_; i++)  {
-                push_back(tmp->value_);
+            for (size_type i = 0; i < other.m_size_; ++i)  {
+                this->push_back(tmp->value_);
                 tmp = tmp->next_;
             }
+
         }
         return *this;
 
