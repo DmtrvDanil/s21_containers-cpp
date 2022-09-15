@@ -16,7 +16,7 @@ template<class T>
         using reference = typename abstract<T>::reference;
         using const_reference = typename abstract<T>::const_reference;
         using size_type = typename abstract<T>::size_type;
-
+    private:
         struct ListNode {
         public:
 //            ~ListNode() {};
