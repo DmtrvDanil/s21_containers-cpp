@@ -9,8 +9,8 @@
 #include <list>
 #include <string>
 int main(void){
-        s21::list<int> a{1,2,3};
-        s21::list<int> b{85};
+        std::queue<int> a{1,2,3};
+        std::list<int> b{85};
         b = std::move(a);
         while (1) {
             std::cout << 1;
