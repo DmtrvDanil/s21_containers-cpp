@@ -115,6 +115,7 @@ namespace s21{
         }
     }
 
+
     template<class value_type>
     void list<value_type>::unique() {
         for (iterator iter = this->begin(); iter != this->end();) {
@@ -122,21 +123,7 @@ namespace s21{
                 this->erase(iter);
             }
         }
-
-//        for (iterator iter2 = begin(); iter2.data_ != this->two_with_->prev_; ++iter2) {
-//            iterator iter3 = iter2;
-//            ++iter3;
-//            if (*iter2 == *iter3) {
-//                this->erase(iter3);
-//            }
-//        }
     }
-
-    template<class value_type>
-    void list<value_type>::Sort() {
-
-    }
-
 
 
     template<class value_type>
@@ -144,7 +131,13 @@ namespace s21{
         if (this == &other) {
             throw std::invalid_argument("Error move!");
         }
+
+
+        this->clear();
         this->SwapList(other);
+//        other.clear();
+
+
         return *this;
     }
 

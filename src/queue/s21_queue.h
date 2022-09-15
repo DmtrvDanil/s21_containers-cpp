@@ -1,9 +1,9 @@
 #ifndef SRC_S21_QUEUE_H
 #define SRC_S21_QUEUE_H
-#include "vector.h"
+#include "../s21_list.h"
 
 namespace s21 {
-    template<class T,class Container = s21::Vector<T> >
+    template<class T,class Container = s21::list<T> >
     class queue {
     public:
         using pointer = typename Container::pointer;
@@ -24,9 +24,15 @@ namespace s21 {
             this->c  = std::move(s.c);
             return *this;
         }
-        const_reference top() {
+
+        const_reference front() {
+            return c.front();
+        }
+
+        const_reference back() {
             return c.back();
         }
+
         bool empty() {
             return c.empty();
         }
@@ -37,21 +43,21 @@ namespace s21 {
             this->c.push_back(value);
         }
         void pop() {
-            this->c.pop_back();
+            this->c.pop_front();
         }
         void swap(queue& other) {
             this->c.swap(other.c);
         }
         void output_s() {
-            this->c.output_vector();
+            this->c.output_list();
         }
         template <typename... Args>
-        void emplace_front(Args&&... args) {
+        void emplace_back(Args&&... args) {
             this->c.emplace_back(std::forward<Args>(args)...);
         }
     };
 
 } //  namespace s21
 
-#include "s21_stack.tpp"
+
 #endif  // SRC_S21_QUEUE_H

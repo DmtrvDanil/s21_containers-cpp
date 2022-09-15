@@ -5,26 +5,22 @@
 #include <vector>
 //#include <stack>
 //#include <array>
+#include <queue>
 #include <list>
 #include <string>
 int main(void){
-
-    s21::list<int> a{1,2,3,4};
-    s21::list<int> b{5,6,7,8};
-    b = a;
-    a.output_list();
-    std::cout << std::endl;
-    b.output_list();
-
-    std::list<int> j{1,2,3,4};
-    std::list<int> i{5,6,7,8};
-    j = i;
-    for (auto &l : j)
-        std::cout << l;
-    std::cout << std::endl;
-    for (auto &e : i)
-        std::cout << e;
-
+        s21::list<int> a{1,2,3};
+        s21::list<int> b{85};
+        b = std::move(a);
+        while (1) {
+            std::cout << 1;
+        }
+        for (auto &i : a)
+            std::cout << i;
+        std::cout << std::endl;
+        for (auto &j : b)
+            std::cout  << j;
+        std::cout << std::endl;
 //    s21::list<int> a;
 //    std::cout << a.empty() << std::endl;
 //
