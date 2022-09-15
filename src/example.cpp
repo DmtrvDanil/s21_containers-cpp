@@ -9,7 +9,7 @@
 #include <list>
 #include <string>
 int main(void){
-        std::queue<int> a{1,2,3};
+        std::list<int> a{1,2,3};
         std::list<int> b{85};
         b = std::move(a);
         while (1) {
