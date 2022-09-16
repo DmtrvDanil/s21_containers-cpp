@@ -20,6 +20,8 @@ namespace s21{
             value_type data_;
             TreeNode* left_;
             TreeNode* right_;
+            TreeNode* parent;
+            bool color;  // red: true black: false
             TreeNode() : data_(), left_(nullptr), right_(nullptr) {}
             explicit TreeNode(const const_reference value) : data_(value), left_(nullptr), right_(nullptr) {}
         };
