@@ -8,7 +8,7 @@ namespace s21 {
     enum NodeColor { BLACK, READ };
     enum Duplicate { WITH_DUPLICATE, WITHOUT_DUPLICATE };
 
-    template <class Key, class Value>
+    template <typename Key, typename Value = char>
         struct ReadBlackTree {
         public:
             std::pair<Key, Value> data_;
@@ -19,7 +19,7 @@ namespace s21 {
             ReadBlackTree() : data_(), color_(BLACK), left_(nullptr), right_(nullptr), parent_(nullptr) {}
 
         };
-    template<class Key, class Value>
+    template<class Key, class Value = char>
     class Tree {
     public:
         using key_type = Key;

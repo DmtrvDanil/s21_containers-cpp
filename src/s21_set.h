@@ -1,6 +1,5 @@
 #ifndef SRC_S21_SET_H
 #define SRC_S21_SET_H
-#include <iostream>
 #include <stdexcept>
 #include <cmath>
 #include <limits>
@@ -17,20 +16,20 @@ namespace s21{
         using reference = Key&;
         using const_reference = const Key&;
         using size_type = size_t;
+        using read_black_node = ReadBlackTree<key_type>*;
+        set();
+        explicit set(std::initializer_list<value_type> const items);
+        set(const set& s);
+        set(set&& s);
+        set<Key>& operator=(set&& s);
+        ~set();
+        bool insert(const value_type&);
+
     private:
-        struct TreeNode {
-        public:
-//            ~ListNode() {};
-            value_type data_;
-            TreeNode* left_;
-            TreeNode* right_;
-            TreeNode* parent;
-            bool color;  // red: true black: false
-            TreeNode() : data_(), left_(nullptr), right_(nullptr) {}
-            explicit TreeNode(const const_reference value) : data_(value), left_(nullptr), right_(nullptr) {}
-        };
-            set();
-            ~set();
+        Tree<Key>* set_node_;
+        size_type m_size_;
+        void clear(read_black_node& root);
+        void init_set();
 
     };
 
@@ -38,5 +37,5 @@ namespace s21{
 
 }  //  namespace s21
 
-#include "s21_list.tpp"
+#include "s21_set.tpp"
 #endif // SRC_S21_LIST_H
