@@ -4,6 +4,10 @@
 #include <stdexcept>
 #include <cmath>
 #include <limits>
+#include <vector>
+
+#include "s21_rbtree.h"
+
 namespace s21{
     template<class Key>
     class set {

@@ -8,6 +8,13 @@ namespace s21{
         this->nil_ = new ReadBlackTree<Key, Value>;
     }
 
+    template<class key_type, class mapped_type>
+    Tree<key_type, mapped_type>& Tree<key_type, mapped_type>::operator=(const Tree &other) {
+        this->root_ = other.root_;
+        this->nil_ = other.nil_;
+        return *this;
+    }
+
 
     template<class Key, class Value>
     Tree<Key, Value>::~Tree() {
@@ -88,7 +95,7 @@ namespace s21{
     }
 
     template<class key_type, class mapped_type>
-    void Tree<key_type, mapped_type>::search_in_root(read_black_node &root, key_type key) {
+    typename Tree<key_type, mapped_type>::read_black_node Tree<key_type, mapped_type>::search_in_root(read_black_node &root, key_type key) {
         read_black_node result = root;
         if (root == nullptr || root->data_.first == key) {
             return result;
@@ -143,6 +150,174 @@ namespace s21{
     }
 
     template<class key_type, class mapped_type>
+    void Tree<key_type, mapped_type>::remove_node(read_black_node &root, read_black_node &node) {
+        read_black_node child;
+        read_black_node father;
+        NodeColor color;
+        if (node->left_ != nullptr && node->right_ != nullptr) {  	// Левый и правый узлы удаленного узла не пусты (не конечные узлы)
+            read_black_node replace = node->right_;  // Найти узел-преемник (самый нижний левый узел правого поддерева текущего узла)
+            this->find_right_replace(root, replace, node);
+            child = replace->right_;
+            father = replace->parent_;
+            color = replace->color_;
+            this->replace_with_new_node(father, replace, node, child);
+        } else {
+            this->remove_node_with_one_child(node, child, father, color);
+        }
+        if (color == BLACK) {
+            this->remove_fix(root, child, father);
+        }
+    }
+
+    template<class key_type, class mapped_type>
+    void Tree<key_type, mapped_type>::remove_node_with_one_child(read_black_node &node, read_black_node &child,
+                                                                 read_black_node &father, NodeColor color) {
+        if (node->left_ != nullptr) {   // save a child
+            child = node->right_;
+        } else {
+            child = node->right_;
+        }
+        father = node->parent_;
+        color = node->color_;
+        if (child) {
+            child->parent_ = father;
+        }
+        if (father) {
+            if (father->left_ == node) {
+                father->left_ = child;
+            } else {
+                father->right_ = child;
+            }
+        } else {
+            this->root_ = child;
+        }
+    }
+
+    template<class key_type, class mapped_type>
+    void Tree<key_type, mapped_type>::find_right_replace(read_black_node &root, read_black_node &replace,
+                                                         read_black_node &node) {
+        while (replace->left_ != nullptr) {  // ищем самый левый элемент в правом поддереве
+            replace = replace->left_;
+        }
+        if (node->parent_ != nullptr) {
+            if (node->parent_->left_ == node) {  // если это не корневой элемент
+                node->parent_->left_ = replace;  // устанавливаем предку нового потомка
+            } else {
+                node->parent_->right_ = replace;
+            }
+        } else {
+            root = replace;
+        }
+    }
+
+    template<class key_type, class mapped_type>
+    void Tree<key_type, mapped_type>::replace_with_new_node(read_black_node &father, read_black_node &replace,
+                                                            read_black_node &node, read_black_node child) {
+        if (father == node) {  // если правый потомок старого элемента и есть новый элемент
+            father = replace;  // устанавливаем родителя для дальнейшей балансировки дерева
+        } else {
+            if (child != nullptr) { // сдвигаем потомка нового элемента на его место
+                child->parent_ = father;
+            }
+            father->left_ = child;
+            replace->right_ = node->right_; // родним потомка старого элемента с новым
+            node->right_->parent_ = replace;
+        }
+        replace->parent_ = node->parent_;  // устанавливаем новый элемент на место старого
+        replace->color_ = node->color_;
+        replace->left_ = node->left_;
+        node->left_->parent_ = replace;
+    }
+
+    template<class key_type, class mapped_type>
+    void Tree<key_type, mapped_type>::remove_fix(read_black_node &root, read_black_node &node,
+                                                 read_black_node &father) {
+        read_black_node brother;
+        bool flag = true;
+        while(((!node) || node->color_ == BLACK) && node != root && flag) {
+            if (node == father->left_) {
+                flag = this->fix_right_brother(brother, node, father);
+            } else {
+                flag = this->fix_left_brother(brother, node, father);
+            }
+            if (node) {
+                node->color_ = BLACK;
+            }
+        }
+
+    }
+
+    template<class key_type, class mapped_type>
+    bool Tree<key_type, mapped_type>::fix_left_brother(read_black_node &brother, read_black_node &node,
+                                                       read_black_node father) {
+        brother = father->left_;
+        bool result = true;
+        if (!brother || brother->color_ == BLACK) {
+            if (brother && brother->left_ && brother->left_->color_ == READ) {
+                brother->color_ = father->color_;
+                father->color_ = BLACK;
+                this->right_rotate(this->root_, father);
+                brother->left_->color_ = BLACK;
+                result = false;
+            } else if (brother && brother->right_ && brother->right_->color_ == READ) {
+                brother->color_ = READ;
+                brother->right_->color_ = BLACK;
+                this->left_rotate(this->root_, brother);
+            }  else if (brother && ((!brother->left_ || brother->left_->color_ == false) ||
+                                    (!brother->right_ || brother->right_->color_ == false))) {
+                brother->color_ = true;
+                if (father->color_ == true) {
+                    father->color_ = false;
+                    result = false;
+                }
+                node = father;
+                father = node->parent_;
+            }
+        } else if (brother && brother->color_ == READ) {
+            brother->color_ = BLACK;
+            father->color_ = READ;
+            this->right_rotate(this->root_, father);
+        }
+        return result;
+
+    }
+
+    template<class key_type, class mapped_type>
+    bool Tree<key_type, mapped_type>::fix_right_brother(read_black_node &brother, read_black_node &node,
+                                                        read_black_node &father) {
+        brother = father->right_;
+        bool result = true;
+        if (!brother || brother->color_ == BLACK) {
+            if (brother && brother->right_ && brother->right_->color_ == READ) {
+                brother->color_ = father->color_;
+                father->color_ = BLACK;
+                this->left_rotate(this->root_, father);
+                brother->right_->color_ = BLACK;
+                result = false;
+            } else if (brother && brother->left_ && brother->left_->color_ == READ) {
+                brother->color_ = READ;
+                brother->left_->color_ = BLACK;
+                this->right_rotate(this->root_, brother);
+            } else if (brother && ((!brother->left_ || brother->left_->color_ == BLACK) ||
+                                    (!brother->right_ || brother->right_->color_ == BLACK ))) {
+                brother->color_ == READ;
+                if (father->color_ == READ) {
+                    father->color_ == BLACK;
+                    result = false;
+                }
+                node = father;
+                father = node->parent_;
+            }
+        } else if (brother && brother->color_ == READ) {
+            brother->color_ = BLACK;
+            father->color_ = READ;
+            this->left_rotate(this->root_, father);
+
+            }
+        return result;
+    }
+
+    template<class key_type, class mapped_type>
     void Tree<key_type, mapped_type>::print_tree(read_black_node node) {
         if (node != nullptr){
             print_tree(node->left_);
@@ -150,5 +325,35 @@ namespace s21{
             print_tree(node->right_);
         }
     }
+
+    template<class key_type, class mapped_type>
+    typename Tree<key_type, mapped_type>::read_black_node Tree<key_type, mapped_type>::search(key_type key) {
+        return this->search_in_root(this->root_, key);
+    }
+
+    template <class key_type, class mapped_type>
+    bool Tree<key_type, mapped_type>::insert(key_type key,Duplicate dupl,  mapped_type value) {
+        bool result = false;
+        if (dupl == WITHOUT_DUPLICATE) {
+            if (search(key) == nullptr) {
+                init(key, value);
+                result = true;
+            }
+        } else {
+            this->init(key, value);
+            result = true;
+            }
+        return result;
+    }
+
+    template<class key_type, class mapped_type>
+    void Tree<key_type, mapped_type>::remove(key_type key) {
+        read_black_node node = search(key);
+        if (node != nullptr) {
+            this->remove_node(this->root_, node);
+        }
+    }
+
+
 
 } // namespace s21

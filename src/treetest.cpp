@@ -2,7 +2,7 @@
 #include <set>
 
 int main(void) {
-    std::cout << "heLLo world";
-    std::cout << std::endl;
+    s21::Tree<int, int> a;
+
     return 0;
 }
