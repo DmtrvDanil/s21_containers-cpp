@@ -56,6 +56,20 @@ namespace s21{
         private:
             read_black_node next_value();
             read_black_node prev_value();
+
+            //++
+            bool node_have_left();
+            bool node_have_father_right();
+            bool node_have_grand_father_n_father_right();
+
+            //--
+            bool node_have_right();
+            bool node_have_father_left();
+            bool node_have_grand_father_n_father_left();
+
+            bool node_is_nill();
+
+
         };
         class Iterator : public ConstIterator {
         public:

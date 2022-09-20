@@ -85,24 +85,59 @@ namespace s21{
     // ConstIterator
     template<class key_type>
     typename set<key_type>::read_black_node set<key_type>::ConstIterator::next_value() {
-        if (this->data_->right_) {
-//            std::cout << "1" << std::endl;
+        if (this->node_have_right()) {
             this->data_ = this->data_->right_;
             while (this->data_->left_) {
                 this->data_ = this->data_->left_;
             }
         } else if (this->data_->parent_ && this->data_->parent_->left_ == this->data_) {
             this->data_ = this->data_->parent_;
-//            std::cout << "2" << std::endl;
         } else if (this->data_->parent_ && this->data_->parent_->right_ == this->data_ && this->data_->parent_->parent_ &&
-                    this->data_->parent_ == this->data_->parent_->left_) {
-//            std::cout << "3" << std::endl;
-            this->data_ = this->data_->parent_;
+                    this->data_->parent_ == this->data_->parent_->parent_->left_) {
+            this->data_ = this->data_->parent_->parent_;
         } else if (this->data_ == this->nil_) {
-//            std::cout << "4" << std::endl;
             this->data_ = this->last_;
+        } else {
+            this->data_ = this->nil_;
         }
         return this->data_;
+    }
+
+    template<class key_type>
+    bool set<key_type>::ConstIterator::node_have_left() {
+        return this->data_->left_;
+    }
+
+    template<class key_type>
+    bool set<key_type>::ConstIterator::node_have_father_right() {
+        return this->data_->right_;
+    }
+
+    template<class key_type>
+    bool set<key_type>::ConstIterator::node_have_right() {
+        return this->data_->right_;
+    }
+
+
+    template<class key_type>
+    typename set<key_type>::read_black_node set<key_type>::ConstIterator::prev_value() {
+        if (this->data_->left_) {
+            this->data_ = this->data_->left_;
+            while (this->data_->right_) {
+                this->data_ = this->data_->right_;
+            }
+        } else if (this->data_->parent_ && this->data_->parent_->right_ == this->data_) {
+            this->data_ = this->data_->parent_;
+        } else if (this->data_->parent_ && this->data_->parent_->left_ == this->data_ && this->data_->parent_->parent_ &&
+                    this->data_->parent_ == this->data_->parent_->parent_->right_) {
+            this->data_ = this->data_->parent_->parent_;
+        }  else if (this->data_ == this->nil_) {
+            this->data_ = this->last_;
+        } else {
+            this->data_ = this->nil_;
+        }
+        return this->data_;
+
     }
 
     template<class key_type>
@@ -110,6 +145,20 @@ namespace s21{
         this->data_ = this->next_value();
         return *this;
     }
+
+    template<class key_type>
+    typename set<key_type>::ConstIterator& set<key_type>::ConstIterator::operator--() {
+        this->data_ = this->prev_value();
+        return *this;
+    }
+    template<class key_type>
+    typename set<key_type>::ConstIterator set<key_type>::ConstIterator::operator--(int) {
+        auto iter = *this;
+        --(*this);
+        return iter;
+
+    }
+
 
     template<class key_type>
     typename set<key_type>::ConstIterator set<key_type>::ConstIterator::operator++(int) {

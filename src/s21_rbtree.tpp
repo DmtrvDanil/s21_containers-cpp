@@ -363,7 +363,6 @@ namespace s21{
         bool result = false;
         if (dupl == WITHOUT_DUPLICATE) {
             if (search(key) == nullptr) {
-                std::cout << "I am in insert rbtree: " << std::endl;
                 init(key, value);
                 result = true;
             }
