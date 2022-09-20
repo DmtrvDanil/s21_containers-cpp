@@ -23,14 +23,58 @@ namespace s21{
         set(set&& s);
         set<Key>& operator=(set&& s);
         ~set();
-        bool insert(const value_type&);
+
 
     private:
         Tree<Key>* set_node_;
         size_type m_size_;
         void clear(read_black_node& root);
         void init_set();
+        read_black_node last_right() const;
 
+    public:
+        class ConstIterator {
+        protected:
+            read_black_node data_;
+            read_black_node nil_;
+            read_black_node last_;
+        public:
+            ConstIterator() : data_(nullptr), nil_(nullptr), last_(nullptr) {}
+            ConstIterator(read_black_node ptr, read_black_node nil, read_black_node last) : data_(ptr), nil_(nil), last_(last) {}
+            ConstIterator(const ConstIterator& other) : data_(other.data_), nil_(other.nil_), last_(other.last_) {}
+            ~ConstIterator() {}
+            const_reference operator*() {return this->data_->value.first;}
+            bool operator!=(const ConstIterator& other) { return this->data_ != other.data_;}
+            bool operator ==(const ConstIterator& other) { return this->data_ == other.data_;}
+            ConstIterator& operator++();
+            ConstIterator operator++(int);
+            ConstIterator& operator--();
+            ConstIterator operator--(int);
+            read_black_node get_nil() { return this->nil_;}
+            read_black_node get_data() { return this->data_;}
+
+        private:
+            read_black_node next_value();
+            read_black_node prev_value();
+        };
+        class Iterator : public ConstIterator {
+        public:
+            Iterator() : ConstIterator() {}
+            Iterator(read_black_node ptr, read_black_node nil, read_black_node last) : ConstIterator(ptr, nil, last) {}
+            Iterator(const Iterator& other) : ConstIterator(other) {}
+            ~Iterator() {}
+            reference operator*() {return this->data_->data_.first;}
+
+
+        };
+
+    public:
+        using iterator = Iterator;
+        using const_iterator = ConstIterator;
+        iterator begin();
+        iterator end();
+        std::pair<iterator, bool> insert(const value_type&);
+        iterator find(const Key& key);
     };
 
 

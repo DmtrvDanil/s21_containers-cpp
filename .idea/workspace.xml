@@ -17,8 +17,10 @@
     <list default="true" id="98628e11-5e1b-433d-b0f4-b9fbb328099c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/s21_rbtree.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_rbtree.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/a.out" beforeDir="false" afterPath="$PROJECT_DIR$/src/a.out" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/s21_rbtree.tpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_rbtree.tpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/s21_set.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_set.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/s21_set.tpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_set.tpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/treetest.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/treetest.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -172,7 +174,10 @@
       <workItem from="1663330564368" duration="4315000" />
       <workItem from="1663354154634" duration="1966000" />
       <workItem from="1663416922520" duration="211000" />
-      <workItem from="1663574205441" duration="6879000" />
+      <workItem from="1663574205441" duration="9693000" />
+      <workItem from="1663610869658" duration="120000" />
+      <workItem from="1663661677766" duration="632000" />
+      <workItem from="1663668227229" duration="6893000" />
     </task>
     <servers />
   </component>

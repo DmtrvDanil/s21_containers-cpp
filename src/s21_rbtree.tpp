@@ -23,15 +23,42 @@ namespace s21{
 
     template<class Key, class Value>
     void Tree<Key, Value>::init(Key key, Value value) {
-        ReadBlackTree<Key, Value>* tmp_tree = new ReadBlackTree<Key, Value>;
-        tmp_tree->color_ = BLACK;
+        read_black_node tmp_tree = new ReadBlackTree<Key, Value>;
+        tmp_tree->color_ = READ;
         tmp_tree->left_ = nullptr;
         tmp_tree->right_ = nullptr;
         tmp_tree->parent_ = nullptr;
         tmp_tree->data_.first = key;
         tmp_tree->data_.second = value;
+        this->insert_node(this->root_, tmp_tree);
 
 
+    }
+
+    template<class key_type, class mapped_type>
+    void Tree<key_type, mapped_type>::insert_node(read_black_node &root, read_black_node new_tree) {
+        read_black_node x = root;
+        read_black_node y = nullptr;
+        while (x != nullptr) {
+            y = x;
+            if (new_tree->data_.first > x->data_.first) {
+                x = x->right_;
+            } else {
+                x = x->left_;
+            }
+        }
+        new_tree->parent_ = y;
+        if (y != nullptr) {
+            if (new_tree->data_.first > y->data_.first) {
+                y->right_ = new_tree;
+            } else {
+                y->left_ = new_tree;
+            }
+        } else {
+            root = new_tree;
+        }
+        new_tree->color_ = READ;
+        this->insert_fix(root, new_tree);
     }
 
     template<class key_type, class mapped_type>
@@ -53,20 +80,20 @@ namespace s21{
     void Tree<key_type, mapped_type>::fix_parent_right(read_black_node &root, read_black_node &parent,
                                                        read_black_node &grand_parent, read_black_node &node,
                                                        bool flag) {
-        read_black_node uncle = grand_parent->left;
-        if (uncle != nullptr && uncle->color == true) {
-            parent->color = false;
-            uncle->color = false;
-            grand_parent->color = true;
+        read_black_node uncle = grand_parent->left_;
+        if (uncle != nullptr && uncle->color_ == true) {
+            parent->color_ = BLACK;
+            uncle->color_ = BLACK;
+            grand_parent->color_ = READ;
             node = grand_parent;
-            parent = node->parent;
+            parent = node->parent_;
         } else {
-            if (parent->left == node) {
+            if (parent->left_ == node) {
                 right_rotate(root, parent);
                 std::swap(node, parent);
             }
-            parent->color = false;
-            grand_parent->color = true;
+            parent->color_ = BLACK;
+            grand_parent->color_ = READ;
             left_rotate(root, grand_parent);
             flag = false;
         }
@@ -75,20 +102,20 @@ namespace s21{
     template<class key_type, class mapped_type>
     void Tree<key_type, mapped_type>::fix_parent_left(read_black_node &root, read_black_node &parent,
                                                       read_black_node &grand_parent, read_black_node &node, bool flag) {
-        read_black_node uncle = grand_parent->right;
-        if (uncle != nullptr && uncle->color == true) {
-            parent->color = false;
-            uncle->color = false;
-            grand_parent->color = true;
+        read_black_node uncle = grand_parent->right_;
+        if (uncle != nullptr && uncle->color_ == true) {
+            parent->color_ = BLACK;
+            uncle->color_ = BLACK;
+            grand_parent->color_ = READ;
             node = grand_parent;
-            parent = node->parent;
+            parent = node->parent_;
         } else {
-            if (parent->right == node) {
+            if (parent->right_ == node) {
                 left_rotate(root, parent);
                 std::swap(node, parent);
             }
-            parent->color = false;
-            grand_parent->color = true;
+            parent->color_ = BLACK;
+            grand_parent->color_ = READ;
             right_rotate(root, grand_parent);
             flag = false;
         }
@@ -336,6 +363,7 @@ namespace s21{
         bool result = false;
         if (dupl == WITHOUT_DUPLICATE) {
             if (search(key) == nullptr) {
+                std::cout << "I am in insert rbtree: " << std::endl;
                 init(key, value);
                 result = true;
             }
