@@ -16,6 +16,20 @@ namespace s21{
         }
     }
 
+    template<class key_type>
+    bool set<key_type>::empty() {
+        return (this->m_size_ == 0 )? true : false;
+    }
+
+    template<class key_type>
+    typename set<key_type>::size_type set<key_type>::size() {
+//        size_type count = 0;
+//        while(this->set_node_->get_root()) {
+//
+//        }
+        return this->m_size_;
+    }
+
 
     template<class key_type>
     typename set<key_type>::iterator set<key_type>::begin() {
@@ -40,11 +54,19 @@ namespace s21{
     std::pair<typename set<key_type>::iterator, bool> set<key_type>::insert(const value_type &value) {
         std::pair<iterator, bool> result;
         if (this->set_node_->insert(value, WITHOUT_DUPLICATE, 0)) {
+            this->m_size_++;
             result = std::pair<iterator, bool>(find(value), true);
+
         } else {
             result = std::pair<iterator, bool>(find(value), false);
         }
         return result;
+    }
+
+    template<class key_type>
+    void set<key_type>::erase(iterator pos) {
+        this->set_node_->remove(*pos);
+        this->m_size_--;
     }
 
     template<class key_type>
@@ -90,10 +112,9 @@ namespace s21{
             while (this->data_->left_) {
                 this->data_ = this->data_->left_;
             }
-        } else if (this->data_->parent_ && this->data_->parent_->left_ == this->data_) {
+        } else if (this->node_have_father_left()) {
             this->data_ = this->data_->parent_;
-        } else if (this->data_->parent_ && this->data_->parent_->right_ == this->data_ && this->data_->parent_->parent_ &&
-                    this->data_->parent_ == this->data_->parent_->parent_->left_) {
+        } else if (this->node_have_grand_father_n_father_left()) {
             this->data_ = this->data_->parent_->parent_;
         } else if (this->data_ == this->nil_) {
             this->data_ = this->last_;
@@ -110,7 +131,13 @@ namespace s21{
 
     template<class key_type>
     bool set<key_type>::ConstIterator::node_have_father_right() {
-        return this->data_->right_;
+        return this->data_->parent_ && this->data_->parent_->right_ == this->data_;
+    }
+
+    template<class key_type>
+    bool set<key_type>::ConstIterator::node_have_grand_father_n_father_right()  {
+        return this->data_->parent_ && this->data_->parent_->left_ == this->data_ && this->data_->parent_->parent_ &&
+                     this->data_->parent_ == this->data_->parent_->parent_->right_;
     }
 
     template<class key_type>
@@ -118,18 +145,27 @@ namespace s21{
         return this->data_->right_;
     }
 
+    template<class key_type>
+    bool set<key_type>::ConstIterator::node_have_father_left() {
+        return this->data_->parent_ && this->data_->parent_->left_ == this->data_;
+    }
+
+    template<class key_type>
+    bool set<key_type>::ConstIterator::node_have_grand_father_n_father_left()  {
+        return this->data_->parent_ && this->data_->parent_->right_ == this->data_ && this->data_->parent_->parent_ &&
+               this->data_->parent_ == this->data_->parent_->parent_->left_;
+    }
 
     template<class key_type>
     typename set<key_type>::read_black_node set<key_type>::ConstIterator::prev_value() {
-        if (this->data_->left_) {
+        if (this->node_have_left()) {
             this->data_ = this->data_->left_;
             while (this->data_->right_) {
                 this->data_ = this->data_->right_;
             }
-        } else if (this->data_->parent_ && this->data_->parent_->right_ == this->data_) {
+        } else if (this->node_have_father_right()) {
             this->data_ = this->data_->parent_;
-        } else if (this->data_->parent_ && this->data_->parent_->left_ == this->data_ && this->data_->parent_->parent_ &&
-                    this->data_->parent_ == this->data_->parent_->parent_->right_) {
+        } else if (this->node_have_grand_father_n_father_right()) {
             this->data_ = this->data_->parent_->parent_;
         }  else if (this->data_ == this->nil_) {
             this->data_ = this->last_;

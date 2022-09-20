@@ -24,6 +24,11 @@ namespace s21{
         set<Key>& operator=(set&& s);
         ~set();
 
+        bool empty();
+        size_type size();
+        size_type max_size();
+
+
 
     private:
         Tree<Key>* set_node_;
@@ -57,17 +62,16 @@ namespace s21{
             read_black_node next_value();
             read_black_node prev_value();
 
-            //++
+            //--
             bool node_have_left();
             bool node_have_father_right();
             bool node_have_grand_father_n_father_right();
 
-            //--
+            //++
             bool node_have_right();
             bool node_have_father_left();
             bool node_have_grand_father_n_father_left();
 
-            bool node_is_nill();
 
 
         };
@@ -89,6 +93,7 @@ namespace s21{
         iterator end();
         std::pair<iterator, bool> insert(const value_type&);
         iterator find(const Key& key);
+        void erase(iterator pos);
     };
 
 

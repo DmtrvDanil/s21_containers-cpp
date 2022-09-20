@@ -194,13 +194,14 @@ namespace s21{
         if (color == BLACK) {
             this->remove_fix(root, child, father);
         }
+        delete node;
     }
 
     template<class key_type, class mapped_type>
     void Tree<key_type, mapped_type>::remove_node_with_one_child(read_black_node &node, read_black_node &child,
                                                                  read_black_node &father, NodeColor color) {
         if (node->left_ != nullptr) {   // save a child
-            child = node->right_;
+            child = node->left_ ;
         } else {
             child = node->right_;
         }
@@ -290,11 +291,11 @@ namespace s21{
                 brother->color_ = READ;
                 brother->right_->color_ = BLACK;
                 this->left_rotate(this->root_, brother);
-            }  else if (brother && ((!brother->left_ || brother->left_->color_ == false) ||
-                                    (!brother->right_ || brother->right_->color_ == false))) {
-                brother->color_ = true;
-                if (father->color_ == true) {
-                    father->color_ = false;
+            }  else if (brother && ((!brother->left_ || brother->left_->color_ == BLACK) ||
+                                    (!brother->right_ || brother->right_->color_ == BLACK))) {
+                brother->color_ = READ;
+                if (father->color_ == READ) {
+                    father->color_ = BLACK;
                     result = false;
                 }
                 node = father;
