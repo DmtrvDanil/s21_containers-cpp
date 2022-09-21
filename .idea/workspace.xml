@@ -16,7 +16,10 @@
   <component name="ChangeListManager">
     <list default="true" id="98628e11-5e1b-433d-b0f4-b9fbb328099c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/a.out" beforeDir="false" afterPath="$PROJECT_DIR$/src/a.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/a.out.dSYM/Contents/Resources/DWARF/a.out" beforeDir="false" afterPath="$PROJECT_DIR$/src/a.out.dSYM/Contents/Resources/DWARF/a.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/s21_set.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_set.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/s21_set.tpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_set.tpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/treetest.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/treetest.cpp" afterDir="false" />
     </list>
@@ -178,7 +181,8 @@
       <workItem from="1663691776256" duration="6350000" />
       <workItem from="1663702844518" duration="547000" />
       <workItem from="1663748314278" duration="1002000" />
-      <workItem from="1663754240109" duration="8392000" />
+      <workItem from="1663754240109" duration="8411000" />
+      <workItem from="1663777963952" duration="4241000" />
     </task>
     <servers />
   </component>

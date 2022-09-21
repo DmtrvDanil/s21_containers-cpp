@@ -19,12 +19,14 @@ namespace s21{
         using const_reference = const Key&;
         using size_type = size_t;
         using read_black_node = ReadBlackTree<key_type>*;
+        using Allocator = std::allocator<ReadBlackTree<key_type>>;
+        Allocator allocator;
         set();
         explicit set(std::initializer_list<value_type>  const& items);
         set(const set& s);
         set(set&& s);
         set<key_type>& operator=(set&& s);
-        set<key_type>& operator=(set& s);
+        set<key_type>& operator=(const set& s);
         ~set();
 
         bool empty();
@@ -32,7 +34,8 @@ namespace s21{
         size_type max_size();
 
         void clear();
-        void swap(set other);
+        void swap(set &other);
+        void merge(set& other);
 
 
 
@@ -42,6 +45,7 @@ namespace s21{
         void destr(read_black_node& root);
         void init_set();
         read_black_node last_right() const;
+        void copy_set(read_black_node& root);
 
     public:
         class ConstIterator {

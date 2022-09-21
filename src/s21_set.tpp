@@ -20,29 +20,44 @@ namespace s21{
 
     template<class key_type>
     set<key_type>::set(const set<key_type> &s) {
-
+        *this = s;
     }
 
     template<class key_type>
     set<key_type>::set(set<key_type> &&s) {
         this->init_set();
-        this->swap(s);
+        if (this != &s) {
+            *this = s;
+//            this->swap(s);
+        }
     }
 
     template<class key_type>
-    set<key_type>& set<key_type>::operator=(set<key_type> &s) {
+    set<key_type>& set<key_type>::operator=(const set<key_type> &s) {
+        this->init_set();
+        read_black_node tmp = s.set_node_->get_root();
+        this->copy_set(tmp);
+        this->m_size_ = s.m_size_;
+        return *this;
+    }
 
+    template<class key_type>
+    void set<key_type>::copy_set(read_black_node &root) {
+        if (root != nullptr) {
+            copy_set(root->left_);
+            key_type value = root->data_.first;
+            this->insert(value);
+            copy_set(root->right_);
+        }
     }
 
     template<class key_type>
     set<key_type>& set<key_type>::operator=(set<key_type> &&s) {
         if (this != &s) {
-            this->set_node_ = s.set_node_;
-            this->m_size_ = s.m_size_;
-            s.m_size_ = 0;
-            s.set_node_ = nullptr;
-            return *this;
+            this->clear();
+            this->swap(s);
         }
+        return *this;
     }
 
     template<class key_type>
@@ -72,6 +87,12 @@ namespace s21{
     }
 
     template<class key_type>
+    typename set<key_type>::size_type set<key_type>::max_size() {
+        return allocator.max_size();
+
+    }
+
+    template<class key_type>
     void set<key_type>::clear() {
         if (this->set_node_ != nullptr) {
             read_black_node root = this->set_node_->get_root();
@@ -85,7 +106,7 @@ namespace s21{
     }
 
     template<class key_type>
-    void set<key_type>::swap(set<key_type> other) {
+    void set<key_type>::swap(set<key_type>& other) {
         std::swap(this->set_node_, other.set_node_);
         std::swap(this->m_size_, other.m_size_);
     }
@@ -148,8 +169,8 @@ namespace s21{
     template<class key_type>
     void set<key_type>::destr(read_black_node& root) {
         if (root != nullptr) {
-            this->destr(root->right_);
             this->destr(root->left_);
+            this->destr(root->right_);
             delete root;
             this->m_size_--;
         }
