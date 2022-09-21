@@ -111,6 +111,20 @@ namespace s21{
         std::swap(this->m_size_, other.m_size_);
     }
 
+    template<class key_type>
+    void set<key_type>::merge(set<key_type> &other) {
+        iterator iter = other.begin();
+        while (iter != other.end()) {
+            this->insert(*iter);
+            other.erase(iter);
+            iter++;
+        }
+    }
+
+    template<class key_type>
+    bool set<key_type>::contains(const key_type &key) {
+        return  this->set_node_->search(key) != nullptr;
+    }
 
     template<class key_type>
     typename set<key_type>::iterator set<key_type>::begin() {
@@ -283,6 +297,17 @@ namespace s21{
         ++(*this);
         return iter;
 
+    }
+
+    template<class key_type>
+    template<class... Args>
+    std::vector<std::pair<typename set<key_type>::iterator, bool>> set<key_type>::emplace(Args &&...args) {
+        std::vector<std::pair<iterator, bool>> result;
+        std::vector<typename set<key_type>::value_type> argsVector = {args...};
+        for (auto& i : argsVector) {
+            result.push_back(insert(i));
+        }
+        return result;
     }
 
 

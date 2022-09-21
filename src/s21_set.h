@@ -36,6 +36,7 @@ namespace s21{
         void clear();
         void swap(set &other);
         void merge(set& other);
+        bool contains(const key_type& key);
 
 
 
@@ -104,6 +105,8 @@ namespace s21{
         std::pair<iterator, bool> insert(const value_type&);
         iterator find(const Key& key);
         void erase(iterator pos);
+        template <class... Args>
+        std::vector<std::pair<iterator,bool>> emplace(Args&&... args);
     };
 
 
