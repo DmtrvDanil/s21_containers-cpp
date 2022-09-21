@@ -26,7 +26,7 @@ namespace s21{
     template<class key_type>
     set<key_type>::set(set<key_type> &&s) {
         this->init_set();
-        this = s;
+        this->swap(s);
     }
 
     template<class key_type>
@@ -47,13 +47,14 @@ namespace s21{
 
     template<class key_type>
     set<key_type>::~set() {
-        if (this->set_node_ != nullptr) {
-            read_black_node root = this->set_node_->get_root();
-            if (root) {
-                this->destr(root);
-            }
-            delete this->set_node_;
-        }
+        this->clear();
+//        if (this->set_node_ != nullptr) {
+//            read_black_node root = this->set_node_->get_root();
+//            if (root) {
+//                this->destr(root);
+//            }
+//            delete this->set_node_;
+//        }
     }
 
     template<class key_type>
@@ -79,12 +80,14 @@ namespace s21{
             }
             delete this->set_node_;
         }
+        this->set_node_ = nullptr;
 
     }
 
     template<class key_type>
     void set<key_type>::swap(set<key_type> other) {
-
+        std::swap(this->set_node_, other.set_node_);
+        std::swap(this->m_size_, other.m_size_);
     }
 
 
