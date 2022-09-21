@@ -64,7 +64,6 @@ namespace s21 {
         read_black_node get_root() { return this->root_;}
         read_black_node get_nil() {return this->nil_;}
         
-        
 };
 }//  namespace s21
 

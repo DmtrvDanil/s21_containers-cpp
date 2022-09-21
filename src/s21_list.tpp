@@ -131,13 +131,9 @@ namespace s21{
         if (this == &other) {
             throw std::invalid_argument("Error move!");
         }
-
-
         this->clear();
         this->SwapList(other);
 //        other.clear();
-
-
         return *this;
     }
 
@@ -147,8 +143,6 @@ namespace s21{
 //            this->InitList();
         if (this != &other) {
             this->clear();
-
-
 //            for (auto iter = other.begin(); iter != other.end(); ++iter) {
 //                this->push_back(*iter);
 //            }

@@ -19,6 +19,8 @@
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/a.out" beforeDir="false" afterPath="$PROJECT_DIR$/src/a.out" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/a.out.dSYM/Contents/Resources/DWARF/a.out" beforeDir="false" afterPath="$PROJECT_DIR$/src/a.out.dSYM/Contents/Resources/DWARF/a.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/s21_list.tpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_list.tpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/s21_rbtree.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_rbtree.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/s21_rbtree.tpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_rbtree.tpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/s21_set.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_set.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/s21_set.tpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_set.tpp" afterDir="false" />
@@ -180,7 +182,9 @@
       <workItem from="1663661677766" duration="632000" />
       <workItem from="1663668227229" duration="6893000" />
       <workItem from="1663691776256" duration="6350000" />
-      <workItem from="1663702844518" duration="3000" />
+      <workItem from="1663702844518" duration="547000" />
+      <workItem from="1663748314278" duration="1002000" />
+      <workItem from="1663754240109" duration="7602000" />
     </task>
     <servers />
   </component>

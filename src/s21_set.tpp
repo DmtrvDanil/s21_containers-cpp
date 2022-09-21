@@ -6,11 +6,51 @@ namespace s21{
     }
 
     template<class key_type>
+    set<key_type>::set(std::initializer_list<value_type> const& items) {
+//        this->set_node_ = new Tree<key_type>();
+//        Tree<key_type>* tmp = this->set_node_;
+//        this->m_size_ = std::count_if(items.begin(), items.end(),
+//                                 [tmp](key_type i) { return tmp->insert(i, WITHOUT_DUPLICATE, 0); });
+
+        this->init_set();
+        for (auto i = items.begin(); i != items.end(); ++i) {
+           this->insert(*i);
+        }
+    }
+
+    template<class key_type>
+    set<key_type>::set(const set<key_type> &s) {
+
+    }
+
+    template<class key_type>
+    set<key_type>::set(set<key_type> &&s) {
+        this->init_set();
+        this = s;
+    }
+
+    template<class key_type>
+    set<key_type>& set<key_type>::operator=(set<key_type> &s) {
+
+    }
+
+    template<class key_type>
+    set<key_type>& set<key_type>::operator=(set<key_type> &&s) {
+        if (this != &s) {
+            this->set_node_ = s.set_node_;
+            this->m_size_ = s.m_size_;
+            s.m_size_ = 0;
+            s.set_node_ = nullptr;
+            return *this;
+        }
+    }
+
+    template<class key_type>
     set<key_type>::~set() {
         if (this->set_node_ != nullptr) {
             read_black_node root = this->set_node_->get_root();
             if (root) {
-                this->clear(root);
+                this->destr(root);
             }
             delete this->set_node_;
         }
@@ -28,6 +68,23 @@ namespace s21{
 //
 //        }
         return this->m_size_;
+    }
+
+    template<class key_type>
+    void set<key_type>::clear() {
+        if (this->set_node_ != nullptr) {
+            read_black_node root = this->set_node_->get_root();
+            if (root) {
+                this->destr(root);
+            }
+            delete this->set_node_;
+        }
+
+    }
+
+    template<class key_type>
+    void set<key_type>::swap(set<key_type> other) {
+
     }
 
 
@@ -86,10 +143,10 @@ namespace s21{
     }
 
     template<class key_type>
-    void set<key_type>::clear(read_black_node& root) {
+    void set<key_type>::destr(read_black_node& root) {
         if (root != nullptr) {
-            this->clear(root->right_);
-            this->clear(root->left_);
+            this->destr(root->right_);
+            this->destr(root->left_);
             delete root;
             this->m_size_--;
         }

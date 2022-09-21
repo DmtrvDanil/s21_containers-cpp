@@ -65,11 +65,13 @@ namespace s21{
     void Tree<key_type, mapped_type>::insert_fix(read_black_node &root, read_black_node &node) {
         read_black_node parent = node->parent_;
         bool flag = true;
-        while (node != this->root_ && parent->color_ == READ) {
+        while (node != this->root_ && parent->color_ == READ && flag) {
             read_black_node grand_parent = parent->parent_;
             if (parent == grand_parent->left_) {
+                std::cout << "Where is seg_1" << std::endl;
                 this->fix_parent_left(root, parent, grand_parent, node, flag);
             } else {
+                std::cout << "Where is seg_2" << std::endl;
                 this->fix_parent_right(root, parent, grand_parent, node, flag);
             }
         }
@@ -81,7 +83,8 @@ namespace s21{
                                                        read_black_node &grand_parent, read_black_node &node,
                                                        bool flag) {
         read_black_node uncle = grand_parent->left_;
-        if (uncle != nullptr && uncle->color_ == true) {
+        if (uncle != nullptr && uncle->color_ == READ) {
+            std::cout << "I am here" << std::endl;
             parent->color_ = BLACK;
             uncle->color_ = BLACK;
             grand_parent->color_ = READ;
@@ -89,12 +92,12 @@ namespace s21{
             parent = node->parent_;
         } else {
             if (parent->left_ == node) {
-                right_rotate(root, parent);
+                this->right_rotate(root, parent);
                 std::swap(node, parent);
             }
             parent->color_ = BLACK;
             grand_parent->color_ = READ;
-            left_rotate(root, grand_parent);
+            this->left_rotate(root, grand_parent);
             flag = false;
         }
     }
@@ -103,7 +106,7 @@ namespace s21{
     void Tree<key_type, mapped_type>::fix_parent_left(read_black_node &root, read_black_node &parent,
                                                       read_black_node &grand_parent, read_black_node &node, bool flag) {
         read_black_node uncle = grand_parent->right_;
-        if (uncle != nullptr && uncle->color_ == true) {
+        if (uncle != nullptr && uncle->color_ == READ) {
             parent->color_ = BLACK;
             uncle->color_ = BLACK;
             grand_parent->color_ = READ;
@@ -145,16 +148,16 @@ namespace s21{
         y->parent_ = x->parent_;
         if (x->parent_ == nullptr) {
             root = y;
-        }
-        else {
+        } else {
             if (x == x->parent_->left_) {
                 x->parent_->left_ = y;
             } else {
                 x->parent_->right_ = y;
             }
         }
-        y->left_ = x;
         x->parent_ = y;
+        y->left_ = x;
+
     }
 
     template<class key_type, class mapped_type>
@@ -166,13 +169,15 @@ namespace s21{
         }
         x->parent_ = y->parent_;
         if (y->parent_ == nullptr) {
+            root = x;
+        } else {
             if (y == y->parent_->right_) {
                 y->parent_->right_ = x;
             } else {
                 y->parent_->left_ = x;
             }
         }
-        x->right_ = y;
+        x->parent_ = y;
         y->right_ = x;
     }
 

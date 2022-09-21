@@ -3,7 +3,9 @@
 #include <stdexcept>
 #include <cmath>
 #include <limits>
+#include <iostream>
 #include <vector>
+#include <algorithm>
 
 #include "s21_rbtree.h"
 
@@ -18,22 +20,26 @@ namespace s21{
         using size_type = size_t;
         using read_black_node = ReadBlackTree<key_type>*;
         set();
-        explicit set(std::initializer_list<value_type> const items);
+        explicit set(std::initializer_list<value_type>  const& items);
         set(const set& s);
         set(set&& s);
-        set<Key>& operator=(set&& s);
+        set<key_type>& operator=(set&& s);
+        set<key_type>& operator=(set& s);
         ~set();
 
         bool empty();
         size_type size();
         size_type max_size();
 
+        void clear();
+        void swap(set other);
+
 
 
     private:
         Tree<Key>* set_node_;
         size_type m_size_;
-        void clear(read_black_node& root);
+        void destr(read_black_node& root);
         void init_set();
         read_black_node last_right() const;
 
