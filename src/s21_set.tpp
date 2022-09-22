@@ -116,9 +116,9 @@ namespace s21{
         iterator iter = other.begin();
         while (iter != other.end()) {
             this->insert(*iter);
-            other.erase(iter);
             iter++;
         }
+        other.clear();
     }
 
     template<class key_type>

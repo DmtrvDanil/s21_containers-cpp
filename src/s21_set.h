@@ -1,12 +1,5 @@
 #ifndef SRC_S21_SET_H
 #define SRC_S21_SET_H
-#include <stdexcept>
-#include <cmath>
-#include <limits>
-#include <iostream>
-#include <vector>
-#include <algorithm>
-
 #include "s21_rbtree.h"
 
 namespace s21{
@@ -38,9 +31,7 @@ namespace s21{
         void merge(set& other);
         bool contains(const key_type& key);
 
-
-
-    private:
+    protected:
         Tree<Key>* set_node_;
         size_type m_size_;
         void destr(read_black_node& root);

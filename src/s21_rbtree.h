@@ -3,6 +3,12 @@
 #include <iostream>
 #include <string>
 #include <utility>
+#include <stdexcept>
+#include <cmath>
+#include <limits>
+#include <iostream>
+#include <vector>
+#include <algorithm>
 
 namespace s21 {
     enum NodeColor { BLACK, READ };

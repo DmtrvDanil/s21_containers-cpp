@@ -68,10 +68,8 @@ namespace s21{
         while (node != this->root_ && parent->color_ == READ && flag) {
             read_black_node grand_parent = parent->parent_;
             if (parent == grand_parent->left_) {
-                std::cout << "Where is seg_1" << std::endl;
                 this->fix_parent_left(root, parent, grand_parent, node, flag);
             } else {
-                std::cout << "Where is seg_2" << std::endl;
                 this->fix_parent_right(root, parent, grand_parent, node, flag);
             }
         }
@@ -84,7 +82,6 @@ namespace s21{
                                                        bool flag) {
         read_black_node uncle = grand_parent->left_;
         if (uncle != nullptr && uncle->color_ == READ) {
-            std::cout << "I am here" << std::endl;
             parent->color_ = BLACK;
             uncle->color_ = BLACK;
             grand_parent->color_ = READ;
