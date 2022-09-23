@@ -1836,6 +1836,31 @@ TEST(vector_modifiers_suit, function_erase_multi) {
         EXPECT_EQ(orig_q1.size(), copy_q1.size());
     }
 
+    class TestSet {
+    public:
+        s21::set<int> s21_set_empty;
+        s21::set<int> s21_set_ten{1,2,56,76,123,53,78,43,21,100};
+
+        std::set<int> std_set_empty;
+        std::set<int> std_set_ten{1,2,56,76,123,53,78,43,21,100};
+
+    };
+
+    TEST(Set, constructor_default) {
+        TestSet tester;
+        EXPECT_EQ(tester.s21_set_empty.size(), tester.std_set_empty.size());
+        EXPECT_EQ(tester.s21_set_empty.empty(), tester.std_set_empty.empty());
+    }
+
+    TEST(Set, constructor_initialazer) {
+        TestSet tester;
+        EXPECT_EQ(tester.s21_set_ten.size(), tester.std_set_ten.size());
+        EXPECT_EQ(tester.s21_set_ten.size(), tester.std_set_ten.size());
+        EXPECT_EQ(tester.s21_set_ten.find(1) != tester.s21_set_ten.end(), tester.std_set_ten.find(1) != tester.std_set_ten.end());
+        EXPECT_EQ(tesster.find(2) != s1.end(), s2.find(2) != s2.end());
+        EXPECT_EQ(s1.find(3) != s1.end(), s2.find(3) != s2.end());
+        EXPECT_EQ(s1.find(4) != s1.end(), s2.find(4) != s2.end());
+    }
 
 
 

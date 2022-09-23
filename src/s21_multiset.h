@@ -40,9 +40,9 @@ namespace s21 {
 //            bool contains(const key_type& key);
 //
 //            size_type count(const key_type& key);
-//            std::pair<iterator, iterator> equal_range(const key_type& key);
-//            iterator lower_bound(const key_type& key);
-//            iterator upper_bound(const key_type& key);
+            std::pair<iterator, iterator> equal_range(const key_type& key);
+            iterator lower_bound(const key_type& key);
+            iterator upper_bound(const key_type& key);
 //
 //            template<class... Args>
 //            std::vector<std::pair<iterator, bool>> emplace(Args&&... args);

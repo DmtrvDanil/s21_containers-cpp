@@ -3,7 +3,7 @@
 
 /* #include "list.h" */
 /* #include "map.h" */
-/* #include "set.h" */
+#include "s21_set.h"
 #include "s21_list.h"
 #include "s21_stack.h"
 #include "queue/s21_queue.h"
