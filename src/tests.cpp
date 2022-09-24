@@ -1844,6 +1844,8 @@ TEST(vector_modifiers_suit, function_erase_multi) {
         std::set<int> std_set_copy;
         s21::set<int> s21_move;
         std::set<int> std_move;
+    s21::set<int> s21_set_swap{1,2,3,4};
+    std::set<int> std_set_swap{1,2,3,4};
 
         std::set<int> std_set_empty;
         std::set<int> std_set_ten{1,2,56,76,123,53,78,43,21,100};
@@ -1935,7 +1937,46 @@ TEST(Set, function_size_empty) {
 
 TEST(Set, function_size_not_empty) {
     TestSet tester;
-    EXPECT_EQ(tester.)
+    EXPECT_EQ(tester.s21_set_ten.size(), tester.std_set_ten.size());
+}
+
+TEST(Set, function_max_sez_empty) {
+    TestSet tester;
+    EXPECT_EQ(tester.s21_set_empty.max_size(), tester.std_set_empty.max_size());
+}
+
+TEST(Set, function_max_siez_not_empty) {
+    TestSet tester;
+    EXPECT_EQ(tester.s21_set_ten.max_size(), tester.std_set_ten.max_size());
+}
+
+/* TEST(Set, fucntion_max_size_char_empty) { */
+/*     s21::set<char> s21_char_empty; */
+    /* std::set<char> std_char_empty; */
+    /* EXPECT_EQ(s21_char_empty.max_size(), std_char_empty.max_size()); */
+/* } */
+
+TEST(Set, function_max_size_float_empty) {
+    s21::set<float> s21_float_empty;
+    std::set<float> std_float_empty;
+    EXPECT_EQ(s21_float_empty.max_size(), std_float_empty.max_size());
+}
+
+/* TEST(Set, function_max_size_double_empty) { */
+/*     s21::set<double> s21_double_empty; */
+    /* std::set<double> std_double_empty; */
+    /* EXPECT_EQ(s21_double_empty.max_size(), std_double_empty.max_size()); */
+/* } */
+TEST(Set, function_swap_not_empty) {
+    TestSet tester;
+    tester.s21_set_swap.swap(tester.s21_set_ten);
+    tester.std_set_swap.swap(tester.std_set_ten);
+    EXPECT_EQ(tester.s21_set_swap.find(1) != tester.s21_set_swap.end(), tester.std_set_swap.find(1) != tester.std_set_swap.end());
+    EXPECT_EQ(tester.s21_set_swap.find(56) != tester.s21_set_swap.end(), tester.std_set_swap.find(56) != tester.std_set_swap.end());
+
+
+
+
 }
 
 

@@ -88,6 +88,11 @@ namespace s21{
 
     template<class key_type>
     typename set<key_type>::size_type set<key_type>::max_size() {
+//        char bits = 63;
+//        if (sizeof(void *) == 4) {
+//            bits = 31;
+//        }
+//        return static_cast<size_type>(pow(2, bits)) / sizeof(value_type) - 1;
         return allocator.max_size();
 
     }
@@ -168,6 +173,7 @@ namespace s21{
     typename set<key_type>::iterator set<key_type>::find(const key_type &key) {
         read_black_node tmp = this->set_node_->search(key);
         if (tmp == nullptr) {
+//            std::cout << "hello" << std::endl;
             tmp = this->set_node_->get_nil();
         }
         iterator res(tmp, this->set_node_->get_nil(), last_right());

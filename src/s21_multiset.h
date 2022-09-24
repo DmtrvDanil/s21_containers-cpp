@@ -4,6 +4,8 @@
 namespace s21 {
     template<typename Key>
     class multiset : public set<Key> {
+//        private:
+//            Compare compare_;
         public:
             using key_type = typename set<Key>::key_type;
             using value_type = typename set<Key>::value_type;

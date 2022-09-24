@@ -124,7 +124,9 @@ namespace s21{
     template<class key_type, class mapped_type>
     typename Tree<key_type, mapped_type>::read_black_node Tree<key_type, mapped_type>::search_in_root(read_black_node &root, key_type key) {
         read_black_node result = root;
+//        std::cout << key << "  : This is key" << std::endl;
         if (root == nullptr || root->data_.first == key) {
+//            std::cout << "I am here" << std::endl;
             return result;
         }
         if (root->data_.first > key) {
@@ -174,8 +176,8 @@ namespace s21{
                 y->parent_->left_ = x;
             }
         }
-        x->parent_ = y;
-        y->right_ = x;
+        y->parent_ = x;
+        x->right_ = y;
     }
 
     template<class key_type, class mapped_type>
