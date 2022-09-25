@@ -16,10 +16,9 @@
   <component name="ChangeListManager">
     <list default="true" id="98628e11-5e1b-433d-b0f4-b9fbb328099c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/a.out" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/a.out.dSYM/Contents/Info.plist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/a.out.dSYM/Contents/Resources/DWARF/a.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/s21_rbtree.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_rbtree.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/s21_rbtree.tpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_rbtree.tpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/s21_set.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_set.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test" beforeDir="false" afterPath="$PROJECT_DIR$/src/test" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -190,7 +189,7 @@
       <workItem from="1664008441114" duration="3822000" />
       <workItem from="1664015983483" duration="1000" />
       <workItem from="1664020644662" duration="4628000" />
-      <workItem from="1664107225250" duration="514000" />
+      <workItem from="1664107225250" duration="4317000" />
     </task>
     <servers />
   </component>

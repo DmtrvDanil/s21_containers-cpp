@@ -19,13 +19,13 @@ namespace s21 {
         public:
             std::pair<Key, Value> data_;
             NodeColor color_;
-            ReadBlackTree<Key, Value> *left_;
-            ReadBlackTree<Key, Value> *right_;
-            ReadBlackTree<Key, Value> *parent_;
-            ReadBlackTree() : data_(), color_(BLACK), left_(nullptr), right_(nullptr), parent_(nullptr) {}
+            ReadBlackTree<Key> *left_;
+            ReadBlackTree<Key> *right_;
+            ReadBlackTree<Key> *parent_;
+            ReadBlackTree() : color_(BLACK), left_(nullptr), right_(nullptr), parent_(nullptr) {}
 
         };
-    template<class Key, class Value = char>
+    template<class Key, class Value = char, typename Compare = std::less<Key> >
     class Tree {
     public:
         using key_type = Key;
@@ -34,10 +34,11 @@ namespace s21 {
         using reference = value_type&;
         using const_reference = const value_type&;
         using size_type = size_t;
-        using read_black_node = ReadBlackTree<key_type, mapped_type>*;
+        using read_black_node = ReadBlackTree<key_type>*;
     private:
         ReadBlackTree<Key, Value>* root_;
         ReadBlackTree<Key, Value>* nil_;
+        Compare comp_;
 
 
         read_black_node search_in_root(read_black_node& root, key_type key);

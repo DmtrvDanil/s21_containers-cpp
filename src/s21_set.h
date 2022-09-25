@@ -3,7 +3,7 @@
 #include "s21_rbtree.h"
 
 namespace s21{
-    template<class Key>
+    template<class Key, class Compare = std::less<Key> >
     class set {
     public:
         using key_type = Key;
