@@ -1844,8 +1844,8 @@ TEST(vector_modifiers_suit, function_erase_multi) {
         std::set<int> std_set_copy;
         s21::set<int> s21_move;
         std::set<int> std_move;
-    s21::set<int> s21_set_swap{1,2,3,4};
-    std::set<int> std_set_swap{1,2,3,4};
+    s21::set<int> s21_set_swap{95,94,93,92};
+    std::set<int> std_set_swap{95,94,93,92};
 
         std::set<int> std_set_empty;
         std::set<int> std_set_ten{1,2,56,76,123,53,78,43,21,100};
@@ -1973,6 +1973,11 @@ TEST(Set, function_swap_not_empty) {
     tester.std_set_swap.swap(tester.std_set_ten);
     EXPECT_EQ(tester.s21_set_swap.find(1) != tester.s21_set_swap.end(), tester.std_set_swap.find(1) != tester.std_set_swap.end());
     EXPECT_EQ(tester.s21_set_swap.find(56) != tester.s21_set_swap.end(), tester.std_set_swap.find(56) != tester.std_set_swap.end());
+    EXPECT_EQ(tester.s21_set_swap.find(76) != tester.s21_set_swap.end(), tester.std_set_swap.find(76) != tester.std_set_swap.end());
+    EXPECT_EQ(tester.s21_set_ten.find(95) != tester.s21_set_ten.end(), tester.std_set_ten.find(95) != tester.std_set_ten.end());
+    EXPECT_EQ(tester.s21_set_ten.find(94) != tester.s21_set_ten.end(), tester.std_set_ten.find(94) != tester.std_set_ten.end());
+    EXPECT_EQ(tester.s21_set_ten.find(93) != tester.s21_set_ten.end(), tester.std_set_ten.find(93) != tester.std_set_ten.end());
+
 
 
 
