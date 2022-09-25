@@ -1,6 +1,6 @@
 #include <set>
 #include <iostream>
-#include "s21_multiset.h"
+#include "s21_map.h"
 void o(s21::set<int> t) {
     for (auto &i : t)
         std::cout << i;
@@ -8,15 +8,10 @@ void o(s21::set<int> t) {
 }
 
 int main(void) {
-    s21::set<int> a{1,56,3,2};
+    s21::map<int, int> a;
+    a.insert(std::make_pair(1,2));
+    s21::map<int,int>::iterator i = a.begin();
+    std::cout << i.first  << std::endl;   
 
-    std::set<int> b{1,56,3,2};
-    std::cout << "This is set" << std::endl;
-    for (auto &i : a)
-        std::cout << i << " ";
-    std::cout << std::endl;
-    std::cout << std::endl;
-    std::cout << *a.find(56) << " Find:End  " << *a.end() << std::endl;
-    std::cout << *b.find(56) << " Find:End " << *b.end() << std::endl;
     return 0;
 }

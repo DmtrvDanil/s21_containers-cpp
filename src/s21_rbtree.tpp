@@ -2,47 +2,47 @@
 
 namespace s21{
 
-    template<class Key, class Value, class Compare>
-    Tree<Key, Value, Compare>::Tree() {
+    template<class Key,  class Compare>
+    Tree<Key, Compare>::Tree() {
         this->root_ = nullptr;
-        this->nil_ = new ReadBlackTree<Key, Value>;
+        this->nil_ = new ReadBlackTree<Key>;
         this->comp_ = Compare();
     }
 
-    template<class key_type, class mapped_type, class Compare>
-    Tree<key_type, mapped_type, Compare>& Tree<key_type, mapped_type, Compare>::operator=(const Tree &other) {
+    template<class key_type,  class Compare>
+    Tree<key_type,  Compare>& Tree<key_type,  Compare>::operator=(const Tree &other) {
         this->root_ = other.root_;
         this->nil_ = other.nil_;
         return *this;
     }
 
 
-    template<class Key, class Value, class Compare>
-    Tree<Key, Value, Compare>::~Tree() {
+    template<class Key,  class Compare>
+    Tree<Key,  Compare>::~Tree() {
         delete this->nil_;
     }
 
-    template<class Key, class Value, class Compare>
-    void Tree<Key, Value, Compare>::init(Key key, Value value) {
-        read_black_node tmp_tree = new ReadBlackTree<Key, Value>;
+    template<class Key, class Compare>
+    void Tree<Key, Compare>::init(Key key) {
+        read_black_node tmp_tree = new ReadBlackTree<Key>;
         tmp_tree->color_ = READ;
         tmp_tree->left_ = nullptr;
         tmp_tree->right_ = nullptr;
         tmp_tree->parent_ = nullptr;
-        tmp_tree->data_.first = key;
-        tmp_tree->data_.second = value;
+        tmp_tree->data_ = key;
+//        tmp_tree->data_.second = value;
         this->insert_node(this->root_, tmp_tree);
 
 
     }
 
-    template<class key_type, class mapped_type, class Compare>
-    void Tree<key_type, mapped_type, Compare>::insert_node(read_black_node &root, read_black_node new_tree) {
+    template<class key_type, class Compare>
+    void Tree<key_type,  Compare>::insert_node(read_black_node &root, read_black_node new_tree) {
         read_black_node x = root;
         read_black_node y = nullptr;
         while (x != nullptr) {
             y = x;
-            if (comp_(new_tree->data_.first, x->data_.first)) {
+            if (comp_(new_tree->data_, x->data_)) {
 
                 x = x->left_;
             } else {
@@ -51,7 +51,7 @@ namespace s21{
         }
         new_tree->parent_ = y;
         if (y != nullptr) {
-            if (comp_(new_tree->data_.first, y->data_.first)) {
+            if (comp_(new_tree->data_, y->data_)) {
                 y->left_ = new_tree;
             } else {
                 y->right_ = new_tree;
@@ -63,8 +63,8 @@ namespace s21{
         this->insert_fix(root, new_tree);
     }
 
-    template<class key_type, class mapped_type, class Compare>
-    void Tree<key_type, mapped_type, Compare>::insert_fix(read_black_node &root, read_black_node &node) {
+    template<class key_type,  class Compare>
+    void Tree<key_type, Compare>::insert_fix(read_black_node &root, read_black_node &node) {
         read_black_node parent = node->parent_;
         bool flag = true;
         while (node != this->root_ && parent->color_ == READ && flag) {
@@ -78,8 +78,8 @@ namespace s21{
         this->root_->color_ = BLACK;
     }
 
-    template<class key_type, class mapped_type, class Compare>
-    void Tree<key_type, mapped_type, Compare>::fix_parent_right(read_black_node &root, read_black_node &parent,
+    template<class key_type,  class Compare>
+    void Tree<key_type,  Compare>::fix_parent_right(read_black_node &root, read_black_node &parent,
                                                        read_black_node &grand_parent, read_black_node &node,
                                                        bool flag) {
         read_black_node uncle = grand_parent->left_;
@@ -101,8 +101,8 @@ namespace s21{
         }
     }
 
-    template<class key_type, class mapped_type, class Compare>
-    void Tree<key_type, mapped_type, Compare>::fix_parent_left(read_black_node &root, read_black_node &parent,
+    template<class key_type,  class Compare>
+    void Tree<key_type,  Compare>::fix_parent_left(read_black_node &root, read_black_node &parent,
                                                       read_black_node &grand_parent, read_black_node &node, bool flag) {
         read_black_node uncle = grand_parent->right_;
         if (uncle != nullptr && uncle->color_ == READ) {
@@ -123,15 +123,15 @@ namespace s21{
         }
     }
 
-    template<class key_type, class mapped_type, class Compare>
-    typename Tree<key_type, mapped_type, Compare>::read_black_node Tree<key_type, mapped_type, Compare>::search_in_root(read_black_node &root, key_type key) {
+    template<class key_type,  class Compare>
+    typename Tree<key_type,  Compare>::read_black_node Tree<key_type,  Compare>::search_in_root(read_black_node &root, key_type key) {
         read_black_node result = root;
 //        std::cout << key << "  : This is key" << std::endl;
-        if (root == nullptr || root->data_.first == key) {
+        if (root == nullptr || root->data_ == key) {
 //            std::cout << "I am here" << std::endl;
             return result;
         }
-        if (comp_(root->data_.first, key)) {
+        if (comp_(root->data_, key)) {
             return this->search_in_root(root->right_, key);
         }
         else {
@@ -139,8 +139,8 @@ namespace s21{
         }
     }
 
-    template<class key_type, class mapped_type, class Compare>
-    void Tree<key_type, mapped_type, Compare>::left_rotate(read_black_node &root, read_black_node &x) {
+    template<class key_type,  class Compare>
+    void Tree<key_type,  Compare>::left_rotate(read_black_node &root, read_black_node &x) {
         read_black_node y = x->right_;
         x->right_ = y->left_;
         if (y->left_ != nullptr) {
@@ -161,8 +161,8 @@ namespace s21{
 
     }
 
-    template<class key_type, class mapped_type, class Compare>
-    void Tree<key_type, mapped_type, Compare>::right_rotate(read_black_node &root, read_black_node &y) {
+    template<class key_type,  class Compare>
+    void Tree<key_type,  Compare>::right_rotate(read_black_node &root, read_black_node &y) {
         read_black_node x = y->left_;
         y->left_ = x->right_;
         if (x->right_ != nullptr) {
@@ -182,8 +182,8 @@ namespace s21{
         x->right_ = y;
     }
 
-    template<class key_type, class mapped_type, class Compare>
-    void Tree<key_type, mapped_type, Compare>::remove_node(read_black_node &root, read_black_node &node) {
+    template<class key_type, class Compare>
+    void Tree<key_type,  Compare>::remove_node(read_black_node &root, read_black_node &node) {
         read_black_node child;
         read_black_node father;
         NodeColor color;
@@ -203,8 +203,8 @@ namespace s21{
         delete node;
     }
 
-    template<class key_type, class mapped_type, class Compare>
-    void Tree<key_type, mapped_type, Compare>::remove_node_with_one_child(read_black_node &node, read_black_node &child,
+    template<class key_type,  class Compare>
+    void Tree<key_type,  Compare>::remove_node_with_one_child(read_black_node &node, read_black_node &child,
                                                                  read_black_node &father, NodeColor color) {
         if (node->left_ != nullptr) {   // save a child
             child = node->left_ ;
@@ -227,8 +227,8 @@ namespace s21{
         }
     }
 
-    template<class key_type, class mapped_type, class Compare>
-    void Tree<key_type, mapped_type, Compare>::find_right_replace(read_black_node &root, read_black_node &replace,
+    template<class key_type,  class Compare>
+    void Tree<key_type,  Compare>::find_right_replace(read_black_node &root, read_black_node &replace,
                                                          read_black_node &node) {
         while (replace->left_ != nullptr) {  // ищем самый левый элемент в правом поддереве
             replace = replace->left_;
@@ -244,8 +244,8 @@ namespace s21{
         }
     }
 
-    template<class key_type, class mapped_type, class Compare>
-    void Tree<key_type, mapped_type, Compare>::replace_with_new_node(read_black_node &father, read_black_node &replace,
+    template<class key_type,  class Compare>
+    void Tree<key_type,  Compare>::replace_with_new_node(read_black_node &father, read_black_node &replace,
                                                             read_black_node &node, read_black_node child) {
         if (father == node) {  // если правый потомок старого элемента и есть новый элемент
             father = replace;  // устанавливаем родителя для дальнейшей балансировки дерева
@@ -263,8 +263,8 @@ namespace s21{
         node->left_->parent_ = replace;
     }
 
-    template<class key_type, class mapped_type, class Compare>
-    void Tree<key_type, mapped_type, Compare>::remove_fix(read_black_node &root, read_black_node &node,
+    template<class key_type,  class Compare>
+    void Tree<key_type,  Compare>::remove_fix(read_black_node &root, read_black_node &node,
                                                  read_black_node &father) {
         read_black_node brother;
         bool flag = true;
@@ -281,8 +281,8 @@ namespace s21{
 
     }
 
-    template<class key_type, class mapped_type, class Compare>
-    bool Tree<key_type, mapped_type, Compare>::fix_left_brother(read_black_node &brother, read_black_node &node,
+    template<class key_type,  class Compare>
+    bool Tree<key_type,  Compare>::fix_left_brother(read_black_node &brother, read_black_node &node,
                                                        read_black_node father) {
         brother = father->left_;
         bool result = true;
@@ -316,8 +316,8 @@ namespace s21{
 
     }
 
-    template<class key_type, class mapped_type, class Compare>
-    bool Tree<key_type, mapped_type, Compare>::fix_right_brother(read_black_node &brother, read_black_node &node,
+    template<class key_type,  class Compare>
+    bool Tree<key_type,  Compare>::fix_right_brother(read_black_node &brother, read_black_node &node,
                                                         read_black_node &father) {
         brother = father->right_;
         bool result = true;
@@ -351,37 +351,37 @@ namespace s21{
         return result;
     }
 
-    template<class key_type, class mapped_type, class Compare>
-    void Tree<key_type, mapped_type, Compare>::print_tree(read_black_node node) {
+    template<class key_type, class Compare>
+    void Tree<key_type, Compare>::print_tree(read_black_node node) {
         if (node != nullptr){
             print_tree(node->left_);
-            std::cout << root_->data_.first << " ";
+            std::cout << root_->data_ << " ";
             print_tree(node->right_);
         }
     }
 
-    template<class key_type, class mapped_type, class Compare>
-    typename Tree<key_type, mapped_type, Compare>::read_black_node Tree<key_type, mapped_type, Compare>::search(key_type key) {
+    template<class key_type, class Compare>
+    typename Tree<key_type, Compare>::read_black_node Tree<key_type,  Compare>::search(key_type key) {
         return this->search_in_root(this->root_, key);
     }
 
-    template <class key_type, class mapped_type, class Compare>
-    bool Tree<key_type, mapped_type, Compare>::insert(key_type key,Duplicate dupl,  mapped_type value) {
+    template <class key_type,  class Compare>
+    bool Tree<key_type,  Compare>::insert(key_type key,Duplicate dupl) {
         bool result = false;
         if (dupl == WITHOUT_DUPLICATE) {
             if (search(key) == nullptr) {
-                init(key, value);
+                init(key);
                 result = true;
             }
         } else {
-            this->init(key, value);
+            this->init(key);
             result = true;
             }
         return result;
     }
 
-    template<class key_type, class mapped_type, class Compare>
-    void Tree<key_type, mapped_type, Compare>::remove(key_type key) {
+    template<class key_type,  class Compare>
+    void Tree<key_type,  Compare>::remove(key_type key) {
         read_black_node node = search(key);
         if (node != nullptr) {
             this->remove_node(this->root_, node);

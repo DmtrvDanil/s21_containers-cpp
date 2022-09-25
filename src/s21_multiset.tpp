@@ -10,7 +10,7 @@ namespace s21{
     template<class key_type>
     std::pair<typename multiset<key_type>::iterator, bool> multiset<key_type>::insert(const value_type &value) {
         std::pair<iterator, bool> result;
-        if (this->set_node_->insert(value, WITH_DUPLICATE, 0)) {
+        if (this->set_node_->insert(value, WITH_DUPLICATE)) {
             this->m_size_++;
             result = std::pair<iterator, bool>(this->find(value), true);
         } else {

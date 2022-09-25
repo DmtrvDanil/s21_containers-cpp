@@ -16,10 +16,15 @@
   <component name="ChangeListManager">
     <list default="true" id="98628e11-5e1b-433d-b0f4-b9fbb328099c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/s21_map.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_map.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/s21_multiset.tpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_multiset.tpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/s21_rbtree.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_rbtree.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/s21_rbtree.tpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_rbtree.tpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/s21_set.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_set.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/s21_set.tpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_set.tpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test" beforeDir="false" afterPath="$PROJECT_DIR$/src/test" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/treetest.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/treetest.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -189,7 +194,7 @@
       <workItem from="1664008441114" duration="3822000" />
       <workItem from="1664015983483" duration="1000" />
       <workItem from="1664020644662" duration="4628000" />
-      <workItem from="1664107225250" duration="4317000" />
+      <workItem from="1664107225250" duration="7295000" />
     </task>
     <servers />
   </component>

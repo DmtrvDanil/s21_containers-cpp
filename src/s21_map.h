@@ -4,12 +4,19 @@
 
 namespace s21 {
 
-template <class Key, class Value, class Compare>
+template <class Key, class Value, class Compare = std::less<Key>
+        >
 class map {
+
+
 public:
     using key_type = Key;
     using mapped_type = Value;
     using value_type = std::pair<key_type, mapped_type>;
+    map() : c() {}
+
+    ~map() {}
+
 
 
     class value_compare {
@@ -23,6 +30,19 @@ public:
 
 private:
     set<value_type, value_compare> c;
+
+public:
+    using iterator = typename  set<value_type, value_compare>::Iterator;
+    using const_iteratpr = typename set<value_type, value_compare>::ConstIterator;
+    std::pair<iterator, bool> insert(const value_type& value){
+        return  c.insert(value);
+    }
+    iterator begin() {
+        return c.begin();
+    }
+    iterator end() {
+        return c.end();
+    }
 };
 
 } // namespace s21

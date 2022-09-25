@@ -18,8 +18,8 @@ namespace s21{
         explicit set(std::initializer_list<value_type>  const& items);
         set(const set& s);
         set(set&& s);
-        set<key_type>& operator=(set&& s);
-        set<key_type>& operator=(const set& s);
+        set<key_type, Compare>& operator=(set&& s);
+        set<key_type, Compare>& operator=(const set& s);
         ~set();
 
         bool empty();
@@ -50,7 +50,7 @@ namespace s21{
             ConstIterator(read_black_node ptr, read_black_node nil, read_black_node last) : data_(ptr), nil_(nil), last_(last) {}
             ConstIterator(const ConstIterator& other) : data_(other.data_), nil_(other.nil_), last_(other.last_) {}
             ~ConstIterator() {}
-            const_reference operator*() {return this->data_->value.first;}
+            const_reference operator*() {return this->data_->value;}
             bool operator!=(const ConstIterator& other) { return this->data_ != other.data_;}
             bool operator ==(const ConstIterator& other) { return this->data_ == other.data_;}
             ConstIterator& operator++();
@@ -83,7 +83,7 @@ namespace s21{
             Iterator(read_black_node ptr, read_black_node nil, read_black_node last) : ConstIterator(ptr, nil, last) {}
             Iterator(const Iterator& other) : ConstIterator(other) {}
             ~Iterator() {}
-            reference operator*() {return this->data_->data_.first;}
+            reference operator*() {return this->data_->data_;}
 
 
         };

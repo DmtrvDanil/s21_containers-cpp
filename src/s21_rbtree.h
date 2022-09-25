@@ -14,10 +14,11 @@ namespace s21 {
     enum NodeColor { BLACK, READ };
     enum Duplicate { WITH_DUPLICATE, WITHOUT_DUPLICATE };
 
-    template <typename Key, typename Value = char>
+    template <typename Key>
         struct ReadBlackTree {
         public:
-            std::pair<Key, Value> data_;
+//            std::pair<Key, Value> data_;
+            Key data_;
             NodeColor color_;
             ReadBlackTree<Key> *left_;
             ReadBlackTree<Key> *right_;
@@ -25,19 +26,20 @@ namespace s21 {
             ReadBlackTree() : color_(BLACK), left_(nullptr), right_(nullptr), parent_(nullptr) {}
 
         };
-    template<class Key, class Value = char, typename Compare = std::less<Key> >
+    template<class Key, typename Compare = std::less<Key> >
     class Tree {
     public:
         using key_type = Key;
-        using mapped_type = Value;
-        using value_type = std::pair<key_type, mapped_type>;
+//        using mapped_type = Value;
+//        using value_type = std::pair<key_type, mapped_type>;
+        using value_type = Key;
         using reference = value_type&;
         using const_reference = const value_type&;
         using size_type = size_t;
         using read_black_node = ReadBlackTree<key_type>*;
     private:
-        ReadBlackTree<Key, Value>* root_;
-        ReadBlackTree<Key, Value>* nil_;
+        ReadBlackTree<Key>* root_;
+        ReadBlackTree<Key>* nil_;
         Compare comp_;
 
 
@@ -45,7 +47,7 @@ namespace s21 {
         void left_rotate(read_black_node& root, read_black_node& x);
         void right_rotate(read_black_node& root, read_black_node& y);
 
-        void init(Key key, Value value);
+        void init(Key key);
         void insert_node(read_black_node& root, read_black_node new_tree);
         void insert_fix(read_black_node& root, read_black_node& node);
         void fix_parent_right(read_black_node& root, read_black_node& parent, read_black_node& grand_parent, read_black_node& node, bool flag);
@@ -64,7 +66,7 @@ namespace s21 {
         Tree(const Tree& other);
         Tree& operator=(const Tree& other);
         ~Tree();
-        bool insert(key_type key, Duplicate duplc, mapped_type value);
+        bool insert(key_type key, Duplicate duplc);
         void print_tree(read_black_node node);
         void remove(key_type key);
         read_black_node search(key_type key);
