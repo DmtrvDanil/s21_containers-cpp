@@ -8,10 +8,10 @@ void o(s21::set<int> t) {
 }
 
 int main(void) {
-    s21::map<int, int> a;
-    a.insert(std::make_pair(1,2));
-    s21::map<int,int>::iterator i = a.begin();
-    std::cout << i.first  << std::endl;   
+    /* s21::map<int, int> a; */
+    /* a.insert(std::make_pair(1,2)); */
+    /* s21::map<int,int>::iterator i = a.begin(); */
+    /* std::cout << i.first  << std::endl; */   
 
     return 0;
 }

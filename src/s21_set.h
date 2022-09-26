@@ -50,7 +50,7 @@ namespace s21{
             ConstIterator(read_black_node ptr, read_black_node nil, read_black_node last) : data_(ptr), nil_(nil), last_(last) {}
             ConstIterator(const ConstIterator& other) : data_(other.data_), nil_(other.nil_), last_(other.last_) {}
             ~ConstIterator() {}
-            const_reference operator*() {return this->data_->value;}
+            const_reference operator*() {return this->data_->data_;}
             bool operator!=(const ConstIterator& other) { return this->data_ != other.data_;}
             bool operator ==(const ConstIterator& other) { return this->data_ == other.data_;}
             ConstIterator& operator++();
