@@ -805,8 +805,6 @@ TEST(vector_modifiers_suit, function_erase_multi) {
         copy_stack1.push(555);
         copy_stack1.push(5555);
         copy_stack1.push(55555);
-        std::cout << copy_stack1.size() << std::endl;
-        copy_stack1.output_s();
         s21::stack<int> copy_stack2(std::move(copy_stack1));
         while (!orig_stack2.empty() && !copy_stack2.empty()) {
             ASSERT_EQ(orig_stack2.top(), copy_stack2.top());
@@ -1874,12 +1872,14 @@ TEST(vector_modifiers_suit, function_erase_multi) {
         TestSet tester;
         s21::set<int> s21_empty(tester.s21_set_ten);
         std::set<int> std_empty(tester.std_set_ten);
+        std::cout << "Hello<><><><><><" << std::endl;
         EXPECT_EQ(s21_empty.find(1) != s21_empty.end(), std_empty.find(1) != std_empty.end());
         EXPECT_EQ(s21_empty.find(2) != s21_empty.end(), std_empty.find(2) != std_empty.end());
         EXPECT_EQ(s21_empty.find(3) != s21_empty.end(), std_empty.find(3) != std_empty.end());
         EXPECT_EQ(s21_empty.find(4) != s21_empty.end(), std_empty.find(4) != std_empty.end());
         EXPECT_EQ(s21_empty.size(), std_empty.size());
         EXPECT_EQ(s21_empty.empty(), std_empty.empty());
+        std::cout << "sdfsdfs" << std::endl;
     }
 
     TEST(Set, construct_move) {
@@ -1918,20 +1918,20 @@ TEST(vector_modifiers_suit, function_erase_multi) {
         EXPECT_EQ(tester.s21_set_copy.size(), tester.std_set_copy.size());
         EXPECT_EQ(tester.s21_set_copy.empty(), tester.std_set_copy.empty());
     }
-    
+
 
     TEST(Set, function_not_empty) {
         TestSet tester;
         EXPECT_EQ(tester.s21_set_ten.size(), tester.std_set_ten.size());
         EXPECT_EQ(tester.s21_set_ten.empty(), tester.std_set_ten.empty());
     }
-    
+
     TEST(Set, function_empty) {
         TestSet tester;
         EXPECT_EQ(tester.s21_set_empty.size(), tester.std_set_empty.size());
         EXPECT_EQ(tester.s21_set_empty.empty(), tester.std_set_empty.empty());
     }
-    
+
 TEST(Set, function_size_empty) {
     TestSet tester;
     EXPECT_EQ(tester.s21_set_empty.size(), tester.std_set_empty.size());
@@ -1941,7 +1941,7 @@ TEST(Set, function_size_not_empty) {
     TestSet tester;
     EXPECT_EQ(tester.s21_set_ten.size(), tester.std_set_ten.size());
 }
-
+//
 /* TEST(Set, function_max_sez_empty) { */
 /*     TestSet tester; */
 /*     EXPECT_EQ(tester.s21_set_empty.max_size(), tester.std_set_empty.max_size()); */
@@ -1987,7 +1987,7 @@ TEST(Set, function_swap_empty) {
     TestSet tester;
     tester.s21_set_empty.swap(tester.s21_set_swap);
     tester.std_set_empty.swap(tester.std_set_swap);
-    
+
     EXPECT_EQ(tester.s21_set_empty.find(95) != tester.s21_set_empty.end(), tester.std_set_empty.find(95) != tester.std_set_empty.end());
     EXPECT_EQ(tester.s21_set_empty.find(94) != tester.s21_set_empty.end(), tester.std_set_empty.find(94) != tester.std_set_empty.end());
     EXPECT_EQ(tester.s21_set_empty.find(93) != tester.s21_set_empty.end(), tester.std_set_empty.find(93) != tester.std_set_empty.end());
@@ -2154,7 +2154,7 @@ TEST(Set, operation_not_equal) {
 TEST(Set, function_insert) {
     TestSet tester;
     std::pair<s21::set<int>::iterator, bool> iter_1 = tester.s21_set_ten.insert(45);
-    std::pair<std::set<int>::iterator, bool> iter_2 = tester.std_set_ten.insert(45); 
+    std::pair<std::set<int>::iterator, bool> iter_2 = tester.std_set_ten.insert(45);
     EXPECT_EQ(*(iter_1.first), *(iter_2.first));
     EXPECT_EQ(iter_1.second, iter_2.second);
 

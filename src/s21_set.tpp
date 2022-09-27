@@ -20,6 +20,8 @@ namespace s21{
 
     template<class key_type, class Compare>
     set<key_type, Compare>::set(const set<key_type, Compare> &s) {
+//        if (!this->set_node_)
+            this->init_set();
         *this = s;
     }
 
@@ -34,6 +36,8 @@ namespace s21{
 
     template<class key_type, class Compare>
     set<key_type, Compare>& set<key_type, Compare>::operator=(const set<key_type, Compare> &s) {
+        if (this->set_node_)
+            this->clear();
         this->init_set();
         read_black_node tmp = s.set_node_->get_root();
         this->copy_set(tmp);
@@ -54,7 +58,9 @@ namespace s21{
     template<class key_type, class Compare>
     set<key_type, Compare>& set<key_type, Compare>::operator=(set<key_type, Compare> &&s) {
         if (this != &s) {
-            this->clear();
+            if(this->set_node_) {
+                this->clear();
+            }
             this->swap(s);
         }
         return *this;

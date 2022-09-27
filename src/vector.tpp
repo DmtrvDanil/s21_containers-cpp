@@ -2,31 +2,38 @@
 #include <cstring>
 namespace s21 {
 
-    template<class value_type>
-    Vector<value_type>::Vector() {
+    template<class value_type, class allocator_type>
+    Vector<value_type, allocator_type>::Vector() {
         this->bring_to_zero();
     }
 
-    template<class value_type>
-    Vector<value_type>::Vector(size_type n) {
+    template<class value_type, class allocator_type>
+    Vector<value_type, allocator_type>::Vector(size_type n) {
         if (n > this->max_size()) {
             throw std::length_error("cannot create s21::vector larger than max_size()");
         }
         this->m_size_ = n;
         this->m_capacity_ = n;
-//        this->arr_ = n ? this->alloc_.allocate(n) : nullptr;
-        this->arr_ = n ? new value_type[n] : nullptr;
-//        if (this->arr_) {
-//            for (size_t i = 0; i < n; i++) {
-//                alloc_.construct(this->arr_, value_type());
-//            }
-//        }
+        this->arr_ = n ? this->alloc_.allocate(n) : nullptr;
+        if (this->arr_) {
+            for (size_t i = 0; i < n; i++) {
+                alloc_.construct(this->arr_, value_type());
+            }
+        }
     }
 
-    template<class value_type>
-    Vector<value_type>::Vector(std::initializer_list<value_type> const &items) {
+//    template<class value_type, class allocator_type>
+//    void Vector<value_type, allocator_type>::get_memory(reference array) {
+//        if (this->arr_) {
+//            for ()
+//        }
+//    }
+
+    template<class value_type, class allocator_type>
+    Vector<value_type, allocator_type>::Vector(std::initializer_list<value_type> const &items) {
         this->bring_to_zero();
         this->arr_ = new value_type[items.size()]{};
+//        this->arr_ = this->alloc_.allocate()
         size_type i = 0;
         for (auto it = items.begin(); it != items.end(); it++) {
             this->arr_[i] = *it;
@@ -45,15 +52,15 @@ namespace s21 {
 //        }
     }
 
-    template<class value_type>
-    Vector<value_type>::Vector(const Vector &v) {
+    template<class value_type, class allocator_type>
+    Vector<value_type, allocator_type>::Vector(const Vector &v) {
         this->bring_to_zero();
         *this = v;
     }
 
 
-    template<class value_type>
-    Vector<value_type>::Vector(Vector &&v) {
+    template<class value_type, class allocator_type>
+    Vector<value_type, allocator_type>::Vector(Vector &&v) {
         this->bring_to_zero();
         if (this->arr_ != v.arr_) {
 //            this->arr_ = v.arr_;
@@ -67,8 +74,8 @@ namespace s21 {
         }
     }
 
-    template<class value_type>
-    Vector<value_type>&  Vector<value_type>::operator=(const Vector &v) {
+    template<class value_type, class allocator_type>
+    Vector<value_type, allocator_type>&  Vector<value_type, allocator_type>::operator=(const Vector &v) {
         if (this->arr_ != v.arr_) {
             if (this->arr_ != nullptr) {
                 delete [] this->arr_;
@@ -103,8 +110,8 @@ namespace s21 {
 
 
 
-    template<class value_type>
-    Vector<value_type>&  Vector<value_type>::operator=(Vector &&v) {
+    template<class value_type, class allocator_type>
+    Vector<value_type, allocator_type>&  Vector<value_type, allocator_type>::operator=(Vector &&v) {
         if (this != &v) {
             this->clear_all();
             this->arr_ = v.arr_;
@@ -119,8 +126,8 @@ namespace s21 {
     }
 
 
-    template <class value_type>
-    void Vector<value_type>::swap(Vector &other) {
+    template <class value_type, class allocator_type>
+    void Vector<value_type, allocator_type>::swap(Vector &other) {
         if (this->arr_ != other.arr_) {
             std::swap(this->m_size_, other.m_size_);
             std::swap(this->m_capacity_, other.m_capacity_);
@@ -130,8 +137,8 @@ namespace s21 {
 
 
 
-    template <typename value_type>
-    void Vector<value_type>::clear_all() {
+    template <typename value_type, class allocator_type>
+    void Vector<value_type, allocator_type>::clear_all() {
 
 //        for (size_t i = 0; i < this->m_size_; i++) {
 //            alloc_.destroy(arr_ + i);
@@ -148,8 +155,8 @@ namespace s21 {
 
 
 
-    template<class value_type>
-    void Vector<value_type>::output_vector() {
+    template<class value_type, class allocator_type>
+    void Vector<value_type, allocator_type>::output_vector() {
         if (this->empty()) {
             throw std::length_error("Your vector is empty!");
         }
@@ -160,8 +167,8 @@ namespace s21 {
         std::cout << std::endl;
     }
 
-    template<class value_type>
-    void Vector<value_type>::bring_to_zero() {
+    template<class value_type, class allocator_type>
+    void Vector<value_type, allocator_type>::bring_to_zero() {
         this->arr_ = nullptr;
         this->m_size_ = 0;
         this->m_capacity_ = 0;
@@ -169,15 +176,15 @@ namespace s21 {
 
 
 
-    template<class value_type>
-    void Vector<value_type>::pop_back() {
+    template<class value_type, class allocator_type>
+    void Vector<value_type, allocator_type>::pop_back() {
         if (this->empty())
             throw  std::runtime_error("Vector is empty!!");
         this->arr_[this->m_size_--] = 0;
     }
 
-    template <typename T>
-    void Vector<T>::push_back(value_type v) {
+    template <class value_type, class allocator_type>
+    void Vector<value_type, allocator_type>::push_back(value_type v) {
         if (this->m_size_ >= this->m_capacity_) {
             reserve_more_capacity(this->m_size_ * 2, false);
         }
@@ -185,14 +192,14 @@ namespace s21 {
     }
 
 
-    template<class value_type>
-    void Vector<value_type>::memory() {
+    template<class value_type, class allocator_type>
+    void Vector<value_type, allocator_type>::memory() {
         if (!(this->arr_ = new value_type[this->m_capacity_ + 1]()))
             throw std::invalid_argument("Bad alloc");
     }
 
-template<class value_type>
-void Vector<value_type>::reserve_more_capacity(size_type size, bool flag) {
+template<class value_type, class allocator_type>
+void Vector<value_type, allocator_type>::reserve_more_capacity(size_type size, bool flag) {
     // if (size > m_capacity_) {
     if (flag) {
         this->m_size_ = size;
@@ -405,8 +412,8 @@ void Vector<value_type>::reserve_more_capacity(size_type size, bool flag) {
 //
 //}
 
-template<class value_type>
-void Vector<value_type>::reserve(size_type size) {
+template<class value_type, class allocator_type>
+void Vector<value_type, allocator_type>::reserve(size_type size) {
     // if (size >= m_capacity_)
     //     throw std::invalid_argument("Error");
     if (size < 0) {
@@ -421,20 +428,20 @@ void Vector<value_type>::reserve(size_type size) {
 //    reserve_more_capacity(size, false);
 }
 
-template<class value_type>
-typename Vector<value_type>::size_type Vector<value_type>::capacity() {
+template<class value_type, class allocator_type>
+typename Vector<value_type, allocator_type>::size_type Vector<value_type, allocator_type>::capacity() {
     return this->m_capacity_;
 }
 
-template<class value_type>
-void Vector<value_type>::shrink_to_fit() {
+template<class value_type, class allocator_type>
+void Vector<value_type, allocator_type>::shrink_to_fit() {
     reserve_more_capacity(this->m_size_, true);
 }
 
 // >>>>>>>> Modifiers <<<<<<<<
 
-template<typename value_type>
-void Vector<value_type>::clear() {
+template<class value_type, class allocator_type>
+void Vector<value_type, allocator_type>::clear() {
     if (this->arr_ != nullptr) {
         delete[] this->arr_;
     }
@@ -442,9 +449,9 @@ void Vector<value_type>::clear() {
     this->m_size_ = 0;
 }
 
-template<class value_type>
-typename Vector<value_type>::iterator
-Vector<value_type>::insert(iterator pos, const_reference value) {
+template<class value_type, class allocator_type>
+typename Vector<value_type, allocator_type>::iterator
+Vector<value_type, allocator_type>::insert(iterator pos, const_reference value) {
     size_type position = &(*pos) - this->arr_;
     if (this->m_size_ + 1 >= this->m_capacity_) {
         this->reserve_more_capacity(this->m_capacity_ * 2, false);
@@ -465,8 +472,8 @@ Vector<value_type>::insert(iterator pos, const_reference value) {
     return this->arr_ + position;
 }
 
-template<class value_type>
-void Vector<value_type>::erase(iterator pos) {
+template<class value_type, class allocator_type>
+void Vector<value_type, allocator_type>::erase(iterator pos) {
 //    size_type position = *pos - *this->arr_;
 //    Vector<value_type> new_vec(this->m_size_ - 1);
 //    std::cout << new_vec.capacity() << " " << new_vec.size() << std::endl;
@@ -515,18 +522,18 @@ void Vector<value_type>::erase(iterator pos) {
 //    return pos;
 //}
 
-    template<typename value_type>
+    template<typename value_type, class allocator_type>
     template<typename ... Args>
-    typename Vector<value_type>::iterator
-    Vector<value_type>::emplace(const_iterator pos, Args &&...args) {
+    typename Vector<value_type, allocator_type>::iterator
+    Vector<value_type, allocator_type>::emplace(const_iterator pos, Args &&...args) {
         iterator it(pos);
         it = this->insert(it, value_type(std::forward<Args>(args)...));
         return it;
     }
 
-    template<typename value_type>
+    template<typename value_type, class allocator_type>
     template<typename ... Args>
-    void Vector<value_type>::emplace_back(Args &&...args) {
+    void Vector<value_type, allocator_type>::emplace_back(Args &&...args) {
         this->push_back(value_type(std::forward<Args>(args)...));
     }
 

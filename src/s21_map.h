@@ -30,15 +30,36 @@ public:
 
 private:
     set<value_type, value_compare> c;
+public:
+    class ConstIterator : public set<value_type, value_compare>::ConstIterator {
+    public:
+        using set_iterator = typename set<value_type, value_compare>::ConstIterator;
+        ConstIterator(const set_iterator& other) : set_iterator(other) {}
+
+        value_type* operator->() { return &(this->data_->data_); }
+
+    };
+    class Iterator : public ConstIterator {
+    public:
+        using set_iterator = typename ConstIterator::set_iterator;
+        Iterator(const set_iterator& other) : ConstIterator(other) {}
+
+    };
+    using const_iterator = ConstIterator;
+    using iterator = Iterator;
+
 
 public:
-    using iterator = typename  set<value_type, value_compare>::Iterator;
-    using const_iteratpr = typename set<value_type, value_compare>::ConstIterator;
+//    using iterator = typename  set<value_type, value_compare>::Iterator;
+//    using const_iteratpr = typename set<value_type, value_compare>::ConstIterator;
     std::pair<iterator, bool> insert(const value_type& value){
-        return  c.insert(value);
+        auto pair_set =  c.insert(value);
+        iterator iter(pair_set.first);
+        return  std::make_pair(iter, pair_set.second);
     }
     iterator begin() {
-        return c.begin();
+        iterator iter(c.begin());
+        return iter;
     }
     iterator end() {
         return c.end();
