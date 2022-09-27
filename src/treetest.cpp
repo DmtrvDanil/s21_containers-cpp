@@ -14,6 +14,7 @@ int main(void) {
     a.insert(std::make_pair(1,2));
     s21::map<int,int>::iterator i = a.begin();
     std::cout << i->second << std::endl;
+    std::cout << a[1];
 
     return 0;
 }

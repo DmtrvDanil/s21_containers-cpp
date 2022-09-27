@@ -2206,6 +2206,60 @@ TEST(Set, function_emplace) {
     EXPECT_EQ(*it1[2].first, 5);
 }
 
+class TestMap {
+public:
+    s21::map<int, int> s21_map_empty;
+    s21::map<int, int> s21_map_four{{1,1}, {2,2}, {3,3}, {4,4}};
+
+    std::map<int, int> std_map_empty;
+    std::map<int, int> std_map_four{{1,1,}, {2,2}, {3,3}, {4,4}};
+};
+
+    TEST(Map, construcor_default) {
+        TestMap tester;
+        EXPECT_EQ(tester.s21_map_empty.size(), tester.std_map_empty.size());
+        EXPECT_EQ(tester.s21_map_empty.empty(), tester.std_map_empty.empty());
+    }
+
+    TEST(Map, construcot_initializer) {
+        TestMap tester;
+        EXPECT_EQ(tester.s21_map_four.size(), tester.std_map_four.size());
+        EXPECT_EQ(tester.std_map_four.empty(), tester.std_map_four.empty());
+    }
+
+    TEST(Map, constructor_copy_empty) {
+        TestMap tester;
+        s21::map<int, int> s21_map_copy(tester.s21_map_empty);
+        std::map<int, int> std_map_copy(tester.std_map_empty);
+        EXPECT_EQ(s21_map_copy.size(), std_map_copy.size());
+        EXPECT_EQ(std_map_copy.empty(), std_map_copy.empty());
+    }
+
+    TEST(Map, constructor_copy_not_empty) {
+        TestMap tester;
+        s21::map<int, int> s21_map_copy(tester.s21_map_four);
+        std::map<int, int> std_map_copy(tester.std_map_four);
+        EXPECT_EQ(s21_map_copy.size(), std_map_copy.size());
+        EXPECT_EQ(std_map_copy.empty(), std_map_copy.empty());
+    }
+
+    TEST(Map, constructor_move_empty) {
+        TestMap tester;
+        s21::map<int, int> s21_map_move = std::move(tester.s21_map_empty);
+        std::map<int, int> std_map_move = std::move(tester.std_map_empty);
+        EXPECT_EQ(s21_map_move.size(), std_map_move.size());
+        EXPECT_EQ(s21_map_move.empty(), std_map_move.empty());
+    }
+
+TEST(Map, constructor_move_not_empty) {
+    TestMap tester;
+    s21::map<int, int> s21_map_move = std::move(tester.s21_map_four);
+    std::map<int, int> std_map_move = std::move(tester.std_map_four);
+    EXPECT_EQ(s21_map_move.size(), std_map_move.size());
+    EXPECT_EQ(s21_map_move.empty(), std_map_move.empty());
+}
+
+TEST(Map, )
 
 
 

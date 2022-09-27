@@ -13,18 +13,40 @@ public:
     using key_type = Key;
     using mapped_type = Value;
     using value_type = std::pair<key_type, mapped_type>;
+    using reference = value_type&;
+    using const_reference = const value_type&;
+    using size_type = size_t;
     map() : c() {}
-
+    map(std::initializer_list<value_type> const &items) : c(items){}
+    map(const map &m) : c(m.c) {};
+    map(map &&m) : c(std::move(m.c)){}
+    map<key_type, Compare>& operator=(map &&m) {
+        this->c = std::move(m.c);
+        return *this;
+    }
+    map<key_type, Compare>& operator=(const map &m) {
+        this->c = m.c;
+        return *this;
+    }
     ~map() {}
 
+    mapped_type& at(const key_type& key);
+    mapped_type& operator[](const key_type& key);
+    bool empty() {
+        return c.empty();
+    }
+    size_type size() {
+        return c.size();
+    }
 
 
     class value_compare {
         bool operator()( const value_type& lhs, const value_type& rhs ) {
             return comp(lhs.first, rhs.first);
         }
-    private:
+    public:
         value_compare() : comp(Compare()) {}
+    private:
         Compare comp;
     };
 
@@ -68,4 +90,5 @@ public:
 
 } // namespace s21
 
-#endif
+#include "s21_map.tpp"
+#endif  // SRC_S21_MAP_H

@@ -13,7 +13,7 @@ namespace s21{
         using size_type = size_t;
         using read_black_node = ReadBlackTree<key_type>*;
         using Allocator = std::allocator<ReadBlackTree<key_type>>;
-        Allocator allocator;
+
         set();
         explicit set(std::initializer_list<value_type>  const& items);
         set(const set& s);
@@ -63,6 +63,8 @@ namespace s21{
         private:
             read_black_node next_value();
             read_black_node prev_value();
+            Compare comp_;
+            Allocator allocator;
 
             //--
             bool node_have_left();
