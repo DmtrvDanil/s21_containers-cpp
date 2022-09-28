@@ -2210,9 +2210,11 @@ class TestMap {
 public:
     s21::map<int, int> s21_map_empty;
     s21::map<int, int> s21_map_four{{1,1}, {2,2}, {3,3}, {4,4}};
+    s21::map<int, int> s21_map_swap {{1, 95}, {2,94}, {3,93}};
 
     std::map<int, int> std_map_empty;
     std::map<int, int> std_map_four{{1,1,}, {2,2}, {3,3}, {4,4}};
+    std::map<int, int> std_map_swap{{1, 95}, {2, 95}, {3, 95}};
 };
 
     TEST(Map, construcor_default) {
@@ -2223,6 +2225,8 @@ public:
 
     TEST(Map, construcot_initializer) {
         TestMap tester;
+        EXPECT_EQ(tester.s21_map_four[1], tester.std_map_four[1]);
+        EXPECT_EQ(tester.s21_map_four[4], tester.std_map_four[4]);
         EXPECT_EQ(tester.s21_map_four.size(), tester.std_map_four.size());
         EXPECT_EQ(tester.std_map_four.empty(), tester.std_map_four.empty());
     }
@@ -2239,6 +2243,8 @@ public:
         TestMap tester;
         s21::map<int, int> s21_map_copy(tester.s21_map_four);
         std::map<int, int> std_map_copy(tester.std_map_four);
+        EXPECT_EQ(s21_map_copy[1], std_map_copy[1]);
+        EXPECT_EQ(s21_map_copy[4], std_map_copy[4]);
         EXPECT_EQ(s21_map_copy.size(), std_map_copy.size());
         EXPECT_EQ(std_map_copy.empty(), std_map_copy.empty());
     }
@@ -2255,13 +2261,114 @@ TEST(Map, constructor_move_not_empty) {
     TestMap tester;
     s21::map<int, int> s21_map_move = std::move(tester.s21_map_four);
     std::map<int, int> std_map_move = std::move(tester.std_map_four);
+    EXPECT_EQ(s21_map_move[1], std_map_move[1]);
+    EXPECT_EQ(s21_map_move[4], std_map_move[4]);
     EXPECT_EQ(s21_map_move.size(), std_map_move.size());
     EXPECT_EQ(s21_map_move.empty(), std_map_move.empty());
 }
 
-TEST(Map, )
+TEST(Map, operator_copy_empty) {
+    TestMap tester;
+    s21::map<int, int> s21_map_copy;
+    std::map<int, int> std_map_copy;
+    s21_map_copy = tester.s21_map_four;
+    std_map_copy = tester.std_map_four;
+    EXPECT_EQ(s21_map_copy[1], std_map_copy[1]);
+    EXPECT_EQ(s21_map_copy[4], std_map_copy[4]);
+    EXPECT_EQ(s21_map_copy.size(), std_map_copy.size());
+    EXPECT_EQ(s21_map_copy.empty(), std_map_copy.empty());
+}
 
+TEST(Map, operator_copy_not_empty) {
+    TestMap tester;
+    s21::map<int, int> s21_map_copy{{1,1}, {2,2}};
+    std::map<int, int> std_map_copy{{1,1}, {2,2}};
+    s21_map_copy = tester.s21_map_four;
+    std_map_copy = tester.std_map_four;
+    EXPECT_EQ(s21_map_copy[1], std_map_copy[1]);
+    EXPECT_EQ(s21_map_copy[4], std_map_copy[4]);
+    EXPECT_EQ(s21_map_copy.size(), std_map_copy.size());
+    EXPECT_EQ(s21_map_copy.empty(), std_map_copy.empty());
+}
 
+TEST(Map, operator_move_empty) {
+    TestMap tester;
+    s21::map<int, int> s21_map_move;
+    std::map<int, int> std_map_move;
+    s21_map_move = std::move(tester.s21_map_four);
+    std_map_move = std::move(tester.std_map_four);
+    EXPECT_EQ(s21_map_move[1], std_map_move[1]);
+    EXPECT_EQ(std_map_move[4], std_map_move[4]);
+    EXPECT_EQ(s21_map_move.size(), std_map_move.size());
+    EXPECT_EQ(s21_map_move.empty(), std_map_move.empty());
+}
+
+/* TEST(Map, operator_move_not_empty) { */
+/*     TestMap tester; */
+/*     s21::map<int, int> s21_map_move{{1,1}, {2,2}}; */
+/*     std::map<int, int> std_map_move{{1,1}, {2,2}}; */
+/*     s21_map_move = std::move(tester.s21_map_empty); */
+/*     std_map_move = std::move(tester.std_map_empty); */
+    /* EXPECT_EQ(s21_map_move[1], std_map_move[1]); */
+    /* EXPECT_EQ(s21_map_move[2], std_map_move[2]); */
+    /* EXPECT_EQ(s21_map_move.size(), std_map_move.size()); */
+    /* EXPECT_EQ(s21_map_move.empty(), std_map_move.empty()); */
+/* } */
+
+TEST(Map, function_empty_empty) {
+    TestMap tester;
+    EXPECT_EQ(tester.s21_map_empty.size(), tester.std_map_empty.size());
+    EXPECT_EQ(tester.s21_map_empty.empty(), tester.std_map_empty.empty());
+    EXPECT_EQ(tester.s21_map_empty[1], tester.std_map_empty[1]);
+}
+
+TEST(Map, function_empty_not_empty) {
+    TestMap tester;
+    EXPECT_EQ(tester.s21_map_four.size(), tester.std_map_four.size());
+    EXPECT_EQ(tester.s21_map_four.empty(), tester.std_map_four.empty());
+    EXPECT_EQ(tester.s21_map_four[1], tester.std_map_four[1]);
+}
+
+TEST(Map, function_size_empty) {
+    TestMap tester;
+    EXPECT_EQ(tester.s21_map_empty.size(), tester.std_map_empty.size());
+    EXPECT_EQ(tester.s21_map_empty.empty(), tester.std_map_empty.empty());
+    EXPECT_EQ(tester.s21_map_empty[1], tester.std_map_empty[1]);
+}
+
+TEST(Map, function_size_not_empty) {
+    TestMap tester;
+    EXPECT_EQ(tester.s21_map_four.size(), tester.std_map_four.size());
+    EXPECT_EQ(tester.std_map_four.empty(), tester.std_map_four.empty());
+    EXPECT_EQ(tester.s21_map_four[1], tester.std_map_four[1]);
+    EXPECT_EQ(tester.s21_map_four[4], tester.std_map_four[4]);
+}
+
+/* TEST(Map, function_max_size_empty) { */
+/*     TestMap tester; */
+    /* EXPECT_EQ(tester.s21_map_empty.size(), tester.std_map_empty.size()); */
+    /* EXPECT_EQ(tester.s21_map_empty.empty(), tester.std_map_empty.empty()); */
+    /* EXPECT_EQ(tester.s21_map_empty.max_size(), tester.std_map_empty.max_size()); */
+/* } */
+
+/* TEST(Map, function_max_size_not_empty) { */
+/*     TestMap tester; */
+    /* EXPECT_EQ(tester.s21_map_four.size(), tester.std_map_four.size()); */
+    /* EXPECT_EQ(tester.s21_map_four.empty(), tester.std_map_four.empty()); */
+    /* EXPECT_EQ(tester.s21_map_four.max_size(), tester.std_map_four.max_size()); */
+/* } */
+
+TEST(Map, function_swap_empty) {
+    TestMap tester;
+    s21::map<int, int> s21_map_swap{{1,1}};
+    std::map<int, int> std_map_swap{{1,1}};
+    s21_map_swap.swap(tester.s21_map_empty);
+    std_map_swap.swap(tester.std_map_empty);
+    EXPECT_EQ(s21_map_swap[1], std_map_swap[1]);
+    EXPECT_EQ(std_map_swap[4], std_map_swap[4]);
+    EXPECT_EQ(s21_map_swap.size(), std_map_swap.size());
+    EXPECT_EQ(s21_map_swap.empty(), std_map_swap.empty());
+}
 
 
 

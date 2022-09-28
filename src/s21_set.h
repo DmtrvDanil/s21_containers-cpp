@@ -12,7 +12,7 @@ namespace s21{
         using const_reference = const Key&;
         using size_type = size_t;
         using read_black_node = ReadBlackTree<key_type>*;
-        using Allocator = std::allocator<ReadBlackTree<key_type>>;
+        using Allocator = std::allocator<ReadBlackTree<Key> >;
 
         set();
         explicit set(std::initializer_list<value_type>  const& items);

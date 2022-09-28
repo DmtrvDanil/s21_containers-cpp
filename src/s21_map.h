@@ -20,11 +20,11 @@ public:
     map(std::initializer_list<value_type> const &items) : c(items){}
     map(const map &m) : c(m.c) {};
     map(map &&m) : c(std::move(m.c)){}
-    map<key_type, Compare>& operator=(map &&m) {
+    map& operator=(map &&m) {
         this->c = std::move(m.c);
         return *this;
     }
-    map<key_type, Compare>& operator=(const map &m) {
+    map& operator=(const map &m) {
         this->c = m.c;
         return *this;
     }
@@ -37,6 +37,13 @@ public:
     }
     size_type size() {
         return c.size();
+    }
+    size_type max_size() {
+        return c.max_size();
+    }
+
+    void swap(map& other) {
+        this->c.swap(other.c);
     }
 
 
