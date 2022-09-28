@@ -2431,86 +2431,111 @@ TEST(Map, function_swap_not_empty) {
     /* EXPECT_EQ(s21_map_merge.empty(), std_map_merge.empty()); */
 
 /* } */
-/* TEST(MapMergeFunction, WithDuplicatesCase) { */
-/*     s21::map<int, int> m1({{1, 8}, {4, 2}, {2, 3}}); */
-    /* s21::map<int, int> m2({{1, 3}, {2, 2}}); */
-    /* m1.merge(m2); */
+TEST(MapMergeFunction, WithDuplicatesCase) {
+    s21::map<int, int> m1({{1, 8}, {4, 2}, {2, 3}});
+    s21::map<int, int> m2({{1, 3}, {2, 2}});
+    m1.merge(m2);
 
-    /* std::map<int, int> m3({{1, 8}, {4, 2}, {2, 3}}); */
-    /* std::map<int, int> m4({{1, 3}, {2, 2}}); */
-    /* m3.merge(m4); */
+    std::map<int, int> m3({{1, 8}, {4, 2}, {2, 3}});
+    std::map<int, int> m4({{1, 3}, {2, 2}});
+    m3.merge(m4);
 
-    /* ASSERT_EQ(m1[1], m3[1]); */
-    /* ASSERT_EQ(m1[2], m3[2]); */
-    /* ASSERT_EQ(m1[4], m3[4]); */
+//    ASSERT_EQ(m1[1], m3[1]);
+//    ASSERT_EQ(m1[2], m3[2]);
+//    ASSERT_EQ(m1[4], m3[4]);
 
-    /* ASSERT_EQ(m2[1], m4[1]); */
-    /* /1* ASSERT_EQ(m2[2], m4[2]); *1/ */
+//    ASSERT_EQ(m2[1], m4[1]);
+//    ASSERT_EQ(m2[2], m4[2]);
 
-    /* ASSERT_EQ(m1.size(), m3.size()); */
-    /* ASSERT_EQ(m2.size(), m4.size()); */
-/* } */
-/* TEST(MapMergeFunction, WithoutDuplicatesCase) { */
-    /* /1* s21::map<int, int> m1({{1, 2}, {3, 4}, {4, 5}}); *1/ */
-    /* s21::map<int, int> m2({{5, 6}, {7, 7}}); */
-    /* m1.merge(m2); */
-
-    /* std::map<int, int> m3({{1, 2}, {3, 4}, {4, 5}}); */
-    /* std::map<int, int> m4({{5, 6}, {7, 7}}); */
-    /* m3.merge(m4); */
-
-    /* /1* ASSERT_EQ(m1[1], m3[1]); *1/ */
-    /* ASSERT_EQ(m1[3], m3[3]); */
-    /* ASSERT_EQ(m1[4], m3[4]); */
-    /* ASSERT_EQ(m1[5], m3[5]); */
-    /* ASSERT_EQ(m1[7], m3[7]); */
-
-    /* ASSERT_EQ(m1.size(), m3.size()); */
-    /* ASSERT_EQ(m2.size(), m4.size()); */
-/* } */
-TEST(Map, function_clear_empty) {
-    TestMap tester;
-    tester.s21_map_empty.clear();
-    tester.std_map_empty.clear();
-    EXPECT_EQ(tester.s21_map_empty.size(), tester.std_map_empty.size());
-    EXPECT_EQ(tester.s21_map_empty.empty(), tester.std_map_empty.empty());
+    ASSERT_EQ(m1.size(), m3.size());
+    ASSERT_EQ(m2.size(), m4.size());
 }
-TEST(Map, function_clear_not_empty) {
-    TestMap tester;
-    tester.s21_map_four.clear();
-    tester.std_map_four.clear();
-    EXPECT_EQ(tester.s21_map_four.size(), tester.std_map_four.size());
-    EXPECT_EQ(tester.s21_map_four.empty(), tester.std_map_four.empty());
-}
-TEST(Map, function_begin_empty) {
-    TestMap tester;
-    s21::map<int, int>::iterator iter_1 = tester.s21_map_empty.begin();
-    std::map<int, int>::iterator iter_2 = tester.std_map_empty.begin();
-    EXPECT_EQ(iter_1 == tester.s21_map_empty.end(), iter_2 == tester.std_map_empty.end());
-}
+TEST(MapMergeFunction, WithoutDuplicatesCase) {
+    s21::map<int, int> m1({{1, 2}, {3, 4}, {4, 5}});
+    s21::map<int, int> m2({{5, 6}, {7, 7}});
+    m1.merge(m2);
 
-TEST(Map, function_begin_not_empty) {
-    TestMap tester;
-    s21::map<int, int>::iterator iter_1 = tester.s21_map_four.begin();
-    std::map<int, int>::iterator iter_2 = tester.std_map_four.begin();
-    EXPECT_EQ(iter_1 != tester.s21_map_four.end(), iter_2 != tester.std_map_four.end());
-    EXPECT_EQ((*iter_1).second, (*iter_2).second);
+    std::map<int, int> m3({{1, 2}, {3, 4}, {4, 5}});
+    std::map<int, int> m4({{5, 6}, {7, 7}});
+    m3.merge(m4);
+
+    ASSERT_EQ(m1[1], m3[1]);
+    ASSERT_EQ(m1[3], m3[3]);
+    ASSERT_EQ(m1[4], m3[4]);
+    ASSERT_EQ(m1[5], m3[5]);
+    ASSERT_EQ(m1[7], m3[7]);
+
+    ASSERT_EQ(m1.size(), m3.size());
+    ASSERT_EQ(m2.size(), m4.size());
 }
-TEST(IteratorCases, ConstBeginEmpty) {
-    s21::map<int, int> m1;
-    std::map<int, int> m2;
-    s21::map<int, int>::const_iterator it1 = m1.begin();
-    std::map<int, int>::const_iterator it2 = m2.begin();
-    ASSERT_EQ(it1 == m1.end(), it2 == m2.end());
-}
-TEST(MapIteratorCases, ConstBeginNotEmpty) {
-    s21::map<int, int> m1{{1, 3}, {4, 2}};
-    std::map<int, int> m2{{1, 3}, {4, 2}};
-    s21::map<int, int>::const_iterator it1 = m1.begin();
-    std::map<int, int>::const_iterator it2 = m2.begin();
-    /* ASSERT_EQ(it1 != m1.end(), it2 != m2.end()); */
-    /* ASSERT_EQ((*it1).second, (*it2).second); */
-}
+//TEST(Map, function_clear_empty) {
+//    TestMap tester;
+//    tester.s21_map_empty.clear();
+//    tester.std_map_empty.clear();
+//    EXPECT_EQ(tester.s21_map_empty.size(), tester.std_map_empty.size());
+//    EXPECT_EQ(tester.s21_map_empty.empty(), tester.std_map_empty.empty());
+//}
+//TEST(Map, function_clear_not_empty) {
+//    TestMap tester;
+//    tester.s21_map_four.clear();
+//    tester.std_map_four.clear();
+//    EXPECT_EQ(tester.s21_map_four.size(), tester.std_map_four.size());
+//    EXPECT_EQ(tester.s21_map_four.empty(), tester.std_map_four.empty());
+//}
+//TEST(Map, function_begin_empty) {
+//    TestMap tester;
+//    s21::map<int, int>::iterator iter_1 = tester.s21_map_empty.begin();
+//    std::map<int, int>::iterator iter_2 = tester.std_map_empty.begin();
+//    EXPECT_EQ(iter_1 == tester.s21_map_empty.end(), iter_2 == tester.std_map_empty.end());
+//}
+//
+//TEST(Map, function_begin_not_empty) {
+//    TestMap tester;
+//    s21::map<int, int>::iterator iter_1 = tester.s21_map_four.begin();
+//    std::map<int, int>::iterator iter_2 = tester.std_map_four.begin();
+//    EXPECT_EQ(iter_1 != tester.s21_map_four.end(), iter_2 != tester.std_map_four.end());
+//    EXPECT_EQ((*iter_1).second, (*iter_2).second);
+//}
+//TEST(IteratorCases, ConstBeginEmpty) {
+//    s21::map<int, int> m1;
+//    std::map<int, int> m2;
+//    s21::map<int, int>::const_iterator it1 = m1.begin();
+//    std::map<int, int>::const_iterator it2 = m2.begin();
+//    ASSERT_EQ(it1 == m1.end(), it2 == m2.end());
+//}
+//TEST(MapIteratorCases, ConstBeginNotEmpty) {
+//    s21::map<int, int> m1{{1, 3}, {4, 2}};
+//    std::map<int, int> m2{{1, 3}, {4, 2}};
+//    s21::map<int, int>::const_iterator it1 = m1.begin();
+//    std::map<int, int>::const_iterator it2 = m2.begin();
+//    ASSERT_EQ(it1 != m1.end(), it2 != m2.end());
+//    ASSERT_EQ((*it1).second, (*it2).second);
+//}
+//TEST(MapIteratorCases, OperationPlus) {
+//    s21::map<int, int> m1({{1, 3}, {4, 2}});
+//    std::map<int, int> m2({{1, 3}, {4, 2}});
+//    s21::map<int, int>::iterator it1 = m1.begin();
+//    std::map<int, int>::iterator it2 = m2.begin();
+//    ASSERT_EQ((*it1).second, (*it2).second);
+//    ++it1;
+//    ++it2;
+//    ASSERT_EQ((*it1).second, (*it2).second);
+//    ++it1;
+//    ++it2;
+//    ASSERT_EQ((*it1).second, (*it2).second);
+//}
+//TEST(MapIteratorCases, OperationMinus) {
+//    s21::map<int, int> m1({{1, 3}, {4, 2}});
+//    std::map<int, int> m2({{1, 3}, {4, 2}});
+//    s21::map<int, int>::iterator it1 = m1.begin();
+//    std::map<int, int>::iterator it2 = m2.begin();
+//    ++it1;
+//    ++it2;
+//    ASSERT_EQ((*it1).second, (*it2).second);
+//    --it1;
+//    --it2;
+//    ASSERT_EQ((*it1).second, (*it2).second);
+//}
 
 }  // namespace 21
 

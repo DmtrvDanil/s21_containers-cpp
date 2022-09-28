@@ -29,7 +29,14 @@ namespace s21 {
 
     template<class key_type, class mapped_type, class Compare>
     void map<key_type, mapped_type, Compare>::merge(map& other) {
-
+        iterator iter = other.begin();
+        while (iter != other.end()) {
+            if(this->insert(*iter).second) {
+                other.erase(iter);
+            }
+            iter++;
+        }
+//        other.clear();
     }
 
 

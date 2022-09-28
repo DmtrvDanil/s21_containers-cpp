@@ -55,6 +55,7 @@ public:
 
 
 
+
     class value_compare {
         bool operator()( const value_type& lhs, const value_type& rhs ) {
             return comp(lhs.first, rhs.first);
@@ -70,8 +71,10 @@ private:
 public:
     class ConstIterator : public set<value_type, value_compare>::ConstIterator {
     public:
-        using set_iterator = typename set<value_type, value_compare>::ConstIterator;
-        ConstIterator(const set_iterator& other) : set_iterator(other) {}
+        using set_const_iterator = typename set<value_type, value_compare>::ConstIterator;
+        using set_iterator = typename set<value_type, value_compare>::Iterator;
+        ConstIterator() : set_const_iterator() {}
+        ConstIterator(const set_const_iterator& other) : set_const_iterator(other) {}
 
         value_type* operator->() { return &(this->data_->data_); }
 
@@ -80,7 +83,11 @@ public:
     public:
         using set_iterator = typename ConstIterator::set_iterator;
 
+        Iterator() : ConstIterator() {}
         Iterator(const set_iterator& other) : ConstIterator(other) {}
+        operator set_iterator () {
+            return set_iterator(this->data_, this->nil_, this->last_);
+        }
 
     };
     using const_iterator = ConstIterator;
@@ -91,8 +98,15 @@ public:
 //    using iterator = typename  set<value_type, value_compare>::Iterator;
 //    using const_iteratpr = typename set<value_type, value_compare>::ConstIterator;
     std::pair<iterator, bool> insert(const value_type& value){
+        for (const_iterator i = begin(); i != end(); ++i) {
+            if (i->first == value.first) {
+                std::cout << "bingo";
+                return (std::make_pair(iterator(), false));
+            }
+        }
         auto pair_set =  c.insert(value);
         iterator iter(pair_set.first);
+
         return  std::make_pair(iter, pair_set.second);
     }
     iterator begin() {
@@ -102,6 +116,9 @@ public:
     iterator end() {
         return c.end();
     }
+    void erase(iterator pos) {
+    this->c.erase(pos);
+}
 };
 
 } // namespace s21
