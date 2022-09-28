@@ -95,12 +95,9 @@ public:
 
 
 public:
-//    using iterator = typename  set<value_type, value_compare>::Iterator;
-//    using const_iteratpr = typename set<value_type, value_compare>::ConstIterator;
     std::pair<iterator, bool> insert(const value_type& value){
         for (const_iterator i = begin(); i != end(); ++i) {
             if (i->first == value.first) {
-                std::cout << "bingo";
                 return (std::make_pair(iterator(), false));
             }
         }

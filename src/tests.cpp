@@ -17,8 +17,6 @@ class Test_vector {
         s21::Vector<char> char_Vector;
         s21::Vector<float> float_Vector;
         s21::Vector<double> double_Vector;
-//        s21::Vector<int>::iterator_1 it_Vector = five_Vector.begin_1();
-//        std::vector<int> init_origin(3);
         std::vector<int> origin_five_vector{1,2,3,4,5};
         std::vector<int> origin_four_vector{1,2,3,4};
         std::vector<int> origin_int;
@@ -42,8 +40,6 @@ class Test_vector {
         std::vector<int> std_vector_s{111, 222, 333, 444, 555};
         s21::Vector<int> s21_vector_swap{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
         std::vector<int> std_vector_swap{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-
-
 
 };
 
@@ -70,8 +66,17 @@ class Test_vector {
         EXPECT_EQ(logger.five_Vector.capacity(), logger.origin_five_vector.capacity());
         EXPECT_EQ(logger.five_Vector.empty(), logger.origin_five_vector.empty());
     }
+    
+    TEST(Vector, constructor_copy_empty) {
+        Test_vector logger;
+        s21::Vector<int> s21_copy(logger.empty_Vector);
+        std::vector<int> std_copy(logger.origin_int);
+        EXPECT_EQ(s21_copy.size(), std_copy.size());
+        EXPECT_EQ(s21_copy.capacity(), std_copy.capacity());
+        EXPECT_EQ(s21_copy.empty(), std_copy.empty());
+    }
 
-    TEST(Vector, constructor_copy) {
+    TEST(Vector, constructor_copy_not_empty) {
         Test_vector logger;
         s21::Vector<int> s21_copy(logger.five_Vector);
         std::vector<int> std_copy(logger.origin_five_vector);
@@ -82,12 +87,71 @@ class Test_vector {
         EXPECT_EQ(s21_copy.empty(), std_copy.empty());
     }
 
-    TEST(Vector, constructor_move) {
+    TEST(Vector, constructor_move_not_empty) {
         Test_vector logger;
         s21::Vector<int> s21_copy(std::move(logger.five_Vector));
         std::vector<int> std_copy(std::move(logger.origin_five_vector));
         EXPECT_EQ(s21_copy[0], std_copy[0]);
         EXPECT_EQ(s21_copy[s21_copy.size() - 1], std_copy[std_copy.size() - 1]);
+        EXPECT_EQ(s21_copy.size(), std_copy.size());
+        EXPECT_EQ(s21_copy.capacity(), std_copy.capacity());
+        EXPECT_EQ(s21_copy.empty(), std_copy.empty());
+    }
+
+    TEST(Vector, constructor_move_empty) {
+        Test_vector logger;
+        s21::Vector<int> s21_copy(std::move(logger.empty_Vector));
+        std::vector<int> std_copy(std::move(logger.origin_int));
+        EXPECT_EQ(s21_copy.size(), std_copy.size());
+        EXPECT_EQ(s21_copy.capacity(), std_copy.capacity());
+        EXPECT_EQ(s21_copy.empty(), std_copy.empty());
+    }
+
+
+    TEST(Vector, operator_copy_empty) {
+        Test_vector logger;
+        s21::Vector<int> s21_copy;
+        std::vector<int> std_copy;
+        s21_copy = logger.empty_Vector;
+        std_copy = logger.origin_int;
+        EXPECT_EQ(s21_copy.size(), std_copy.size());
+        EXPECT_EQ(s21_copy.capacity(), std_copy.capacity());
+        EXPECT_EQ(s21_copy.empty(), std_copy.empty());
+    }
+
+    TEST(Vector, operator_copy_not_empty) {
+        Test_vector logger;
+        s21::Vector<int> s21_copy;
+        std::vector<int> std_copy;
+        s21_copy = logger.five_Vector;
+        std_copy = logger.origin_five_vector;
+        EXPECT_EQ(s21_copy[0], std_copy[0]);
+        EXPECT_EQ(s21_copy[s21_copy.size() - 1], std_copy[std_copy.size() - 1]);
+        EXPECT_EQ(s21_copy.size(), std_copy.size());
+        EXPECT_EQ(s21_copy.capacity(), std_copy.capacity());
+        EXPECT_EQ(s21_copy.empty(), std_copy.empty());
+    }
+
+    TEST(Vector, operator_move_not_empty) {
+        Test_vector logger;
+        s21::Vector<int> s21_copy;
+        std::vector<int> std_copy;
+        s21_copy = std::move(logger.five_Vector);
+        std_copy = std::move(logger.origin_five_vector);
+        EXPECT_EQ(s21_copy[0], std_copy[0]);
+        EXPECT_EQ(s21_copy[s21_copy.size() - 1], std_copy[std_copy.size() - 1]);
+        EXPECT_EQ(s21_copy.size(), std_copy.size());
+        EXPECT_EQ(s21_copy.capacity(), std_copy.capacity());
+        EXPECT_EQ(s21_copy.empty(), std_copy.empty());
+    }
+
+    TEST(Vector, operator_move_empty) {
+        Test_vector logger;
+        s21::Vector<int> s21_copy;
+        std::vector<int> std_copy;
+        s21_copy = std::move(logger.empty_Vector);
+        std_copy = std::move(logger.origin_int);
+
         EXPECT_EQ(s21_copy.size(), std_copy.size());
         EXPECT_EQ(s21_copy.capacity(), std_copy.capacity());
         EXPECT_EQ(s21_copy.empty(), std_copy.empty());
@@ -2375,7 +2439,7 @@ TEST(Map, function_size_not_empty) {
 /* } */
 
 
-TEST(MapSwapFunction, EmptyCase) {
+TEST(Map, function_swap_empty) {
     s21::map<int, int> m1({{1, 8}, {4, 2}, {2, 3}});
     s21::map<int, int> m2;
     m1.swap(m2);
@@ -2404,34 +2468,7 @@ TEST(Map, function_swap_not_empty) {
     EXPECT_EQ(s21_map_swap.empty(), std_map_swap.empty());
 }
 
-/* TEST(Map, function_merge_without_duplicate) { */
-/*     TestMap tester; */
-    /* s21::map<int, int> s21_map_merge{{6,3}, {7,8}}; */
-    /* std::map<int, int> std_map_merge{{6,3}, {7,8}}; */
-    /* s21_map_merge.merge(tester.s21_map_four); */
-    /* std_map_merge.merge(tester.std_map_four); */
-    /* EXPECT_EQ(s21_map_merge[6], std_map_merge[6]); */
-    /* EXPECT_EQ(s21_map_merge[1], std_map_merge[1]); */
-    /* EXPECT_EQ(s21_map_merge[2], std_map_merge[2]); */
-    /* EXPECT_EQ(s21_map_merge.size(), std_map_merge.size()); */
-    /* EXPECT_EQ(s21_map_merge.empty(), std_map_merge.empty()); */
-/* } */
-
-/* TEST(Map, function_merge_with_duplicate) { */
-/*     TestMap tester; */
-    /* TestMap tester; */
-    /* s21::map<int, int> s21_map_merge{{1,3}, {2,8}}; */
-    /* std::map<int, int> std_map_merge{{1,3}, {2,8}}; */
-    /* s21_map_merge.merge(tester.s21_map_four); */
-    /* std_map_merge.merge(tester.std_map_four); */
-    /* EXPECT_EQ(s21_map_merge[6], std_map_merge[6]); */
-    /* EXPECT_EQ(s21_map_merge[1], std_map_merge[1]); */
-    /* EXPECT_EQ(s21_map_merge[2], std_map_merge[2]); */
-    /* EXPECT_EQ(s21_map_merge.size(), std_map_merge.size()); */
-    /* EXPECT_EQ(s21_map_merge.empty(), std_map_merge.empty()); */
-
-/* } */
-TEST(MapMergeFunction, WithDuplicatesCase) {
+TEST(Map, WithDuplicatesCase) {
     s21::map<int, int> m1({{1, 8}, {4, 2}, {2, 3}});
     s21::map<int, int> m2({{1, 3}, {2, 2}});
     m1.merge(m2);
@@ -2440,17 +2477,17 @@ TEST(MapMergeFunction, WithDuplicatesCase) {
     std::map<int, int> m4({{1, 3}, {2, 2}});
     m3.merge(m4);
 
-//    ASSERT_EQ(m1[1], m3[1]);
-//    ASSERT_EQ(m1[2], m3[2]);
-//    ASSERT_EQ(m1[4], m3[4]);
+    ASSERT_EQ(m1[1], m3[1]);
+    ASSERT_EQ(m1[2], m3[2]);
+    ASSERT_EQ(m1[4], m3[4]);
 
-//    ASSERT_EQ(m2[1], m4[1]);
-//    ASSERT_EQ(m2[2], m4[2]);
+    ASSERT_EQ(m2[1], m4[1]);
+    ASSERT_EQ(m2[2], m4[2]);
 
     ASSERT_EQ(m1.size(), m3.size());
     ASSERT_EQ(m2.size(), m4.size());
 }
-TEST(MapMergeFunction, WithoutDuplicatesCase) {
+TEST(Map, WithoutDuplicatesCase) {
     s21::map<int, int> m1({{1, 2}, {3, 4}, {4, 5}});
     s21::map<int, int> m2({{5, 6}, {7, 7}});
     m1.merge(m2);
@@ -2468,74 +2505,161 @@ TEST(MapMergeFunction, WithoutDuplicatesCase) {
     ASSERT_EQ(m1.size(), m3.size());
     ASSERT_EQ(m2.size(), m4.size());
 }
-//TEST(Map, function_clear_empty) {
-//    TestMap tester;
-//    tester.s21_map_empty.clear();
-//    tester.std_map_empty.clear();
-//    EXPECT_EQ(tester.s21_map_empty.size(), tester.std_map_empty.size());
-//    EXPECT_EQ(tester.s21_map_empty.empty(), tester.std_map_empty.empty());
-//}
-//TEST(Map, function_clear_not_empty) {
-//    TestMap tester;
-//    tester.s21_map_four.clear();
-//    tester.std_map_four.clear();
-//    EXPECT_EQ(tester.s21_map_four.size(), tester.std_map_four.size());
-//    EXPECT_EQ(tester.s21_map_four.empty(), tester.std_map_four.empty());
-//}
-//TEST(Map, function_begin_empty) {
-//    TestMap tester;
-//    s21::map<int, int>::iterator iter_1 = tester.s21_map_empty.begin();
-//    std::map<int, int>::iterator iter_2 = tester.std_map_empty.begin();
-//    EXPECT_EQ(iter_1 == tester.s21_map_empty.end(), iter_2 == tester.std_map_empty.end());
-//}
-//
-//TEST(Map, function_begin_not_empty) {
-//    TestMap tester;
-//    s21::map<int, int>::iterator iter_1 = tester.s21_map_four.begin();
-//    std::map<int, int>::iterator iter_2 = tester.std_map_four.begin();
-//    EXPECT_EQ(iter_1 != tester.s21_map_four.end(), iter_2 != tester.std_map_four.end());
-//    EXPECT_EQ((*iter_1).second, (*iter_2).second);
-//}
-//TEST(IteratorCases, ConstBeginEmpty) {
-//    s21::map<int, int> m1;
-//    std::map<int, int> m2;
-//    s21::map<int, int>::const_iterator it1 = m1.begin();
-//    std::map<int, int>::const_iterator it2 = m2.begin();
-//    ASSERT_EQ(it1 == m1.end(), it2 == m2.end());
-//}
-//TEST(MapIteratorCases, ConstBeginNotEmpty) {
-//    s21::map<int, int> m1{{1, 3}, {4, 2}};
-//    std::map<int, int> m2{{1, 3}, {4, 2}};
-//    s21::map<int, int>::const_iterator it1 = m1.begin();
-//    std::map<int, int>::const_iterator it2 = m2.begin();
-//    ASSERT_EQ(it1 != m1.end(), it2 != m2.end());
-//    ASSERT_EQ((*it1).second, (*it2).second);
-//}
-//TEST(MapIteratorCases, OperationPlus) {
-//    s21::map<int, int> m1({{1, 3}, {4, 2}});
-//    std::map<int, int> m2({{1, 3}, {4, 2}});
-//    s21::map<int, int>::iterator it1 = m1.begin();
-//    std::map<int, int>::iterator it2 = m2.begin();
-//    ASSERT_EQ((*it1).second, (*it2).second);
-//    ++it1;
-//    ++it2;
-//    ASSERT_EQ((*it1).second, (*it2).second);
-//    ++it1;
-//    ++it2;
-//    ASSERT_EQ((*it1).second, (*it2).second);
-//}
-//TEST(MapIteratorCases, OperationMinus) {
-//    s21::map<int, int> m1({{1, 3}, {4, 2}});
-//    std::map<int, int> m2({{1, 3}, {4, 2}});
-//    s21::map<int, int>::iterator it1 = m1.begin();
-//    std::map<int, int>::iterator it2 = m2.begin();
-//    ++it1;
-//    ++it2;
-//    ASSERT_EQ((*it1).second, (*it2).second);
-//    --it1;
-//    --it2;
-//    ASSERT_EQ((*it1).second, (*it2).second);
-//}
+TEST(Map, function_clear_empty) {
+    TestMap tester;
+    tester.s21_map_empty.clear();
+    tester.std_map_empty.clear();
+    EXPECT_EQ(tester.s21_map_empty.size(), tester.std_map_empty.size());
+    EXPECT_EQ(tester.s21_map_empty.empty(), tester.std_map_empty.empty());
+}
+TEST(Map, function_clear_not_empty) {
+    TestMap tester;
+    tester.s21_map_four.clear();
+    tester.std_map_four.clear();
+    EXPECT_EQ(tester.s21_map_four.size(), tester.std_map_four.size());
+    EXPECT_EQ(tester.s21_map_four.empty(), tester.std_map_four.empty());
+}
+TEST(Map, function_begin_empty) {
+    TestMap tester;
+    s21::map<int, int>::iterator iter_1 = tester.s21_map_empty.begin();
+    std::map<int, int>::iterator iter_2 = tester.std_map_empty.begin();
+    EXPECT_EQ(iter_1 == tester.s21_map_empty.end(), iter_2 == tester.std_map_empty.end());
+}
+
+TEST(Map, function_begin_not_empty) {
+    TestMap tester;
+    s21::map<int, int>::iterator iter_1 = tester.s21_map_four.begin();
+    std::map<int, int>::iterator iter_2 = tester.std_map_four.begin();
+    EXPECT_EQ(iter_1 != tester.s21_map_four.end(), iter_2 != tester.std_map_four.end());
+    EXPECT_EQ((*iter_1).second, (*iter_2).second);
+}
+TEST(Map, const_begin_empty) {
+    TestMap tester;
+    s21::map<int, int>::const_iterator iter_1 = tester.s21_map_empty.begin();
+    std::map<int, int>::const_iterator iter_2 = tester.std_map_empty.begin();
+    EXPECT_EQ(tester.s21_map_empty.size(), tester.std_map_empty.size());
+    EXPECT_EQ(tester.s21_map_empty.empty(), tester.std_map_empty.empty());
+    EXPECT_EQ(iter_1 == tester.s21_map_empty.end(), iter_2 == tester.std_map_empty.end());
+}
+TEST(Map, const_begin_not_empty) {
+    TestMap tester;
+    s21::map<int, int>::const_iterator iter_1 = tester.s21_map_four.begin();
+    std::map<int, int>::const_iterator iter_2 = tester.std_map_four.begin();
+    EXPECT_EQ(tester.s21_map_four.size(), tester.std_map_four.size());
+    EXPECT_EQ(tester.s21_map_four.empty(), tester.std_map_four.empty());
+    EXPECT_EQ(iter_1 != tester.s21_map_four.end(), iter_2 != tester.std_map_four.end());
+    EXPECT_EQ((*iter_1).second, (*iter_2).second);
+}
+TEST(Map, operator_plus) {
+    TestMap tester;
+    s21::map<int, int>::iterator iter_1 = tester.s21_map_four.begin();
+    std::map<int, int>::iterator iter_2 = tester.std_map_four.begin();
+    EXPECT_EQ((*iter_1).second, (*iter_2).second);
+    ++iter_1;
+    ++iter_2;
+    EXPECT_EQ((*iter_1).second, (*iter_2).second);
+    ++iter_1;
+    ++iter_2;
+    EXPECT_EQ((*iter_1).second, (*iter_2).second);
+}
+TEST(Map, operator_minus) {
+    TestMap tester;
+    s21::map<int, int>::iterator iter_1 = tester.s21_map_four.begin();
+    std::map<int, int>::iterator iter_2 = tester.std_map_four.begin();
+    ++iter_1;
+    ++iter_2;
+    EXPECT_EQ((*iter_1).second, (*iter_2).second);
+    --iter_1;
+    --iter_2;
+    EXPECT_EQ((*iter_1).second, (*iter_2).second);
+}
+
+
+TEST(Map, operator_assignment) {
+    TestMap tester;
+    s21::map<int, int>::iterator iter_1 = tester.s21_map_four.begin();
+    s21::map<int, int>::iterator iter_3 = iter_1;
+    std::map<int, int>::iterator iter_2 = tester.std_map_four.begin();
+    std::map<int, int>::iterator iter_4 = iter_2;
+    EXPECT_EQ(tester.s21_map_four.size(), tester.std_map_four.size());
+    EXPECT_EQ(tester.s21_map_four.empty(), tester.std_map_four.empty());
+    EXPECT_EQ((*iter_1).second, (*iter_3).second);
+    EXPECT_EQ((*iter_2).second, (*iter_4).second);
+}
+TEST(Map, operator_equal) {
+    TestMap tester;
+    s21::map<int, int>::iterator iter_1 = tester.s21_map_four.begin();
+    s21::map<int, int>::iterator iter_3 = tester.s21_map_four.begin();
+    std::map<int, int>::iterator iter_2 = tester.std_map_empty.begin();
+    std::map<int, int>::iterator iter_4 = tester.std_map_empty.begin();
+    EXPECT_EQ(tester.s21_map_four.size(), tester.std_map_four.size());
+    EXPECT_EQ(tester.s21_map_four.empty(), tester.std_map_four.empty());
+    EXPECT_EQ(tester.s21_map_empty.size(), tester.std_map_empty.size());
+    EXPECT_EQ(tester.s21_map_empty.empty(), tester.std_map_empty.empty());
+    EXPECT_EQ(iter_1 == iter_3, iter_2 == iter_4);
+}
+TEST(Map, operatort_not_equal) {
+    TestMap tester;
+    s21::map<int, int>::iterator iter_1 = tester.s21_map_four.begin();
+    std::map<int, int>::iterator iter_2 = tester.std_map_four.begin();
+    EXPECT_EQ(iter_1 != tester.s21_map_four.end(), iter_2 != tester.std_map_empty.end());
+}
+TEST(Map, const_operator_plus) {
+    TestMap tester;
+    s21::map<int, int>::const_iterator iter_1 = tester.s21_map_four.begin();
+    std::map<int, int>::const_iterator iter_2 = tester.std_map_four.begin();
+    EXPECT_EQ((*iter_1).second, (*iter_2).second);
+    ++iter_1;
+    ++iter_2;
+    EXPECT_EQ((*iter_1).second, (*iter_2).second);
+    ++iter_1;
+    ++iter_2;
+    EXPECT_EQ((*iter_1).second, (*iter_2).second);
+}
+TEST(Map, const_operator_minus) {
+    TestMap tester;
+    s21::map<int, int>::const_iterator iter_1 = tester.s21_map_four.begin();
+    std::map<int, int>::const_iterator iter_2 = tester.std_map_four.begin();
+    ++iter_1;
+    ++iter_2;
+    EXPECT_EQ((*iter_1).second, (*iter_2).second);
+    --iter_1;
+    --iter_2;
+    EXPECT_EQ((*iter_1).second, (*iter_2).second);
+}
+
+
+TEST(Map, const_operator_assignment) {
+    TestMap tester;
+    s21::map<int, int>::const_iterator iter_1 = tester.s21_map_four.begin();
+    s21::map<int, int>::const_iterator iter_3 = iter_1;
+    std::map<int, int>::const_iterator iter_2 = tester.std_map_four.begin();
+    std::map<int, int>::const_iterator iter_4 = iter_2;
+    EXPECT_EQ(tester.s21_map_four.size(), tester.std_map_four.size());
+    EXPECT_EQ(tester.s21_map_four.empty(), tester.std_map_four.empty());
+    EXPECT_EQ((*iter_1).second, (*iter_3).second);
+    EXPECT_EQ((*iter_2).second, (*iter_4).second);
+}
+TEST(Map, const_operator_equal) {
+    TestMap tester;
+    s21::map<int, int>::const_iterator iter_1 = tester.s21_map_four.begin();
+    s21::map<int, int>::const_iterator iter_3 = tester.s21_map_four.begin();
+    std::map<int, int>::const_iterator iter_2 = tester.std_map_empty.begin();
+    std::map<int, int>::const_iterator iter_4 = tester.std_map_empty.begin();
+    EXPECT_EQ(tester.s21_map_four.size(), tester.std_map_four.size());
+    EXPECT_EQ(tester.s21_map_four.empty(), tester.std_map_four.empty());
+    EXPECT_EQ(tester.s21_map_empty.size(), tester.std_map_empty.size());
+    EXPECT_EQ(tester.s21_map_empty.empty(), tester.std_map_empty.empty());
+    EXPECT_EQ(iter_1 == iter_3, iter_2 == iter_4);
+}
+TEST(Map, const_operatort_not_equal) {
+    TestMap tester;
+    s21::map<int, int>::const_iterator iter_1 = tester.s21_map_four.begin();
+    std::map<int, int>::iterator iter_2 = tester.std_map_four.begin();
+    EXPECT_EQ(iter_1 != tester.s21_map_four.end(), iter_2 != tester.std_map_empty.end());
+}
+
+
 
 }  // namespace 21
 
