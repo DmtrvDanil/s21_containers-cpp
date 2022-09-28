@@ -10,20 +10,19 @@ void o(s21::set<int> t) {
 
 
 int main(void) {
-    s21::map<int, int> a{{1,2}};
-    s21::map<int, int> b;
-    a.swap(b);
-    std::cout << b.size() << std::endl;
-    std::cout << a.size() << std::endl;
-    std::cout << b.empty() << std::endl;
-    std::cout << a.empty() << std::endl;
-    std::map<int, int> c{{1,2}};
-    std::map<int, int> d;
-    c.swap(d);
-    std::cout << d.size() << std::endl; 
-    std::cout << c.size() << std::endl;
-    std::cout << d.empty() << std::endl;
-    std::cout << c.empty() << std::endl;
+    s21::map<int, int> m1({{1, 2}, {3, 4}, {4, 5}});
+    s21::map<int, int> m2({{5, 6}, {7, 7}});
+    m1.merge(m2);
+
+    std::map<int, int> m3({{1, 2}, {3, 4}, {4, 5}});
+    std::map<int, int> m4({{5, 6}, {7, 7}});
+    m3.merge(m4);
+    
+    std::cout << "M1 size: " <<  m1.size() << " " << "M1 empty: " << m1.empty() << std::endl;
+    std::cout << "M2 size: " << m2.size() << " " << "M2 empty: " << m2.empty() << std::endl;
+    std::cout << "M3 size: " << m3.size() << " " << "M3 empty: " << m3.empty() << std::endl;
+    std::cout << "M4 size: " << m4.size() << " " << "M4 empty: " << m4.empty() << std::endl;
+
 
     return 0;
 }

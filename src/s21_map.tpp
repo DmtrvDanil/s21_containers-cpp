@@ -27,5 +27,10 @@ namespace s21 {
         return tmp->second;
     }
 
+    template<class key_type, class mapped_type, class Compare>
+    void map<key_type, mapped_type, Compare>::merge(map& other) {
+
+    }
+
 
 }  // namespace s21

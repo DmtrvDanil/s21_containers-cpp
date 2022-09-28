@@ -42,9 +42,17 @@ public:
         return c.max_size();
     }
 
+    void clear() {
+        this->c.clear();
+    }
+
     void swap(map& other) {
         this->c.swap(other.c);
     }
+
+    void merge(map& other);
+
+
 
 
     class value_compare {
@@ -71,6 +79,7 @@ public:
     class Iterator : public ConstIterator {
     public:
         using set_iterator = typename ConstIterator::set_iterator;
+
         Iterator(const set_iterator& other) : ConstIterator(other) {}
 
     };

@@ -17,9 +17,10 @@
     <list default="true" id="98628e11-5e1b-433d-b0f4-b9fbb328099c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/a.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/a.out" beforeDir="false" afterPath="$PROJECT_DIR$/src/a.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/example.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/example.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/s21_map.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_map.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/s21_set.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_set.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/s21_map.tpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_map.tpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test" beforeDir="false" afterPath="$PROJECT_DIR$/src/test" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test.dSYM/Contents/Resources/DWARF/test" beforeDir="false" afterPath="$PROJECT_DIR$/src/test.dSYM/Contents/Resources/DWARF/test" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tests.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests.cpp" afterDir="false" />
@@ -77,11 +78,6 @@
     <property name="structure.view.defaults.are.configured" value="true" />
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="s21_containers_cpp" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="s21_containers_cpp" TARGET_NAME="s21_containers_cpp" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="s21_containers_cpp" RUN_TARGET_NAME="s21_containers_cpp">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -203,7 +199,9 @@
       <workItem from="1664107225250" duration="7295000" />
       <workItem from="1664182990841" duration="1925000" />
       <workItem from="1664282334226" duration="12294000" />
-      <workItem from="1664348579869" duration="3313000" />
+      <workItem from="1664348579869" duration="3737000" />
+      <workItem from="1664360000448" duration="896000" />
+      <workItem from="1664366364443" duration="3559000" />
     </task>
     <servers />
   </component>
