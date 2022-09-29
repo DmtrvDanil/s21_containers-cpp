@@ -474,20 +474,6 @@ Vector<value_type, allocator_type>::insert(iterator pos, const_reference value) 
 
 template<class value_type, class allocator_type>
 void Vector<value_type, allocator_type>::erase(iterator pos) {
-//    size_type position = *pos - *this->arr_;
-//    Vector<value_type> new_vec(this->m_size_ - 1);
-//    std::cout << new_vec.capacity() << " " << new_vec.size() << std::endl;
-//        for (size_type i = 0, j = 0; i < this->m_size_; ++i, ++j) {
-//        if (j != position) {
-//            new_vec.arr_[i] = this->arr_[j];
-//        } else {
-//            ++j;
-//            new_vec.arr_[i] = this->arr_[j];
-//        }
-//    }
-//    new_vec.output_vector();
-//    this->clear_all();
-//    this->swap(new_vec);
     value_type *buff = new value_type[this->m_size_ - 1];
     for (size_type i = 0, t = 0; i < this->m_size_; i++)
         if ((this->begin() + i) != pos) buff[t++] = this->arr_[i];

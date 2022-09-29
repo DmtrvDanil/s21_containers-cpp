@@ -15,8 +15,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="98628e11-5e1b-433d-b0f4-b9fbb328099c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/a.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/example.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/example.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/s21_containers.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_containers.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/s21_map.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_map.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/s21_map.tpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_map.tpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/treetest.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/treetest.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/s21_multiset.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_multiset.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/s21_multiset.tpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_multiset.tpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/s21_set.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_set.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/s21_set.tpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/s21_set.tpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test" beforeDir="false" afterPath="$PROJECT_DIR$/src/test" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test.dSYM/Contents/Resources/DWARF/test" beforeDir="false" afterPath="$PROJECT_DIR$/src/test.dSYM/Contents/Resources/DWARF/test" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vector.tpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/vector.tpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,6 +69,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="cf.advertisement.text.has.clang-format" value="true" />
     <property name="cf.first.check.clang-format" value="false" />
     <property name="cidr.known.project.marker" value="true" />
     <property name="cmake.loaded.for.project" value="true" />
@@ -196,7 +209,7 @@
       <workItem from="1664366364443" duration="3784000" />
       <workItem from="1664380765916" duration="2645000" />
       <workItem from="1664394512725" duration="517000" />
-      <workItem from="1664436337517" duration="3007000" />
+      <workItem from="1664436337517" duration="15017000" />
     </task>
     <servers />
   </component>
@@ -213,5 +226,16 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/tests.cpp</url>
+          <line>3173</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

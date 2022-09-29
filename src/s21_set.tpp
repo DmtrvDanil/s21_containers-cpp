@@ -94,12 +94,12 @@ namespace s21{
 
     template<class key_type, class Compare>
     typename set<key_type, Compare>::size_type set<key_type, Compare>::max_size() {
-        char bits = 63;
-        if (sizeof(void *) == 4) {
-            bits = 31;
-        }
-        return static_cast<size_type>(pow(2, bits)) / sizeof(value_type) - 1;
-//        return allocator.max_size();
+//        char bits = 63;
+//        if (sizeof(void *) == 4) {
+//            bits = 31;
+//        }
+//        return static_cast<size_type>(pow(2, bits)) / sizeof(value_type) - 1;
+        return allocator.max_size() / 10;
 
     }
 

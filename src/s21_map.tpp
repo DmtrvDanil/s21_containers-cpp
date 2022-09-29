@@ -29,7 +29,7 @@ namespace s21 {
             const value_type &value) {
         for (const_iterator i = begin(); i != end(); ++i) {
             if (i->first == value.first) {
-                return (std::make_pair(iterator(), false));
+                return (std::make_pair(this->c.end(), false));
             }
         }
         auto pair_set =  c.insert(value);
@@ -65,8 +65,17 @@ namespace s21 {
             }
             iter++;
         }
-//        other.clear();
     }
+
+    template<class key_type, class mapped_type, class Compare>
+    bool map<key_type, mapped_type, Compare>::contains(const key_type &key) {
+        for (const_iterator i = this->begin(); i != this->end(); ++i) {
+            if (i->first == key)
+                return true;
+        }
+        return false;
+    }
+
 
 
 }  // namespace s21

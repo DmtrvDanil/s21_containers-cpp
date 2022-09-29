@@ -98,15 +98,7 @@ public:
     std::pair<iterator, bool> insert(const value_type& value);
     std::pair<iterator, bool> insert(const Key& key, const Value& obj);
     std::pair<iterator, bool> insert_or_assign(const Key& key, const Value& obj);
-//        for (const_iterator i = begin(); i != end(); ++i) {
-//            if (i->first == value.first) {
-//                return (std::make_pair(iterator(), false));
-//            }
-//        }
-//        auto pair_set =  c.insert(value);
-//        iterator iter(pair_set.first);
-//
-//        return  std::make_pair(iter, pair_set.second);
+
 
     iterator begin() {
         iterator iter(c.begin());
@@ -117,7 +109,17 @@ public:
     }
     void erase(iterator pos) {
     this->c.erase(pos);
-}
+    }
+    bool contains(const Key& key);
+    template <class... Args>
+    std::vector<std::pair<iterator, bool>> emplace(Args&&... args) {
+        std::vector<std::pair<iterator, bool>> result;
+        std::vector<typename map<Key, Value>::value_type> argsVector = {args...};
+        for (auto& i : argsVector) {
+            result.push_back(insert(i));
+        }
+        return result;
+    }
 };
 
 } // namespace s21
