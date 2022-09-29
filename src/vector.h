@@ -3,10 +3,8 @@
 #include "vec_array/s21_abstract.h"
 
 namespace s21 {
-//    template <class T, class Alloc = std::allocator<T> >
     template <class T , class Alloc = std::allocator<T> >
     class Vector : public abstract<T> {
-
     public:
         using pointer = typename abstract<T>::pointer;
         using value_type = typename abstract<T>::value_type;
@@ -22,16 +20,13 @@ namespace s21 {
         Vector(const Vector &v);
         Vector(Vector &&v);
         ~Vector() { clear_all(); }
-        void memory();
         Vector &operator=(const Vector &v);
         Vector &operator=(Vector &&v);
     private:
         void reserve_more_capacity(size_type size, bool shrink);
         size_t m_capacity_;
         allocator_type alloc_;
-
     public:
-//        using iterator_ = T *;
         size_type capacity();
         void push_back(value_type v);
         void pop_back();
@@ -40,10 +35,7 @@ namespace s21 {
         void shrink_to_fit();
         void clear();
         iterator insert(iterator pos, const_reference value);
-//        iterator insert_2(iterator pos, const_reference value);
         void erase(iterator pos);
-
-
     public:
         template <typename... Args>
         iterator emplace(const_iterator pos, Args&&...args);
@@ -53,58 +45,7 @@ namespace s21 {
         void clear_all();
         void output_vector();
         void bring_to_zero();
-        void get_memory(reference array);
-
-//        void test(iterator i);
-
-//    template <class T>
-//    class Vector<T>::VectorIterator {
-//    protected:
-//        pointer data_;
-//
-//    public:
-//        VectorIterator() : data_(nullptr) {}
-//        VectorIterator(pointer pt);
-//        ~VectorIterator() {}
-//        VectorIterator& operator++();
-//        VectorIterator& operator+(const size_t value);
-//        VectorIterator& operator-(const size_t value);
-//        bool operator>(const size_t value);
-//        VectorIterator operator++(int);
-//        VectorIterator& operator--();
-//        VectorIterator operator--(int);
-//        bool operator==(iterator& other);
-////        bool operator!=(const iterator& other);
-//
-//        value_type operator*();
-//
-//
-////        friend std::ostream& operator<<(std::ostream& os, iterator iter);
-//    private:
-//
-////        friend Vector::const_iterator;
-//        iterator& operator=(const iterator &other);
-//        iterator& operator+=(const iterator &other);
-//    };
-
-//    template <class T>
-//    class Vector<T>::VectorConstIterator : public Vector<T>::VectorIterator {
-//    public:
-//
-//        VectorConstIterator();
-//        VectorConstIterator(pointer pt);
-//        VectorConstIterator(const iterator &other);
-//        ~VectorConstIterator() {};
-//        reference operator*();
-//
-//    };
-
-//    template<class valuer>
-//    std::ostream& Vector<value_type>::iterator::operator<<(std::ostream& os, iterator iter) {
-//        os << iter.data_;
-//        return os;
-//    }
-
+        pointer get_memory(size_type size);
     };
 
  }  // namespace s21
