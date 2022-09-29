@@ -11,10 +11,7 @@ namespace s21 {
                 if (tmp->first == key)
                     return tmp->second;
         }
-
-
         return tmp->second;
-
     }
 
     template<class key_type, class mapped_type, class Compare>
@@ -25,6 +22,38 @@ namespace s21 {
             if (tmp->first == key)
                 return tmp->second;
         return tmp->second;
+    }
+
+    template<class key_type, class mapped_type, class Compare>
+    std::pair<typename map<key_type, mapped_type, Compare>::iterator, bool> map<key_type, mapped_type, Compare>::insert(
+            const value_type &value) {
+        for (const_iterator i = begin(); i != end(); ++i) {
+            if (i->first == value.first) {
+                return (std::make_pair(iterator(), false));
+            }
+        }
+        auto pair_set =  c.insert(value);
+        iterator iter(pair_set.first);
+        return  std::make_pair(iter, pair_set.second);
+    }
+
+    template<class key_type, class mapped_type, class Compare>
+    std::pair<typename map<key_type, mapped_type, Compare>::iterator, bool> map<key_type, mapped_type, Compare>::insert(
+            const key_type &key, const mapped_type& obj) {
+        return this->insert({key,obj});
+    }
+
+    template<class key_type, class mapped_type, class Compare>
+    std::pair<typename map<key_type, mapped_type, Compare>::iterator, bool> map<key_type, mapped_type, Compare>::insert_or_assign(
+            const key_type &key, const mapped_type &obj) {
+        for (const_iterator i = begin(); i != end(); ++i) {
+            if (i->first == key) {
+                i->second = obj;
+            }
+        }
+        auto pair_set =  c.insert(key);
+        iterator iter(pair_set.first);
+        return  std::make_pair(iter, pair_set.second);
     }
 
     template<class key_type, class mapped_type, class Compare>

@@ -10,19 +10,14 @@ void o(s21::set<int> t) {
 
 
 int main(void) {
-    s21::map<int, int> m1({{1, 2}, {3, 4}, {4, 5}});
-    s21::map<int, int> m2({{5, 6}, {7, 7}});
-    m1.merge(m2);
-
-    std::map<int, int> m3({{1, 2}, {3, 4}, {4, 5}});
-    std::map<int, int> m4({{5, 6}, {7, 7}});
-    m3.merge(m4);
-    
-    std::cout << "M1 size: " <<  m1.size() << " " << "M1 empty: " << m1.empty() << std::endl;
-    std::cout << "M2 size: " << m2.size() << " " << "M2 empty: " << m2.empty() << std::endl;
-    std::cout << "M3 size: " << m3.size() << " " << "M3 empty: " << m3.empty() << std::endl;
-    std::cout << "M4 size: " << m4.size() << " " << "M4 empty: " << m4.empty() << std::endl;
-
+    s21::map<int, int> m1({{1, 3}, {4, 2}});
+    std::map<int, int> m2({{1, 3}, {4, 2}});
+    std::pair<s21::map<int, int>::iterator, bool> it1 = m1.insert({1, 2});
+    std::pair<std::map<int, int>::iterator, bool> it2 = m2.insert({1, 2});
+    /* std::cout << (*(it1.first)).second << std::endl; */
+    std::cout << (*(it2.first)).second << std::endl;
+    std::cout << it1.second << std::endl;
+    std::cout << it2.second << std::endl;
 
     return 0;
 }

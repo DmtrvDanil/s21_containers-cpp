@@ -95,17 +95,19 @@ public:
 
 
 public:
-    std::pair<iterator, bool> insert(const value_type& value){
-        for (const_iterator i = begin(); i != end(); ++i) {
-            if (i->first == value.first) {
-                return (std::make_pair(iterator(), false));
-            }
-        }
-        auto pair_set =  c.insert(value);
-        iterator iter(pair_set.first);
+    std::pair<iterator, bool> insert(const value_type& value);
+    std::pair<iterator, bool> insert(const Key& key, const Value& obj);
+    std::pair<iterator, bool> insert_or_assign(const Key& key, const Value& obj);
+//        for (const_iterator i = begin(); i != end(); ++i) {
+//            if (i->first == value.first) {
+//                return (std::make_pair(iterator(), false));
+//            }
+//        }
+//        auto pair_set =  c.insert(value);
+//        iterator iter(pair_set.first);
+//
+//        return  std::make_pair(iter, pair_set.second);
 
-        return  std::make_pair(iter, pair_set.second);
-    }
     iterator begin() {
         iterator iter(c.begin());
         return iter;

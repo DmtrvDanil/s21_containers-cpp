@@ -2659,6 +2659,23 @@ TEST(Map, const_operatort_not_equal) {
     EXPECT_EQ(iter_1 != tester.s21_map_four.end(), iter_2 != tester.std_map_empty.end());
 }
 
+TEST(Map, function_insert_withou_duplicate) {
+    TestMap tester;
+    std::pair<s21::map<int, int>::iterator, bool> iter_1 = tester.s21_map_four.insert({5, 2});
+    std::pair<std::map<int, int>::iterator, bool> iter_2 = tester.std_map_four.insert({5, 2});
+    EXPECT_EQ((*(iter_1.first)).second, (*(iter_2.first)).second);
+    EXPECT_TRUE(iter_1.second == iter_2.second);
+}
+
+
+TEST(Map, function_insert_with_duplicate) {
+    TestMap tester;
+    std::pair<s21::map<int, int>::iterator, bool> iter_1 = tester.s21_map_four.insert({1, 2});
+    std::pair<std::map<int, int>::iterator, bool> iter_2 = tester.std_map_four.insert({1, 2});
+    /* EXPECT_EQ((*(it1.first)).second, (*(it2.first)).second); */
+    EXPECT_TRUE(iter_1.second == iter_2.second);
+}
+
 
 
 }  // namespace 21
