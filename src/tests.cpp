@@ -2659,7 +2659,7 @@ TEST(Map, const_operatort_not_equal) {
     EXPECT_EQ(iter_1 != tester.s21_map_four.end(), iter_2 != tester.std_map_empty.end());
 }
 
-TEST(Map, function_insert_withou_duplicate) {
+TEST(Map, function_insert_without_duplicate) {
     TestMap tester;
     std::pair<s21::map<int, int>::iterator, bool> iter_1 = tester.s21_map_four.insert({5, 2});
     std::pair<std::map<int, int>::iterator, bool> iter_2 = tester.std_map_four.insert({5, 2});
@@ -2676,6 +2676,48 @@ TEST(Map, function_insert_with_duplicate) {
     EXPECT_TRUE(iter_1.second == iter_2.second);
 }
 
+TEST(Map, function_insert_key_value_without_duplicate) {
+    TestMap tester;
+    std::pair<s21::map<int, int>::iterator, bool> iter_1 = tester.s21_map_four.insert(7,7);
+    std::pair<std::map<int,int>::iterator, bool> iter_2 = tester.std_map_four.insert({7,7});
+    EXPECT_EQ(tester.s21_map_four.size(), tester.std_map_four.size());
+    EXPECT_EQ(tester.s21_map_four.empty(), tester.std_map_four.empty());
+    EXPECT_EQ((*(iter_1.first)).second, (*(iter_2.first)).second);
+    EXPECT_TRUE(iter_1.second == iter_2.second);
+}
+
+
+TEST(Map, function_insert_key_value_with_duplicate) {
+    TestMap tester;
+    std::pair<s21::map<int, int>::iterator, bool> iter_1 = tester.s21_map_four.insert(1,7);
+    std::pair<std::map<int,int>::iterator, bool> iter_2 = tester.std_map_four.insert({1,7});
+    EXPECT_EQ(tester.s21_map_four.size(), tester.std_map_four.size());
+    EXPECT_EQ(tester.s21_map_four.empty(), tester.std_map_four.empty());
+    /* EXPECT_EQ((*(iter_1.first)).second, (*(iter_2.first)).second); */
+    EXPECT_TRUE(iter_1.second == iter_2.second);
+}
+/* TEST(MapInsertFunction, InsertOrAssignValue) { */
+/*     s21::map<int, int> m1({{1, 3}, {4, 2}}); */
+    /* std::map<int, int> m2({{1, 3}, {4, 2}}); */
+    /* std::pair<s21::map<int, int>::iterator, bool> it1 = m1.insert_or_assign(5, 2); */
+    /* std::pair<std::map<int, int>::iterator, bool> it2 = m2.insert_or_assign(5, 2); */
+    /* ASSERT_EQ((*(it1.first)).second, (*(it2.first)).second); */
+    /* ASSERT_TRUE(it1.second == it2.second); */
+/* } */
+TEST(MapInsertFunction, InsertOrAssign) {
+    s21::map<int, int> m1({{1, 3}, {4, 2}});
+    std::map<int, int> m2({{1, 3}, {4, 2}});
+    std::pair<s21::map<int, int>::iterator, bool> it1 = m1.insert_or_assign(1, 2);
+    std::pair<std::map<int, int>::iterator, bool> it2 = m2.insert_or_assign(1, 2);
+    /* ASSERT_EQ((*(it1.first)).second, (*(it2.first)).second); */
+    ASSERT_TRUE(it1.second == it2.second);
+}
+TEST(MapInsertFunction, InsertSpecial) {
+    s21::map<int, int> m1({{1, 3}, {4, 2}});
+    std::pair<s21::map<int, int>::iterator, bool> it1 = m1.insert(5, 2);
+    /* ASSERT_EQ((*(it1.first)).second, 2); */
+    ASSERT_TRUE(it1.second);
+}
 
 
 }  // namespace 21

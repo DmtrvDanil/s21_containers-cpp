@@ -51,7 +51,7 @@ namespace s21 {
                 i->second = obj;
             }
         }
-        auto pair_set =  c.insert(key);
+        auto pair_set =  c.insert(std::make_pair(key,obj));
         iterator iter(pair_set.first);
         return  std::make_pair(iter, pair_set.second);
     }
