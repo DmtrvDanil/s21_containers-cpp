@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-lstdc++ -lgtest -std=c++17 -g
+CFLAGS=-lstdc++ -lgtest -std=c++17 -g 
 
 all: test
 
