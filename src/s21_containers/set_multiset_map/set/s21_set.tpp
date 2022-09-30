@@ -182,7 +182,6 @@ typename set<key_type, Compare>::iterator set<key_type, Compare>::find(
     const key_type &key) {
   read_black_node tmp = this->set_node_->search(key);
   if (tmp == nullptr) {
-    //            std::cout << "hello" << std::endl;
     tmp = this->set_node_->get_nil();
   }
   iterator res(tmp, this->set_node_->get_nil(), last_right());

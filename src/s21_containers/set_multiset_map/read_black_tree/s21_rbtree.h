@@ -50,15 +50,13 @@ class Tree {
   void insert_node(read_black_node& root, read_black_node new_tree);
   void insert_fix(read_black_node& root, read_black_node& node);
   void fix_parent_right(read_black_node& root, read_black_node& parent,
-                        read_black_node& grand_parent, read_black_node& node,
-                        bool flag);
+                        read_black_node& grand_parent, read_black_node& node);
   void fix_parent_left(read_black_node& root, read_black_node& parent,
-                       read_black_node& grand_parent, read_black_node& node,
-                       bool flag);
+                       read_black_node& grand_parent, read_black_node& node);
 
   void remove_node(read_black_node& root, read_black_node& node);
   void remove_node_with_one_child(read_black_node& node, read_black_node& child,
-                                  read_black_node& father, NodeColor color);
+                                  read_black_node& father);
   void find_right_replace(read_black_node& root, read_black_node& replace,
                           read_black_node& node);
   void replace_with_new_node(read_black_node& father, read_black_node& replace,
@@ -76,7 +74,6 @@ class Tree {
   Tree& operator=(const Tree& other);
   ~Tree();
   bool insert(key_type key, Duplicate duplc);
-  void print_tree(read_black_node node);
   void remove(key_type key);
   read_black_node search(key_type key);
   read_black_node get_root() { return this->root_; }

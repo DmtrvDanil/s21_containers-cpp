@@ -115,7 +115,7 @@ abstract<value_type>::Iterator::operator*() {
 
 template <class value_type>
 typename abstract<value_type>::Iterator &
-abstract<value_type>::Iterator::operator=(const value_type val) {
+abstract<value_type>::Iterator::operator=(const value_type& val) {
   *this->data_ = val;
   return *this->data_;
 }

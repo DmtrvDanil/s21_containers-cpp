@@ -269,7 +269,7 @@ TEST(Vector, function_data) {
   EXPECT_EQ(*logger.five_Vector.data(), *logger.origin_five_vector.data());
 }
 
-TEST(Vector, function_data) {
+TEST(Vector, function_data_e) {
   s21::Vector<char> s21_vector_empty;
   std::vector<char> std_vector_empty;
   EXPECT_EQ(s21_vector_empty.data(), nullptr);
@@ -671,7 +671,7 @@ class TestArray {
   s21::array<char, 0> copy_ar1;
   s21::array<double, 5> copy_array1{2.5, 3.4, 255.3, 1.2, 0.5};
   s21::array<double, 5> copy_array2{-5.3, 1.18, -4.3, 255.34, 1.23};
-  
+
   std::array<int, 0> std_array_empty;
   std::array<int, 3> orig_array{234, 21, 11};
   std::array<char, 0> orig_ar1;
@@ -816,7 +816,7 @@ TEST(Array, fill_test) {
   ASSERT_EQ(orig_array.size(), my_arr.size());
   ;
 }
-//  >>>>>>>>> STACK <<<<<<<<<<<<<<
+// >>>>>>>>> STACK <<<<<<<<<<<<<<
 TEST(Stack, simple_test) {
   s21::stack<int> my_stack;
   std::stack<int> orig_stack;

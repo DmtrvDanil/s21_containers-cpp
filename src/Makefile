@@ -1,7 +1,7 @@
 .PHONY: all clear rebuild
 CC=gcc
 GCOV= -fprofile-arcs -ftest-coverage
-CFLAGS=-lstdc++ -lgtest -std=c++17 
+CFLAGS=-lstdc++ -lgtest -std=c++17 -Wall -Werror -Wextra 
 BUILD=build/
 EXECUTABLE=result_testing
 all: test

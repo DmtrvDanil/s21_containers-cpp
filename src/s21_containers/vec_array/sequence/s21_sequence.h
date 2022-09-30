@@ -26,6 +26,10 @@ class abstract {
     ConstIterator(pointer pt);
     ConstIterator(const ConstIterator &other) : data_(other.data_) {}
     ~ConstIterator() {}
+    ConstIterator& operator=(const ConstIterator& other) {
+        this->data_ = other.data_;
+        return *this;
+    }
     ConstIterator &operator++();
     ConstIterator operator++(int);
     ConstIterator &operator--();
@@ -47,7 +51,11 @@ class abstract {
     Iterator(const ConstIterator &other) : ConstIterator(other) {}
     ~Iterator() {}
     reference operator*();
-    Iterator &operator=(const value_type val);
+    Iterator& operator=(const Iterator& other) {
+        this->data_ = other.data_;
+        return *this;
+    }
+    Iterator &operator=(const value_type& val);
     operator pointer() { return this->data_; }
     Iterator operator+(const size_t value);
     Iterator operator-(const size_t value);

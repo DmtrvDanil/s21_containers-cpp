@@ -63,6 +63,12 @@ class set {
     bool operator==(const ConstIterator &other) {
       return this->data_ == other.data_;
     }
+    ConstIterator& operator=(const ConstIterator other) {
+        this->data_ = other.data_;
+        this->nil_ = other.nil_;
+        this->last_ = other.last_;
+        return *this;
+    }
     ConstIterator &operator++();
     ConstIterator operator++(int);
     ConstIterator &operator--();
@@ -90,6 +96,12 @@ class set {
     Iterator(read_black_node ptr, read_black_node nil, read_black_node last)
         : ConstIterator(ptr, nil, last) {}
     Iterator(const Iterator &other) : ConstIterator(other) {}
+      Iterator& operator=(const Iterator other) {
+          this->data_ = other.data_;
+          this->nil_ = other.nil_;
+          this->last_ = other.last_;
+          return *this;
+      }
     ~Iterator() {}
     reference operator*() { return this->data_->data_; }
   };
