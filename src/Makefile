@@ -1,28 +1,28 @@
+.PHONY: all clear rebuild
 CC=gcc
-CFLAGS=-lstdc++ -lgtest -std=c++17 -g 
-
+GCOV= -fprofile-arcs -ftest-coverage
+CFLAGS=-lstdc++ -lgtest -std=c++17 
+BUILD=build/
+EXECUTABLE=result_testing
 all: test
 
-test: tests.cpp
-	@${CC} $<  ${CFLAGS} -o $@
-	@./test
+test:  testing/tests.cpp
+	@mkdir $(BUILD)
+	@${CC} $<  ${CFLAGS} -o $(BUILD)$(EXECUTABLE)
+	@./$(BUILD)$(EXECUTABLE)
 
-gcov_report: tests.cpp
-	@$(CC) --coverage $< ${CPPFLAGS} ${CHECKFLAGS} -o $@
+
+gcov_report: testing/tests.cpp
+	@$(CC) $(GCOV) $<  -o $@
 	@./$@
-	@lcov -t "$@" -o $@.info -c -d ./
-	@genhtml -o report $@.info
+	@lcov -t "gcov_rep" --no-external --output-file=coverag.info --capture --directory .
+	@genhtml -o ./report coverag.info
+	
 
 clean:
-	@/bin/rm -rf *.o *.a test *.gcno *gcda report *.info main *.dSYM *.out gcov_report
+	@/bin/rm -rf *.o *.a build *.gcno *gcda report *.info main *.dSYM *.out gcov_report
 
-style:
-	python3 ../materials/linters/cpplint.py --extensions=tpp *.tpp *.h
-
-cppcheck:
-	cppcheck --enable=all --suppress=useStlAlgorithm --suppress=missingIncludeSystem . *.tpp *.cpp
-
-leaks: test
-	leaks --atExit -- ./$<
+leaks:
+	leaks --atExit -- ./$(BUILD)$(EXECUTABLE)
 
 rebuild: clean all
