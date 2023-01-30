@@ -134,7 +134,7 @@ void Vector<value_type, allocator_type>::bring_to_zero() {
 template <class value_type, class allocator_type>
 void Vector<value_type, allocator_type>::pop_back() {
   if (this->empty()) throw std::runtime_error("Vector is empty!!");
-  this->arr_[this->m_size_--] = 0;
+  this->arr_[this->m_size_--];
 }
 
 template <class value_type, class allocator_type>
